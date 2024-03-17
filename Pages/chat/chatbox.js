@@ -27,6 +27,12 @@ document.getElementById('sendButton').addEventListener('click', function() {
         // Clear the input field after sending the message
         document.getElementById('messageInput').value = '';
 
+
+        // After handling the file and message, reset the file label
+        var fileLabel = document.getElementById('fileLabel');
+        fileLabel.textContent = '+'; // Reset the text content to "+"
+        fileLabel.removeAttribute('data-filename'); // Remove the document name attribute
+
         // If a file is selected, handle file upload here
         if (file) {
             // Check if the file is too large

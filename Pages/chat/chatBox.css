@@ -234,16 +234,23 @@ header img {
 }
 /* Style the file input label */
 #fileLabel {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    line-height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255); /* Change the color of the "+" symbol and the document name */
+    font-size: 14px; /* Adjust the font size as needed */
+    padding: 5px; /* Add some padding around the label */
+    border: 1px solid #ccc; /* Optional: Add a border for visual separation */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    cursor: pointer; 
+    background-color: #000000;
+    
     margin-right: 10px;
+
+}
+#fileLabel::after {
+    content: attr(data-filename); 
+    margin-left: 5px; 
 }
 .dark-theme {
     background-color: #000000;
