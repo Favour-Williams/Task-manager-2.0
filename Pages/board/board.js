@@ -142,11 +142,44 @@ function removeSelectedOption(optionText) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get the button and popup elements
-    var newTaskButton = document.getElementById('em1'); // This ID should match the element you want to click
-    var popup = document.getElementById('popup1');
+
+
+    const addToDoButton = document.getElementById('addToDo');
+    const addInProgressButton = document.getElementById('addInProgress');
+    const addDoneButton = document.getElementById('addDone');
+
+    const popup = document.getElementById('popup1');
 
     // Add a click event listener to the button
-    newTaskButton.addEventListener('click', function() {
+    addToDoButton.addEventListener('click', function() {
+        // Toggle the display property of the popup
+        if (popup.style.display === 'none') {
+            popup.style.display = 'block';
+            popup.style.top = '50px';
+        } else {
+            popup.style.top = '-50px'; // Move back up
+            setTimeout(function() {
+                popup.style.display = 'none'; // Hide after the animation completes
+            }, 500);
+        }
+        console.log('Popup:', popup);
+    });
+
+    addInProgressButton.addEventListener('click', function() {
+        // Toggle the display property of the popup
+        if (popup.style.display === 'none') {
+            popup.style.display = 'block';
+            popup.style.top = '50px';
+        } else {
+            popup.style.top = '-50px'; // Move back up
+            setTimeout(function() {
+                popup.style.display = 'none'; // Hide after the animation completes
+            }, 500);
+        }
+        console.log('Popup:', popup);
+    });
+
+    addDoneButton.addEventListener('click', function() {
         // Toggle the display property of the popup
         if (popup.style.display === 'none') {
             popup.style.display = 'block';
