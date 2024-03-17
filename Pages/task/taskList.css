@@ -170,6 +170,9 @@ img {
 }
 
 .container1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 270px;
     height: 60px; 
     float: left;
@@ -178,6 +181,9 @@ img {
 
 /* styling user-name */
 .active {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 90%;
     float: left;
     color: #ffffff    ;
@@ -265,7 +271,11 @@ li{
   .task-status {
     display: flex;
     justify-content: space-between;
-    width: 100px; /* Adjust as needed */
+    width: 100px; 
+    /* position: absolute;
+    right: 35%;
+    top: 29%; */
+    
 }
 
 .status-btn {
@@ -276,11 +286,16 @@ li{
 }
 
 .status-btn.complete {
-    background-color: lightgreen;
+    background-color: rgb(0, 255, 0);
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
 }
 
 .status-btn.incomplete {
-    background-color: lightcoral;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 900px) {
