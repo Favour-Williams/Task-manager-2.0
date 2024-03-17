@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="taskList.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+        <style>
+        form{
+            background-color: #111111;
+          
+            border-radius: 5px;
+            width: 300px;
+            margin: 50px auto;
+            color: white;
+            float: right;
+            padding-top: 20px;
+            margin-right: 100px;
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #addPersonButton{
+            width: 19%;
+            padding: 10px;
+            border: none;
+            border-radius: 15px;
+            background-color: #000000; 
+            color: #ffffff; 
+            font-size: 11px;
+            cursor: pointer;
+        }
+        
+        input[type="text"] {
+            width: 93%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5f5f5f; 
+            color: #fff; 
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 15px;
+        }
+    
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            background-color: #808080; 
+        }
+        textarea {
+            width: 93%;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5f5f5f; 
+            color: #fff; 
+            resize: none; 
+            overflow: hidden; 
+            font-size: 15px;
+        }
+        input[type="submit"] {
+            display: block; /* Make the button a block-level element */
+            width: 43%;
+            padding: 10px;
+            border: none;
+            border-radius: 15px;
+            background-color: #000000; 
+            color: #ffffff; 
+            font-size: 15px;
+            cursor: pointer;
+            margin: auto; /* Center the button horizontally */
+        }
+        input[type="submit"]:hover{
+            background-color: #424242;
+            transition: 0.3s ease-in-out;
+        }
+
+        select {
+            width: 93%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5f5f5f; 
+            color: #fff; 
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            background-color: #808080;
+        }
+
+        #optionsDropdown {
+            display: none;
+        }
+        .popup-container {
+            position: relative;
+            /* Add any additional styling as needed */
+        }
+
+        #popup {
+            position: absolute;
+            /* Adjust as needed */
+            left: 0; /* Adjust as needed */
+            right: 0; /* Adjust as needed */
+            z-index: 10; /* Ensure the popup is above other content */
+            /* Add any additional styling as needed */
+        }
+
+
+        </style>
+    </head>
+    <body>
+        <section>
+            <header class="dark-theme">
+                <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+                <div class="left-section">
+                    
+                <input  placeholder="Search" id="searchInput">
+                </div>
+                <div class="right-section">
+                    <div class="icon settings"><i class="fas fa-cog"></i></div>
+                    <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+                        <span class="notification-dot">4</span>
+                    </div>
+                    <div class="icon profile"><i class="fas fa-user"></i></div>
+                </div>
+            </header>
+        </section>
+
+        <section>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
+                        <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                        <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
+                        <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
+                        <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                    </ul>
+                    
+                </nav>
+        </section>
+        <h2 style="margin-top: 5rem; margin-left: 10rem;">Task</h2>
+        <main>
+            <div class="container pop-container">
+                <div >
+                    <form id="popup" style="display: none;">
+                        <label>Task Name:</label>
+                        <input type="text" name="boardName" id="boardName">
+                
+                        <label>Description</label>
+                        <textarea id="description" rows="1"></textarea>   
+                        
+                        <label>Select Project:</label>
+                        <select id="projectDropdown">
+                            <option value="">Select a project</option>
+                            <option value="project1">Library</option>
+                            <option value="project2">Website</option>
+                        </select>
+                
+                        <div id="optionsContainer"></div>
+                        <input type="submit" value="Create"/>
+                        
+                    </form>
+                </div>
+                <div class="msg-header">
+                    <div class="container1">
+                        <div class="active ">
+                            <p>Design UI</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="msg-header">
+                    <div class="container1">
+                        <div class="active ">
+                            <p>Refactor Code</p>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="msg-header">
+                    <div class="container1">
+                        <div class="active ">
+                            <p>Add stop button</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="msg-header">
+                    <div class="container1">
+                        <div class="active ">
+                            <p>Fix Expanding Bug</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="msg-header">
+                    <div class="container1">
+                        <div class="active ">
+                            <p>Implementation</p>
+                        </div>
+                    </div>
+                </div> 
+                <div id="taskList" style="margin-top: 20px;">
+                    <!-- Tasks will be dynamically added here -->
+                    
+                </div>
+                    <button id="newTaskButton" style="background-color: black; 
+                        color: white; width: 130px; height: 43px; border: none; border-radius: 34px; font-size: 16px; float: right; cursor: pointer;
+                        margin-bottom: 10px;
+                    ">New Task</button>
+                    
+            </div>
+        </main>
+
+        <script src="tasklist.js"></script>
+
+    </body>
+</html>

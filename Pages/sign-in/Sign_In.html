@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Popup Login Form Design</title>
+      <link rel="stylesheet" href="sign_in.css">
+   </head>
+   <body>
+      <div class="center">
+         <div class="container">
+            <div class="text">
+               Signin
+            </div>
+            <form action="#">
+               <div class="data">
+                  <label>Email or Phone-Number</label>
+                  <input type="text" placeholder="Enter email or phone number" required>
+               </div>
+               <div class="data">
+                  <label>Password</label>
+                  <input type="password" placeholder="Enter Password" required>
+               </div>
+               <div class="forgot-pass">
+                  <a href="#">Forgot Password?</a>
+               </div>
+               <button type="submit" class="button" id="myButton">Sign in</button>
+               <div class="signup-link">
+                  Not a member? <a href="../Sign-up/Sign_Up_Page.html">Signup now</a>
+               </div>
+            </form>
+         </div>
+      </div>
+      <script>
+         document.getElementById('myButton').addEventListener('click', function() {
+            window.location.href = '../Dashboard/dashboard.html';
+         });
+      </script>
+   </body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="projects.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+        <style>
+            form{
+                background-color: #111111;
+                padding: 20px;
+                border-radius: 5px;
+                width: 300px;
+                margin: 50px auto;
+                color: white;
+                float: right;
+                margin-right: 100px;
+            }
+            label {
+                display: block;
+                margin-bottom: 10px;
+            }
+            #addPersonButton{
+                width: 19%;
+                padding: 10px;
+                border: none;
+                border-radius: 15px;
+                background-color: #000000; 
+                color: #ffffff; 
+                font-size: 11px;
+                cursor: pointer;
+            }
+            
+            input[type="text"] {
+                width: 93%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #5f5f5f; 
+                color: #fff; 
+                max-height: 400px;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 15px;
+            }
+        
+            input[type="text"]:focus, textarea:focus {
+                outline: none;
+                background-color: #808080; 
+            }
+            textarea {
+                width: 93%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #5f5f5f; 
+                color: #fff; 
+                resize: none; 
+                overflow: hidden; 
+                font-size: 15px;
+                height: 100px;
+            }
+            input[type="submit"] {
+                display: block; /* Make the button a block-level element */
+                width: 43%;
+                padding: 10px;
+                border: none;
+                border-radius: 15px;
+                background-color: #000000; 
+                color: #ffffff; 
+                font-size: 15px;
+                cursor: pointer;
+                margin: auto; /* Center the button horizontally */
+            }
+            input[type="submit"]:hover{
+                background-color: #424242;
+                transition: 0.3s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            #popup {
+                animation: fadeIn 0.5s ease-out forwards;
+                position: fixed;
+                top: 7%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000; /* Ensures the form appears on top */
+            }
+            li{
+            list-style-type: none;
+            font-size: 15px;
+        }
+        a{
+            color: white;
+            text-decoration: none;
+        }
+
+        </style>
+    </head>
+    <body>
+        <section>
+            <header class="dark-theme">
+                <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+                <div class="left-section">
+                    
+                <input  placeholder="Search" id="searchInput">
+                </div>
+                <div class="right-section">
+                    <div class="icon settings"><i class="fas fa-cog"></i></div>
+                    <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+                        <span class="notification-dot">4</span>
+                    </div>
+                    <div class="icon profile"><i class="fas fa-user"></i></div>
+                </div>
+            </header>
+        </section>
+        <div class="con">
+            <div class="kanban-heading">
+                <strong class="kanban-heading-text">Project</strong>
+                <button id="createProjectButton">Create Project</button>
+            </div>
+        </div>
+        <section>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
+                        <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                        <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
+                        <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
+                        <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                    </ul>
+                    
+                </nav>
+        </section>
+
+        <main>
+            <div id="popup" style="display: none;">
+                <form>
+                    <label>Project Name:</label>
+                    <input type="text" name="boardName" id="boardName">
+            
+                    <label>Description</label>
+                    <textarea id="description" rows="4"></textarea>   
+                    
+                    <label>Add Person:</label>
+                    <div class="input-button-container">
+                        <input class="add" type="text" id="personInput" placeholder="Enter person's name">
+                        <button type="button" id="addPersonButton">Add</button>
+                    </div>
+                    <ol id="personList"></ol>
+                    <input type="submit" value="Create"/>
+                    
+                </form>
+            </div>
+            <div class="container">
+                <div class="msg-header">
+                    <div class="container1">
+                        <div class="active ">
+                            <p>Library</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="msg-header">
+                    <div class="container1">
+                        <div class="active ">
+                            <p>Website</p>
+                        </div>
+                    </div>
+                </div> 
+                <div id="taskList" style="margin-top: 20px;">
+                    <!-- Tasks will be dynamically added here -->
+                    
+                </div>
+            </div>
+        </main>
+
+        <script src="projects.js"></script>
+
+    </body>
+</html>

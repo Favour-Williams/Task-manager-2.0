@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+        <link rel="stylesheet" href="board.css" />
+        <style>
+            .divcon{
+            position: relative;
+            z-index: 100;
+            float: right;
+            background-color: rgb(37, 37, 37);
+            width: 25%;
+            padding-top: 10px;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 8px 8px 10px rgb(144, 144, 247);
+            margin-right: 100px;
+            margin-top: 4rem ;
+          
+        }
+        .divcon1{
+            display: inline-block;
+           
+        }
+        h3{
+            margin: 3px;
+        }
+        .h33 {
+            margin: 0; /* Remove default margin */
+            margin-left: -160px;
+        }
+        p{
+            margin: 4px;
+        }
+        .divconside{
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: flex; /* Use flexbox to align items horizontally */
+            align-items: center;
+            border-radius: 0; 
+        }
+        .divconside:hover{
+            background-color: rgb(104, 104, 104);
+            transition: 0.34s ease-in-out;
+            
+        }
+            li{
+            list-style-type: none;
+            font-size: 15px;
+            }
+            
+            form{
+                background-color: #111111;
+                padding: 20px;
+                border-radius: 5px;
+                width: 300px;
+                margin: 50px auto;
+                color: white;
+                float: right;
+                margin-right: 100px;
+            }
+            label {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            input[type="text"] {
+                width: 93%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #5f5f5f; 
+                color: #fff; 
+                max-height: 400px;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 15px;
+            }
+
+            input[type="text"]:focus, textarea:focus {
+                outline: none;
+                background-color: #808080; 
+            }
+            textarea {
+                width: 93%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #5f5f5f; 
+                color: #fff; 
+                resize: none; 
+                overflow: hidden; 
+                font-size: 15px;
+                height: 100px;
+            }
+            input[type="submit"] {
+                display: block; /* Make the button a block-level element */
+                width: 43%;
+                padding: 10px;
+                border: none;
+                border-radius: 15px;
+                background-color: #000000; 
+                color: #ffffff; 
+                font-size: 15px;
+                cursor: pointer;
+                margin: auto; /* Center the button horizontally */
+            }
+            input[type="submit"]:hover{
+                background-color: #424242;
+                transition: 0.3s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            #popup {
+                animation: fadeIn 0.5s ease-out forwards;
+                position: fixed;
+                top: 15%;
+                left: 54%;
+                transform: translate(-50%, -50%);
+                z-index: 1000; /* Ensures the form appears on top */
+            }
+            a{
+            color: white;
+            text-decoration: none;
+        }
+        
+        .PE{
+            margin-top: 20PX;
+        }
+        .p3.K {
+            background-color: rgb(175, 76, 76);
+        }
+
+        .p3.P {
+            
+            background-color: rgb(184, 184, 184);
+        }
+
+        .J{
+            background-color: rgb(95, 95, 184);
+        }
+        @media screen and (max-width:900px) {
+           .divcon{
+            width: 40%;
+           }
+        }
+        @media screen and (max-width:800px) {
+           .divcon{
+            width: 40%;
+         
+           }
+           .p2,.p3{
+            width: 12%;
+            height: 25px;
+            font-size: 20px;
+
+           }
+           .h33{
+            font-size: 15px;
+            margin-left: -80px;
+           }
+           .p33{
+            font-size: 10px;
+           }
+        }
+        @media screen and (max-width:600px) {
+           .divcon{
+            width: 60%;
+            margin-left: 70%;
+           }
+           
+          
+        }
+        </style>
+    </head>
+    <body>
+        <section>
+            <header class="dark-theme">
+                <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+                <div class="left-section">
+                    
+                <input placeholder="Search" id="searchInput">
+                </div>
+                <div class="right-section">
+                    <div class="icon settings"><i class="fas fa-cog"></i></div>
+                    <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+                        <span class="notification-dot">4</span>
+                    </div>
+                    <div class="icon profile"><i class="fas fa-user"></i></div>
+                </div>
+            </header>
+        </section>
+
+        <section>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="#"><i class="fas fa-clipboard-list"></i> Board</a></li>
+                        <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                        <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
+                        <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
+                        <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                    </ul>
+                </nav>
+        </section>
+
+
+        <article>
+            <div class="container">
+                <div class="kanban-heading">
+                    <strong class="kanban-heading-text">Board</strong>
+                    <button id="createProjectButton">Add New Board</button>
+                </div>
+                <div id="popup" style="display: none;">
+                    <form>
+                        <label>Board Name:</label>
+                        <input type="text" name="boardName" id="boardName">
+                
+                        <label>Description</label>
+                        <textarea id="description" rows="1"></textarea>    
+                
+                        <input type="submit" value="Create"/>
+                    </form>
+                </div>
+                <div class="kanban-board">
+                    <div class="draggable-container" draggable="true" ondragstart="drag(event)">
+                        <div class="kanban-block" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <strong>To Do</strong>
+                            <em id="em1" style="float: right; cursor: pointer;">+Add</em>
+                            
+                            <div class="task" id="task1" draggable="true" ondragstart="drag(event)">
+                                <span>Design UI</span>
+                            </div>
+                            <div class="task" id="task2" draggable="true" ondragstart="drag(event)">
+                                <span>Refactor Code</span>
+                            </div>
+                            <div class="task" id="task3" draggable="true" ondragstart="drag(event)">
+                                <span>Add stop button</span>
+                            </div>
+                            <div class="task" id="task4" draggable="true" ondragstart="drag(event)">
+                                <span>Fix expanding Bug</span>
+                            </div>
+                            <div class="task" id="task5" draggable="true" ondragstart="drag(event)">
+                                <span>Make me coffee</span>
+                            </div>
+                            <div class="task" id="task6" draggable="true" ondragstart="drag(event)">
+                                <span>Implementation #2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="draggable-container" draggable="true" ondragstart="drag(event)">
+                        <div class="kanban-block" id="inprogress" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <strong>In Progress</strong>
+                            <em id="em1" style="float: right; cursor: pointer;">+Add</em>
+
+                        </div>
+                    </div>
+
+                    <div class="draggable-container" draggable="true" ondragstart="drag(event)">
+                        <div class="kanban-block" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <strong>Done</strong>
+                            <em id="em1" style="float: right; cursor: pointer;">+Add</em>
+                        </div>
+                    </div>
+                </div>
+                <div class="container pop-container">
+                    <div id="popup1" style="display: none; ">
+                        <form>
+                            <label>Task Name:</label>
+                            <input type="text" name="boardName" id="boardName">
+                    
+                            <label>Description</label>
+                            <textarea id="description" rows="1"></textarea>   
+                            
+                            <label>Select Project:</label>
+                            <select id="projectDropdown">
+                                <option value="">Select a project</option>
+                                <option value="project1">Library</option>
+                                <option value="project2">Website</option>
+                            </select>
+                    
+                            <div id="optionsContainer"></div>
+                            <input type="submit" value="Create"/>
+                            
+                        </form>
+                    </div>
+            </div>
+        </article>
+        <script src="board.js">
+        </script>
+    </body>
+</html>

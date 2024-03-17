@@ -1,0 +1,147 @@
+body {
+    font-family: 'Montserrat';
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+	color: white;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 10px;
+	
+}
+
+nav ul li{
+	padding: 10px;
+
+}
+li:hover{
+	background-color: rgb(133, 133, 133);
+	box-shadow: 8px 8px 10px white;
+	border-radius: 10px;
+	border: none;
+	text-align: center;
+}
+nav ul li a {
+	text-decoration: none;
+	color: white;
+}
+
+#foricon{
+	
+	padding: 10px;
+	text-decoration: none;
+	padding-right: 12px;
+}
+
+#forContact{
+	padding-right: 10px;
+}
+
+#forSign{
+background-color: white;
+margin-right: 20px;
+margin-left: 20px;
+}
+
+#forSign a{
+	color:black;
+	
+}
+
+#floatright{
+	float: right;
+	padding-top: 60px;
+}
+
+#words{
+	padding-top: 70px;
+	padding-left: 20px;
+}
+
+#words h1{
+	font-size: 40px;
+}
+
+#box{
+	background-color: white;
+	color: black;
+	padding: 20px 30px;
+	width: 200px;
+}
+
+footer ul {
+    list-style: none;
+    display: flex;
+ 
+}
+.footer-icons {
+    margin-left: auto; /* Pushes the icons to the right */
+}
+footer{
+	padding-top: 130px; 
+}
+
+footer ul li{
+	padding-right: 10px;
+}
+
+footer ul li a {
+	text-decoration: none;
+	color: white;
+}
+#moveRight{
+	padding-right: 10px;
+	
+}
+.nav-middle {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+/* Existing CSS */
+
+/* Add a new class for the footer icons */
+.footer-icons {
+    margin-left: auto; 
+	display: flex;
+	justify-content: space-between;
+
+}
+li{
+	display: inline-block;
+	margin-right: 5px
+	
+}
+/* Adjust the footer layout */
+footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between; /* Adds space between the list items */
+    align-items: center; /* Aligns items vertically in the center */
+    padding: 0 20px; /* Adds padding to the left and right of the footer */
+}
+
+/* Adjust the spacing between the remaining list items in the footer */
+footer ul li {
+    padding-right: 10px;
+}
+
+/* Ensure the icons are displayed inline */
+footer ul li i {
+    display: inline-block;
+}
+@media screen and (max-width: 600px) {
+    /* Target the text within the list items, excluding the icons */
+    footer ul li a {
+        font-size: 9px;
+    }
+	#moveRight{
+		font-size: 9px;
+	}
+	nav ul li a{
+		font-size: 12px;
+	}
+}

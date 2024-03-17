@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+/* Basic styling for the navbar */
+.navbar {
+    background-color: rgb(0, 0, 0);
+    width: 5%; 
+    height: 100vh; 
+    position: fixed; 
+    left: 0;
+    top: 0;
+}
+
+/* Style for the navigation links */
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+    height: 100%; 
+}
+
+.nav-links li {
+    width: 100%; 
+    margin-top: 0;
+    visibility: hidden; 
+    opacity: 0; 
+    transition: visibility 0s, opacity 0.5s linear; 
+}
+
+/* Adjust the position of the "Dashboard" link */
+.nav-links li:nth-child(1) {
+    margin-top: 20%;
+}
+/* Adjust the position of the "Log Out" link to bring it closer to the top */
+.nav-links li:nth-child(7) {
+    position: absolute;
+    bottom: 0;
+}
+
+.nav-links li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    width: 100%; 
+}
+.nav-links li a:hover {
+    background-color: #a5a5a5;
+
+}
+
+.navbar:hover {
+    width: 15%; 
+    transition: width 0.5s ease; /* Smooth transition */
+}
+
+.navbar:hover .nav-links li {
+    visibility: visible; /* Show the list items on hover */
+    opacity: 1; /* Optionally, set opacity to 1 for a fading effect */
+}
+
+/* Adjust the position of the "Help & Feedback" link */
+.navbar p {
+    margin-bottom: 5px; /* Adjust this value as needed */
+    margin-top: 10px; /* Adjust this value as needed */
+}
+
+.nav-links li a i {
+    margin-right: 10px; /* Add some space between the icon and the text */
+  }
+  
+  .nav-links li a span {
+    display: none; /* Hide the text by default */
+  }
+  
+  .navbar:hover .nav-links li a span {
+    display: inline; /* Show the text on hover */
+  }
+
+
+
+/* Style the header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Ensure the header is above the navbar */
+}
+
+/* Style the input field */
+header input {
+    background-color: #ffffff;
+    border: none;
+    color: black;
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 15px;
+    border-radius: 15px;
+    border: none;
+}
+
+/* Style the images */
+header img {
+    height: 40px; /* Adjust the height as needed */
+    margin-right: 10px;
+}
+
+/* Adjust the navbar to account for the header */
+.navbar {
+    top: 60px; /* Adjust the top position to account for the header's height */
+    height: calc(100vh - 60px); /* Adjust the height to account for the header */
+}
+
+
+
+/* The main container */
+
+.container {
+    width: 60%;
+    margin: auto;
+    margin-top: 1.3rem;
+    letter-spacing: 0.5px;
+    height: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+img {
+    width: 50px;
+    vertical-align: middle;
+    border-style: none;
+    border-radius: 100%;
+}
+/* Styling the msg-header container */
+.msg-header {
+    border: none;
+    width: 100%;
+    height: 73px;
+    display: inline-block;
+    background-color: #000000;
+    margin: 0;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+
+    
+}
+.msgimg {
+    margin-left: 2%;
+    float: left;
+}
+
+.container1 {
+    width: 270px;
+    height: 10px; 
+    float: left;
+    margin: 0;
+}
+
+/* styling user-name */
+.active {
+    width: 150px;
+    float: left;
+    color: #ffffff    ;
+    font-weight: bold;
+ 
+}
+.msg-header {
+    padding: 10px 9px; /* Adjust the height to 15% of the viewport height */
+}
+.kanban-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: sans-serif;
+    
+    
+}
+.con{
+    width: 86%;
+    min-width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+   margin-top: 3rem;
+}
+  
+.kanban-heading-text {
+    font-size: 1.8rem;
+    font-weight: bolder;
+    padding: 0.8rem 1.7rem;
+    border-radius: 0.5rem;
+    margin: 1rem;
+}
+  
+button {
+    margin: 0.2rem 0rem 0.1rem 0rem;
+    background-color: rgb(0, 0, 0);
+    border-radius: 20px;
+    padding: 10px 30px;
+    color: white;
+    font-weight: bolder;
+    font-size: 17px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    float: right;
+    max-width: 400px;
+  }
+button:hover{
+    color: black;
+    background-color: rgb(113, 113, 113);
+    transition: 0.5s ease-in-out;
+}
+.dark-theme {
+    background-color: #000000;
+    color: #fff;
+  }
+  
+  .left-section {
+    margin-right: auto;
+    margin-left: 50px;
+  }
+  
+  .right-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* styles.css */
+  /* ... other styles remain the same ... */
+  
+  .icon {
+    position: relative;
+      width: 50px;
+      height: 50px;
+      margin-left: 10px;
+      
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px; /* Adjust padding to ensure icons fit well */
+  }
+.notification-dot {
+    position: absolute;
+    top: 7px; /* Adjust as needed */
+    right: 9px; /* Adjust as needed */
+    width: 15px; /* Adjust as needed */
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 10px; /* Adjust font size as needed */
+}
+
+@media screen and (max-width: 900px) {
+    .navbar{
+        width: 15%;
+    }
+    .navbar:hover{
+        width: 30%;
+    }
+    .container{
+        margin-left: 15%;    
+    }
+}
+@media screen and (max-width: 500px) {
+    .nav-links li a i {
+        font-size: 14px; /* Adjust the font size of the icons */
+    }
+  
+    .nav-links li a span {
+        font-size: 10px; /* Adjust the font size of the text */
+    }
+  }

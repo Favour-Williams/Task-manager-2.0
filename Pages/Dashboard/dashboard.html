@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="../schedule/schedule.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        li{
+            list-style-type: none;
+            font-size: 15px;
+        }
+        strong{
+           position: absolute;
+           left: 10%;
+           top: 15%;
+           margin-bottom: 80px;
+           font-size: 1.8rem;
+           font-weight: bolder;
+        }
+        .container{
+            border: none;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            
+        }
+        div{
+            display: inline-block;
+            text-align: center;
+            border-radius: 30px;
+        }
+        .con1{
+            background-color: black;
+            color: white;
+            font-weight: bolder;
+            width: 27%;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .sec{
+            position: absolute;
+            top: 38%;
+            left: 20%;
+            z-index: -4;
+        }
+        .sec2{
+            z-index: 9;
+        }
+        .divcon{
+            position: relative;
+            z-index: 100;
+            float: right;
+            background-color: rgb(37, 37, 37);
+            width: 25%;
+            padding-top: 10px;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 8px 8px 10px rgb(144, 144, 247);
+            margin-right: 100px;
+            margin-top: 4rem ;
+          
+        }
+        .divcon1{
+            display: inline-block;
+           
+        }
+        h3{
+            margin: 3px;
+        }
+        .h33 {
+            margin: 0; /* Remove default margin */
+            margin-left: -160px;
+        }
+        p{
+            margin: 4px;
+        }
+        .divconside{
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: flex; /* Use flexbox to align items horizontally */
+            align-items: center;
+            border-radius: 0; 
+        }
+        .divconside:hover{
+            background-color: rgb(104, 104, 104);
+            transition: 0.34s ease-in-out;
+            
+        }
+        .p1{
+            text-align: center;
+            cursor: pointer;
+        }
+        .p1:hover{
+            color: blue;
+        }
+        .p2{
+            display: inline-block;
+            background-color: rgb(71, 99, 255);
+            width: 17%;
+            height: 40px;
+            padding-bottom:10px ;
+            border-radius: 50%;
+            font-size: 42px;
+            text-align: center;
+            margin-left: 10px;
+
+        }
+        .p3{
+            display: inline-block;
+            background-color: rgb(96, 156, 153);
+            width: 17%;
+            height: 40px;
+            padding-bottom:10px ;
+            border-radius: 50%;
+            font-size: 42px;
+            text-align: center;
+            margin-left: 10px;
+        }
+        header{
+            z-index: 5000;
+        }
+       
+        
+        @media screen and (max-width:900px) {
+           .divcon{
+            width: 40%;
+           }
+           strong{
+            left: 20%;
+           }
+           .container{
+            left: 60%;
+           }
+        }
+        @media screen and (max-width:800px) {
+           .divcon{
+            width: 40%;
+         
+           }
+           .p2,.p3{
+            width: 12%;
+            height: 25px;
+            font-size: 20px;
+
+           }
+           .h33{
+            font-size: 15px;
+            margin-left: -80px;
+           }
+           .p33{
+            font-size: 10px;
+           }
+           .P{
+            margin-left: 90px;
+           }
+           strong{
+            left: 20%;
+           }
+           .container{
+            left: 60%;
+           }
+        }
+        @media screen and (max-width:600px) {
+           .divcon{
+            width: 60%;
+            margin-left: 70%;
+           }
+           
+          
+        }
+        @media screen and (max-width: 700px) {
+            .container{
+                left: 58%;
+            }
+            .sec{
+                left: 36%;
+            }
+        }
+        .con1{
+            z-index: -1;
+        }
+        .PE{
+            margin-top: 20PX;
+        }
+        .p3.K {
+            background-color: rgb(175, 76, 76);
+        }
+
+        .p3.P {
+            
+            background-color: rgb(184, 184, 184);
+        }
+
+        .J{
+            background-color: rgb(95, 95, 184);
+        }
+        a{
+            color: white;
+            text-decoration: none;
+        }
+        
+       
+    </style>
+</head>
+<body>
+   <section class="sec2">
+        <header class="dark-theme">
+            <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+            <div class="left-section">
+                
+            <input type="text" placeholder="Search" id="searchInput">
+            </div>
+            <div class="right-section">
+                <div class="icon settings"><i class="fas fa-cog"></i></div>
+                <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+                    <span class="notification-dot">4</span>
+                </div>
+                <div class="icon profile"><i class="fas fa-user"></i></div>
+            </div>
+        </header>
+   </section>
+   
+   <section>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
+                <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
+                <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
+                <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+            </ul>
+            
+        </nav>
+   </section>
+   <strong class="kanban-heading-text">DashBoard</strong>
+
+   <div id="disp" class="divcon" style="display: none;">
+        <div class="divconside">
+            <p class="p3">T</p>
+            <div class="divcon1">
+                <h3 class="h33">Terry</h3>
+                <p class="p33">Houdy partner, remember me</p>
+            </div>
+        </div>
+
+        <div class="divconside">
+            <p class="p3 J">J</p>
+            <div class="divcon1">
+                <h3 class="h33">Jerry</h3>
+                <p class="p33">Houdy partner, i have a pre...</p>
+            </div>
+        </div>
+    <div id="dis" style="display: none;">
+        <div class="divconside">
+            <p class="p3 J" style="background-color: rgb(241, 79, 79);">K</p>
+            <div class="divcon1">
+                <h3 class="h33" >Kerry</h3>
+                <p class="p33">hello it's me, remember me fr...</p>
+            </div>
+        </div>
+        <div class="divconside">
+            <p class="p3 J" style="background-color: rgb(2, 149, 0);">P</p>
+            <div class="divcon1">
+                <h3 class="h33">Perry</h3>
+                <p class="p33">We have our presentation tomo...</p>
+            </div>
+        </div>
+    </div>
+    <p id="text" class="p1" onclick="Display()">see more...</p>
+   </div>
+
+   <section class="sec4">
+    <div class="container">
+        
+        <div class="con1 c1">
+            <h3><a href="../Project/projects.html">Project</a></h3>
+            <p>2</p>
+        </div>
+
+        <div class="con1 c2">
+            <h3>Project</h3>
+            <p>12</p>
+        </div>
+
+        <div class="con1 c3">
+            <h3><a href="../task/taskList.html">Task</a></h3>
+            <p>10</p>
+        </div>
+    </div>
+   </section>
+
+   <section class="sec">
+        <div class="wrapper">
+            <div class="container-calendar">
+                <div id="left" style="display: none;">
+                    <div id="event-section">
+                        <h3>Add Event</h3>
+                        <input type="date" id="eventDate">
+                        <input type="text"
+                            id="eventTitle"
+                            placeholder="Event Title">
+                        <input type="text"
+                            id="eventDescription"
+                            placeholder="Event Description">
+                        <button id="addEvent" onclick="addEvent()">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div id="reminder-section">
+                    <h3>Reminders</h3>
+                    <!-- List to display reminders -->
+                    <ul id="reminderList">
+                        <li data-event-id="1">
+                            <strong>Event Title</strong>
+                            - Event Description on Event Date
+                            <button class="delete-event"
+                                onclick="deleteEvent(1)">
+                                Delete
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div id="right">
+                    <h3 id="monthAndYear"></h3>
+                    <div class="button-container-calendar">
+                        <button style="margin-right: 210px;" id="previous"
+                                onclick="previous()">
+                            ‹
+                        </button>
+                        <button id="next"
+                                onclick="next()">
+                            ›
+                        </button>
+                    </div>
+                    <table class="table-calendar"
+                        id="calendar"
+                        data-lang="en">
+                        <thead id="thead-month"></thead>
+                        <!-- Table body for displaying the calendar -->
+                        <tbody id="calendar-body"></tbody>
+                    </table>
+                    <div class="footer-container-calendar">
+                        <label for="month">Jump To: </label>
+                        <!-- Dropdowns to select a specific month and year -->
+                        <select id="month" onchange="jump()">
+                            <option value=0>Jan</option>
+                            <option value=1>Feb</option>
+                            <option value=2>Mar</option>
+                            <option value=3>Apr</option>
+                            <option value=4>May</option>
+                            <option value=5>Jun</option>
+                            <option value=6>Jul</option>
+                            <option value=7>Aug</option>
+                            <option value=8>Sep</option>
+                            <option value=9>Oct</option>
+                            <option value=10>Nov</option>
+                            <option value=11>Dec</option>
+                        </select>
+                        <!-- Dropdown to select a specific year -->
+                        <select id="year" onchange="jump()"></select>
+                    </div>
+                </div>
+                <button  class="buttonAdd" id="toggleButton">add event</button>
+            </div>
+        </div>
+   </section>
+   <script src="../schedule/script.js"></script>
+</body>
+</html>

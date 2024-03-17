@@ -1,0 +1,446 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Basic styling for the navbar */
+.navbar {
+    background-color: rgb(0, 0, 0);
+    width: 5%; /* Set a fixed width for the navbar */
+    height: 100vh; /* Make the navbar full height */
+    position: fixed; /* Position the navbar to the left */
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+
+/* Style for the navigation links */
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for vertical alignment */
+    flex-direction: column; /* Stack the links vertically */
+    justify-content: flex-start; /* Center the links vertically */
+    height: 100%; /* Make the links take up the full height of the navbar */
+}
+
+.nav-links li {
+    width: 100%; /* Make the list items take up the full width of the navbar */
+    margin-top: 0;
+    visibility: hidden; /* Hide the list items by default */
+    opacity: 0; /* Optionally, set opacity to 0 for a fading effect */
+    transition: visibility 0s, opacity 0.5s linear; 
+}
+
+/* Adjust the position of the "Dashboard" link */
+.nav-links li:nth-child(1) {
+    margin-top: 20%;
+}
+
+/* Adjust the position of the "Log Out" link to bring it closer to the top */
+.nav-links li:nth-child(7) {
+    position: absolute;
+    bottom: 0;
+}
+
+.nav-links li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    width: 100%; /* Make the links take up the full width of the list items */
+
+    justify-content: flex-start;
+}
+
+.nav-links li a:hover {
+  background-color: #a5a5a5;
+}
+
+/* Increase the width of the navbar on hover */
+.navbar:hover {
+  width: 15%; /* Increase the width when hovered */
+  transition: width 0.5s ease; /* Smooth transition */
+}
+
+/* Show the list items when hovering over the navbar */
+.navbar:hover .nav-links li {
+    visibility: visible; /* Show the list items on hover */
+    opacity: 1; /* Optionally, set opacity to 1 for a fading effect */
+}
+
+/* Adjust the position of the "Help & Feedback" link */
+.navbar p {
+    margin-bottom: 5px; /* Adjust this value as needed */
+    margin-top: 10px; /* Adjust this value as needed */
+}
+.nav-links li a i {
+  margin-right: 10px; /* Add some space between the icon and the text */
+}
+
+.nav-links li a span {
+  display: none; /* Hide the text by default */
+}
+
+.navbar:hover .nav-links li a span {
+  display: inline; /* Show the text on hover */
+}
+
+
+/* Style the header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color:  black;
+    color: white;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Ensure the header is above the navbar */
+}
+
+/* Style the input field */
+header input {
+    background-color: #ffffff;
+    border: none;
+    color: black;
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 15px;
+    border-radius: 15px;
+    border: none;
+}
+
+.dark-theme {
+  background-color: #000000;
+  color: #fff;
+}
+.left-section {
+  margin-right: auto;
+  margin-left: 50px;
+}
+.right-section {
+  display: flex;
+  align-items: center;
+}
+.icon {
+  position: relative;
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px; /* Adjust padding to ensure icons fit well */
+    transition: transform 0.3s ease;
+}
+
+.icon i {
+  font-size: 15px; /* Adjust font size as needed */
+  color: #fff;
+}
+.icon:hover {
+  transform: scale(1.2); /* Scale the icon when hovered */
+}
+.notification-dot {
+  position: absolute;
+  top: 7px; /* Adjust as needed */
+  right: 9px; /* Adjust as needed */
+  width: 15px; /* Adjust as needed */
+  height: 15px;
+  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 10px; /* Adjust font size as needed */
+}
+
+/* ... rest of the CSS remains the same ... */
+
+.profile-pic {
+width: 40px;
+height: 40px;
+background-color: #555;
+border-radius: 50%;
+margin-left: 10px;
+}
+/* Adjust the navbar to account for the header */
+.navbar {
+    top: 60px; /* Adjust the top position to account for the header's height */
+    height: calc(100vh - 60px); /* Adjust the height to account for the header */
+}
+
+article {
+    float: left;
+    padding: 20px;
+    width: 100%;
+}
+
+article h1{
+    position: relative;
+    clear: both;
+    padding: 20px;
+    margin-left: 20%;
+    margin-top: 40px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.kanban-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Board */
+
+.container {
+  width: 86%;
+  min-width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.3rem;
+}
+
+.kanban-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: sans-serif;
+  
+}
+
+.kanban-heading-text {
+  font-size: 1.8rem;
+  font-weight: bolder;
+  padding: 0.8rem 1.7rem;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+
+.kanban-board {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.kanban-block {
+  padding: 0.6rem;
+  width: 30.5%;
+  min-width: 14rem;
+  min-height: 4.5rem;
+  border-radius: 0.3rem;
+}
+
+#todo {
+  background-color: #8b8385;
+}
+
+#inprogress {
+  background-color: #474747;
+}
+
+#done {
+  background-color: #1a1a1a;
+  color: #676767;
+}
+
+.task {
+  background-color: white;
+  margin: 0.2rem 0rem 0.3rem 0rem;
+  border: 0.1rem solid black;
+  border-radius: 0.2rem;
+  padding: 0.5rem 0.2rem 0.5rem 2rem;
+}
+
+button {
+  margin: 0.2rem 0rem 0.1rem 0rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 20px;
+  padding: 10px 30px;
+  color: white;
+  font-weight: bolder;
+  font-size: 17px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  float: right;
+  max-width: 400px;
+}
+button:hover{
+  color: black;
+  background-color: rgb(117, 117, 117);
+  transition: 0.5s ease-in-out;
+}
+em{
+  color: white;
+  font-weight: bolder;
+}
+em:hover{
+  color: blue;
+}
+.draggable-container {
+  cursor: move;
+}
+
+form{
+  background-color: #111111;
+
+  border-radius: 5px;
+  width: 300px;
+  margin: 50px auto;
+  color: white;
+  float: right;
+  padding-top: 20px;
+  margin-right: 100px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+#addPersonButton{
+  width: 19%;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  background-color: #000000; 
+  color: #ffffff; 
+  font-size: 11px;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  width: 93%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5f5f5f; 
+  color: #fff; 
+  max-height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 15px;
+}
+
+input[type="text"]:focus, textarea:focus {
+  outline: none;
+  background-color: #808080; 
+}
+textarea {
+  width: 93%;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5f5f5f; 
+  color: #fff; 
+  resize: none; 
+  overflow: hidden; 
+  font-size: 15px;
+}
+input[type="submit"] {
+  display: block; /* Make the button a block-level element */
+  width: 43%;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  background-color: #000000; 
+  color: #ffffff; 
+  font-size: 15px;
+  cursor: pointer;
+  margin: auto; /* Center the button horizontally */
+}
+input[type="submit"]:hover{
+  background-color: #424242;
+  transition: 0.3s ease-in-out;
+}
+
+select {
+  width: 93%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5f5f5f; 
+  color: #fff; 
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+select:hover {
+  background-color: #808080;
+}
+
+#optionsDropdown {
+  display: none;
+}
+.popup-container {
+  position: relative;
+  /* Add any additional styling as needed */
+}
+#popup1 {
+  display: none;
+  position: fixed;
+  top: -50px; /* Start 50px above the viewport */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for the element's width */
+  /* Add other styles as needed */
+}
+
+#popup {
+  position: absolute;
+  /* Adjust as needed */
+  left: 0; /* Adjust as needed */
+  right: 0; /* Adjust as needed */
+  z-index: 10; /* Ensure the popup is above other content */
+  /* Add any additional styling as needed */
+}
+@media screen and (max-width: 700px) {
+  .kanban-board {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: sans-serif;
+    margin-left: 70px;
+  }
+
+  .kanban-block{
+    margin-bottom: 10px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .navbar{
+      width: 15%;
+  }
+  .navbar:hover{
+      width: 30%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .nav-links li a i {
+      font-size: 14px; /* Adjust the font size of the icons */
+  }
+
+  .nav-links li a span {
+      font-size: 10px; /* Adjust the font size of the text */
+  }
+}
