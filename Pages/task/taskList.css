@@ -262,6 +262,27 @@ li{
     border-radius: 50%;
     margin-left: 10px;
   }
+  .task-status {
+    display: flex;
+    justify-content: space-between;
+    width: 100px; /* Adjust as needed */
+}
+
+.status-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.status-btn.complete {
+    background-color: lightgreen;
+}
+
+.status-btn.incomplete {
+    background-color: lightcoral;
+}
+
 @media screen and (max-width: 900px) {
     .navbar{
         width: 15%;

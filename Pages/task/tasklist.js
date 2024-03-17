@@ -97,12 +97,14 @@ icons.forEach(icon => {
   });
 });
 
-// Animation for profile pic on hover
-const profilePic = document.getElementById('profilePic');
 
-profilePic.addEventListener('mouseover', () => {
-  profilePic.style.transform = 'rotate(360deg)';
-});
-profilePic.addEventListener('mouseout', () => {
-  profilePic.style.transform = 'rotate(0deg)';
+document.querySelectorAll('.status-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const task = this.closest('.msg-header');
+        if (this.classList.contains('complete')) {
+            task.style.backgroundColor = 'lightgreen';
+        } else if (this.classList.contains('incomplete')) {
+            task.style.backgroundColor = 'lightcoral';
+        }
+    });
 });
