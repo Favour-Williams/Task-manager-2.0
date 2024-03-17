@@ -20,18 +20,8 @@ document.getElementById('sendButton').addEventListener('click', function() {
         messageContent.textContent = message;
         messageElement.appendChild(messageContent);
 
-        // Append the message element to the chat messages container
-        var chatMessages = document.querySelector('.chat-messages');
-        chatMessages.appendChild(messageElement);
-
-        // Clear the input field after sending the message
-        document.getElementById('messageInput').value = '';
-
-
-        // After handling the file and message, reset the file label
-        var fileLabel = document.getElementById('fileLabel');
-        fileLabel.textContent = '+'; // Reset the text content to "+"
-        fileLabel.removeAttribute('data-filename'); // Remove the document name attribute
+        // Create a container for the file element
+        var fileContainer = document.createElement('div');
 
         // If a file is selected, handle file upload here
         if (file) {
@@ -73,8 +63,8 @@ document.getElementById('sendButton').addEventListener('click', function() {
                         fileElement.src = fileUrl;
                     }
 
-                    // Append the file element to the message element
-                    messageElement.appendChild(fileElement);
+                    // Append the file element to the file container
+                    fileContainer.appendChild(fileElement);
                 }
             };
             reader.onerror = function(error) {
@@ -84,6 +74,23 @@ document.getElementById('sendButton').addEventListener('click', function() {
             reader.readAsDataURL(file);
         }
 
+        // Append the file container to the message element
+        messageElement.appendChild(fileContainer);
+
+        // Append the message element to the chat messages container
+        var chatMessages = document.querySelector('.chat-messages');
+        chatMessages.appendChild(messageElement);
+
+        // Clear the input field after sending the message
+        document.getElementById('messageInput').value = '';
+
+        // Reset the file input
+        fileInput.value = '';
+
+        // Reset the file label text to '+'
+        var fileLabel = document.getElementById('fileLabel');
+        fileLabel.textContent = '+';
+
         // Scroll to the bottom of the chat messages container
         chatMessages.scrollTop = chatMessages.scrollHeight;
     } else {
@@ -92,7 +99,7 @@ document.getElementById('sendButton').addEventListener('click', function() {
     }
 });
 
-// Update the label text when a file is selected
+
 document.getElementById('fileInput').addEventListener('change', function() {
     var fileLabel = document.getElementById('fileLabel');
     fileLabel.textContent = this.files[0].name;
