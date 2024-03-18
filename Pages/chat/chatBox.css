@@ -48,12 +48,13 @@
 }
 
 .nav-links li a {
-    display: block;
+    display: flex;
+    align-items: center; 
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    width: 80%; 
+    width: 100%;
 }
 
 .nav-links li a:hover {
@@ -80,8 +81,12 @@
 }
   
 .nav-links li a span {
-    display: none; 
-}
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+    vertical-align: middle; 
+  }
   
 .navbar:hover .nav-links li a span {
     display: inline; 

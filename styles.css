@@ -17,7 +17,7 @@ nav ul li{
 	padding: 10px;
 
 }
-li:hover{
+.io:hover{
 	background-color: rgb(133, 133, 133);
 	box-shadow: 8px 8px 10px white;
 	border-radius: 10px;
@@ -161,3 +161,4 @@ footer ul li i {
 	}
 	
 }
+li{color: white;}
