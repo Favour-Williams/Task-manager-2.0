@@ -155,18 +155,66 @@ img {
 .msg-header {
     border: none;
     width: 100%;
-    height: 70px;
+    height: 73px;
     display: inline-block;
     background-color: #000000;
     margin: 0;
     border-radius: 25px;
     margin-bottom: 10px;
     cursor: pointer;
+    color: white;
+    text-align: center;
+}
+.msg-header:hover{
+    height: 150px;
+    transition: 0.5s ease-out;
+}
+.msg-header {
+    border: none;
+    width: 100%;
+    height: 73px;
+    display: inline-block;
+    background-color: #000000;
+    margin: 0;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    transition: height 0.5s ease-out;
 }
 
-.msgimg {
-    margin-left: 2%;
-    float: left;
+.msg-header:hover  {
+    height: 300px;
+    /* transition: 0.5s ease-out; */
+}
+
+/* Additional CSS to contain the text within the <p> tag */
+.msg-header p {
+    word-wrap: break-word; /* For older browsers */
+    overflow-wrap: break-word; /* For modern browsers */
+    max-width: 100%; /* Ensures the <p> tag does not exceed the width of its parent */
+}
+
+.displayDiscription {
+    display: none;
+    border: none;
+    border-radius: 10px;
+    background-color: #b8b8b8;
+    margin-top: 60px;
+    max-width: 1000px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    
+}
+.msg-header:hover .displayDiscription{
+    display: block;
+    transition: 0.5s ease-out;
+    opacity: 1;
 }
 
 .container1 {

@@ -22,8 +22,18 @@ document.getElementById('addPersonButton').addEventListener('click', function() 
         var list = document.getElementById('personList');
         var listItem = document.createElement('li');
         listItem.textContent = personName + ' - ';
+     
+
         var removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
+        removeButton.style.fontSize='12px'
+        removeButton.style.width='100px';
+        removeButton.style.textAlign='center';
+        removeButton.style.height='25px';
+        removeButton.style.paddingLeft ='-25px';
+        removeButton.style.marginTop='-7px';
+        removeButton.style.marginBottom='0px';
+        removeButton.style.marginRight='40px';
         removeButton.addEventListener('click', function() {
             list.removeChild(listItem);
         });
