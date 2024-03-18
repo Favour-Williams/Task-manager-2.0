@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notification Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+    .notification {
+        display: flex;
+        align-items: center;
+        margin: 20px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+    li{
+      list-style-type: none;
+      font-size: 15px;
+    }
+    a{
+      color: white;
+      text-decoration: none;
+    }
+    .sender-pic {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 20px;
+        object-fit: cover;
+    }
+    .sender-info {
+        flex: 1;
+    }
+    .sender-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .message {
+        font-size: 16px;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+    }
+    .delete-btn,
+    .read-btn {
+        cursor: pointer;
+        padding: 5px 10px;
+        border: none;
+        background-color: transparent;
+        color: #555;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+    .delete-btn:hover,
+    .read-btn:hover {
+        color: #f00;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: rgb(0, 0, 0);
+      color: white;
+      position: fixed;
+      left: 0;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: 50px; 
+    }
+
+    header input {
+      background-color: #ffffff;
+      border: none;
+      color: black;
+      padding: 5px 10px;
+      margin-right: 10px;
+      font-size: 15px;
+      border-radius: 15px;
+      border: none;
+    }
+
+    .dark-theme {
+      background-color: #000000;
+      color: #fff;
+    }
+    
+    .left-section {
+      margin-right: auto;
+      margin-left: 50px;
+    }
+    
+    .right-section {
+      display: flex;
+      align-items: center;
+    }
+    .profile1{
+      margin-right: 5px;
+    }
+    .icon {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin-left: 8px;  
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 15px; 
+      right: 14px; 
+      width: 15px; 
+      height: 15px;
+      background-color: red;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 10px; 
+    }
+    .profile{
+      margin-top: 20%;
+      margin-bottom: auto;
+    }
+    .arrow-icon {
+      margin-bottom: 50px;
+      margin-top: 100px;
+      margin-left: 30px;
+    }
+
+    .arrow-icon i {
+      font-size: 24px;
+      color: #000000;
+      cursor: pointer;
+    }
+    img{
+      border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <section>
+        <header class="dark-theme">
+            <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+            <div class="left-section">
+                
+            <input  placeholder="Search" id="searchInput">
+            </div>
+            <div class="right-section">
+                <div class="icon settings"><i class="fas fa-cog"></i></div>
+                <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+                    <span class="notification-dot">4</span>
+                </div>
+                <div class="icon profile1"><a href="../profile/p.html"><i class="fas fa-user"></i></a></div>
+            </div>
+        </header>
+    </section>
+
+    <div class="arrow-icon" id="myb">
+       <a href="../Dashboard/dashboard.html"> <i class="fas fa-arrow-left"></i></a>
+    </div>
+
+    <div class="notification" id="notification1">
+        <img src="uml class diagram for vending machine.JPG" alt="Sender 1" class="sender-pic">
+        <div class="sender-info">
+            <div class="sender-name">Terry</div>
+            <div class="message">Houdy partner, remember me</div>
+        </div>
+        <div class="action-buttons">
+            <button class="delete-btn" onclick="deleteNotification('notification1')">-</button>
+            <button class="read-btn" onclick="markAsRead('notification1')">Mark as Read</button>
+        </div>
+    </div>
+    <div class="notification" id="notification2">
+        <img src="uml sequence diagram vending machine.JPG" alt="Sender 2" class="sender-pic">
+        <div class="sender-info">
+            <div class="sender-name">Jerry</div>
+            <div class="message">Houdy partner, i have a pre...</div>
+        </div>
+        <div class="action-buttons">
+            <button class="delete-btn" onclick="deleteNotification('notification2')">-</button>
+            <button class="read-btn" onclick="markAsRead('notification2')">Mark as Read</button>
+        </div>
+    </div>
+    <div class="notification" id="notification2">
+      <img src="uml sequence diagram vending machine.JPG" alt="Sender 2" class="sender-pic">
+      <div class="sender-info">
+          <div class="sender-name">Kerry</div>
+          <div class="message">hello it's me, remember me fr...</div>
+      </div>
+      <div class="action-buttons">
+          <button class="delete-btn" onclick="deleteNotification('notification2')">-</button>
+          <button class="read-btn" onclick="markAsRead('notification2')">Mark as Read</button>
+      </div>
+  </div>
+  <div class="notification" id="notification2">
+    <img src="uml sequence diagram vending machine.JPG" alt="Sender 2" class="sender-pic">
+    <div class="sender-info">
+        <div class="sender-name">Perry</div>
+        <div class="message">We have our presentation tomo...</div>
+    </div>
+    <div class="action-buttons">
+        <button class="delete-btn" onclick="deleteNotification('notification2')">-</button>
+        <button class="read-btn" onclick="markAsRead('notification2')">Mark as Read</button>
+    </div>
+</div>
+
+    <script>
+        function deleteNotification(notificationId) {
+          const notification = document.getElementById(notificationId);
+          notification.remove();
+        }
+
+        function markAsRead(notificationId) {
+          const notification = document.getElementById(notificationId);
+          notification.style.backgroundColor = '#e8e8e8';
+        }
+        const icons = document.querySelectorAll('.icon');
+
+        icons.forEach(icon => {
+          icon.addEventListener('mouseover', () => {
+            icon.style.transform = 'scale(1.2)';
+          });
+          icon.addEventListener('mouseout', () => {
+            icon.style.transform = 'scale(1)';
+          });
+        });
+
+    </script>
+</body>
+</html>
