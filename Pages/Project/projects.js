@@ -55,13 +55,3 @@ icons.forEach(icon => {
     icon.style.transform = 'scale(1)';
   });
 });
-
-
-document.querySelectorAll('.project').forEach(project => {
-    project.addEventListener('mouseover', () => {
-        project.querySelector('.dropdown-content').style.display = 'block';
-    });
-    project.addEventListener('mouseout', () => {
-        project.querySelector('.dropdown-content').style.display = 'none';
-    });
-});
