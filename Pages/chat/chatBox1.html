@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="chatBox.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+   <section>
+    <header class="dark-theme">
+        <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+        <div class="left-section">
+            
+        <input placeholder="Search" id="searchInput">
+        </div>
+        <div class="right-section">
+            <div class="icon settings"><i class="fas fa-cog"></i></div>
+            <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+                <span class="notification-dot">4</span>
+            </div>
+            <div class="icon profile"><i class="fas fa-user"></i></div>
+        </div>
+    </header>
+   </section>
+
+   <section>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
+                <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
+                <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
+                <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+            </ul>
+        </nav>
+   </section>
+   <main>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Chat Room</h2>
+            </div>
+            <div class="chat-messages">
+                <!-- Example messages -->
+                <div class="message sent">
+                    <p>Hello, how are you?</p>
+                </div>
+                <div class="message received">
+                    <p>I'm good, thanks! How about you?</p>
+                </div>
+                <div class="message sent">
+                    <p>I'm doing well, thanks for asking!</p>
+                </div>
+                <div class="message received">
+                    <p>So where are you now?</p>
+                </div>
+                <div class="message received">
+                    <p>I'm outside</p>
+                </div>
+                <div class="message received">
+                    <p>Is izzy with you</p>
+                </div>
+                <div class="message received">
+                    <p>outside yr house</p>
+                </div>
+                <div class="message received">
+                    <p>there is something wrong with task 3</p>
+                </div>
+                <div class="message received">
+                    <p>the one izzy and i are working </p>
+                </div>
+                <div class="message received">
+                    <p>so Is izzy with you now?</p>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="file" id="fileInput" style="display: none;" accept="image/*, video/*, application/pdf">
+                <label for="fileInput" id="fileLabel">+</label>
+
+                <input type="text" id="messageInput" placeholder="Type your message...">
+                <button id="sendButton">Send</button>
+            </div>
+            <div class="icons-container">
+                <i class="fas fa-video" id="videoIcon"></i>
+                <i class="fas fa-phone" id="phoneIcon"></i>
+            </div>
+        </div>
+   </main>
+
+   <script src="chatbox.js"></script>
+</body>
+</html>

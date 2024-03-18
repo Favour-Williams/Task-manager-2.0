@@ -42,7 +42,7 @@
 
    <main>
         <div class="container">
-            <div class="msg-header">
+            <div class="msg-header" id="myButton1">
                 <div class="container1">
 
                     <img src="pro.jpg" class="msgimg">
@@ -89,26 +89,29 @@
         
    </main>
    <script>
-    const icons = document.querySelectorAll('.icon');
+        const icons = document.querySelectorAll('.icon');
 
         icons.forEach(icon => {
-        icon.addEventListener('mouseover', () => {
-            icon.style.transform = 'scale(1.2)';
-        });
-        icon.addEventListener('mouseout', () => {
-            icon.style.transform = 'scale(1)';
-        });
+            icon.addEventListener('mouseover', () => {
+                icon.style.transform = 'scale(1.2)';
+            });
+            
+            icon.addEventListener('mouseout', () => {
+                icon.style.transform = 'scale(1)';
+            });
         });
 
-        // Animation for profile pic on hover
-        const profilePic = document.getElementById('profilePic');
-
-
-        
-         document.getElementById('myButton').addEventListener('click', function() {
+        document.getElementById('myButton').addEventListener('click', function() {
             console.log('Button clicked')
             window.location.href = '../chat/chatBox.html';
-         });
+        });
+
+        document.getElementById('myButton1').addEventListener('click', function() {
+            console.log('Button clicked')
+            window.location.href = '../chat/chatBox1.html';
+         
+        });
+
    </script>
 </body>
 </html>
