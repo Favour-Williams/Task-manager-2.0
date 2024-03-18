@@ -2,6 +2,16 @@ document.getElementById('sendButton').addEventListener('click', function() {
     // Get the message from the input field
     var message = document.getElementById('messageInput').value.trim();
     
+    // Get the current date and time
+    var currentTime = new Date();
+    var hours = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Handle midnight (0 hours)
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var timeString = hours + ':' + minutes + ' ' + ampm;
+
     // Get the selected file from the file input
     var fileInput = document.getElementById('fileInput');
     var file = fileInput.files[0];
@@ -91,6 +101,14 @@ document.getElementById('sendButton').addEventListener('click', function() {
         var fileLabel = document.getElementById('fileLabel');
         fileLabel.textContent = '+';
 
+        // Create a new element for the timestamp
+        var timeStampElement = document.createElement('div');
+        timeStampElement.className = 'timestamp';
+        timeStampElement.textContent = timeString;
+
+        // Append the timestamp element to the chat messages container
+        messageElement.appendChild(timeStampElement);
+
         // Scroll to the bottom of the chat messages container
         chatMessages.scrollTop = chatMessages.scrollHeight;
     } else {
@@ -98,7 +116,6 @@ document.getElementById('sendButton').addEventListener('click', function() {
         console.log("Please enter a message or attach a file.");
     }
 });
-
 
 document.getElementById('fileInput').addEventListener('change', function() {
     var fileLabel = document.getElementById('fileLabel');

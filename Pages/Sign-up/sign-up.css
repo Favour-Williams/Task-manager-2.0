@@ -9,7 +9,7 @@
 }
 
 body {
-  height: 100vh;
+  height: 140vh;
   width: 100%;
   background: black;
   color: white;
@@ -20,7 +20,7 @@ body {
   width: 410px;
   padding: 30px;
   position: absolute;
-  top: 50%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 20px;
@@ -60,7 +60,7 @@ form .data input {
   height: calc(1.5em + 1rem + 2px);
   width: 100%;
   padding-left: 10px;
-  font-size: calc(0.9271875rem + 0.32625vw);
+  font-size: 12px;
   border: none;
   border-radius:12px ;
   margin-top: 8px;
@@ -121,4 +121,52 @@ form .btn .inner {
 }
 form{
   color: black;
+}
+.horizontal-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+ }
+ 
+ .horizontal-line hr {
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid #b1b1b1;
+  margin: 0 10px;
+ }
+.social-button {
+  margin-right: auto;
+  margin-left:auto ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 80%; /* Ensure the button takes full width */
+ }
+.social-button i {
+  font-size: 20px; /* Adjust size as needed */
+  margin-right: 10px; /* Space between the icon and text */
+ }
+ .social-button span {
+  color: #333;
+  font-size: 16px; /* Adjust font size as needed */
+ } 
+ .github{
+  background-color: #000000;
+  color: white;
+}
+.github span{
+  color: white;
+}
+.google-icon{
+  color: white;
+  background-image: linear-gradient(to top, rgb(111, 255, 111), blue, rgb(254, 165, 30), red);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
 }

@@ -13,6 +13,12 @@
     top: 0;
     z-index: 10;
 }
+.timestamp {
+    font-size: 12px;
+    color: #aaa;
+    text-align: right;
+    margin-top: 5px;
+}
 
 /* Style for the navigation links */
 .nav-links {

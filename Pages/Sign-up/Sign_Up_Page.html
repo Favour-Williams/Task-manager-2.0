@@ -3,6 +3,8 @@
    <head>
       <meta charset="utf-8">
       <title>Popup Login Form Design</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
       <link rel="stylesheet" href="sign-up.css">
    </head>
    <body>
@@ -11,28 +13,70 @@
             <div class="text">
                Signup
             </div>
-            <form action="#">
+            <form action="#" id="signupForm">
                <div class="data">
                   <label>Email or Phone-Number</label>
-                  <input type="text" placeholder="Enter email or phone number" required>
+                  <input type="text" id="emailOrPhone" placeholder="Enter email or phone number" required>
                </div>
                <div class="data">
                   <label>Create Password</label>
-                  <input type="password" placeholder="Enter Password" required>
+                  <input type="password" id="password" placeholder="Enter Password" required>
                </div>
                <div class="data">
                     <label>Confirm Password</label>
-                    <input type="password" placeholder="Confirm Password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
                 </div>
               
                <button type="submit" class="button" id="myButton">Sign up</button>
+               <div class="horizontal-line">
+                  <hr>
+                  <span>or</span>
+                  <hr/>
+               </div>
+
+               <!-- Sign in with Google -->
+               <button class="social-button google">
+                  <i class="fab fa-google google-icon"></i>
+                  <span>Sign in with Google</span>
+               </button>
+                  <!-- Sign in with GitHub -->
+               <button class="social-button github">
+                  <i class="fab fa-github"></i>
+                  <span>Sign in with GitHub</span>
+               </button>
             </form>
          </div>
       </div>
       <script>
-         document.getElementById('myButton').addEventListener('click', function() {
+         document.getElementById('signupForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            var emailOrPhone = document.getElementById('emailOrPhone').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Simple validation: check if email is in a valid format
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailOrPhone)) {
+                alert('Please enter a valid email or phone number.');
+                return false;
+            }
+
+            // Check if password meets length requirement
+            if (password.length < 8) {
+                alert('Please enter a password of at least 8 characters.');
+                return false;
+            }
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please re-enter your password.');
+                return false;
+            }
+
+            // If validation passes, handle signup logic or redirect to dashboard
             window.location.href = '../Dashboard/dashboard.html';
-         });
+        });
       </script>
    </body>
 </html>
