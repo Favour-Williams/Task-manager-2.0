@@ -35,15 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// document.getElementById('toggleButton').addEventListener('click', function() {
-// 	var hiddenElement = document.getElementById('left');
-// 	if (hiddenElement.style.display === 'none') {
-// 		hiddenElement.style.display = 'block';
-// 	} else {
-// 		hiddenElement.style.display = 'none';
-// 	}
-// });
-
 
 function Display() {
     var element = document.getElementById("dis");
@@ -77,15 +68,8 @@ icons.forEach(icon => {
   });
 });
 
-// Animation for profile pic on hover
-const profilePic = document.getElementById('profilePic');
 
-// profilePic.addEventListener('mouseover', () => {
-//   profilePic.style.transform = 'rotate(360deg)';
-// });
-// profilePic.addEventListener('mouseout', () => {
-//   profilePic.style.transform = 'rotate(0deg)';
-// });
+
 
 projectDropdown.addEventListener('change', function() {
     const selectedProject = this.value;

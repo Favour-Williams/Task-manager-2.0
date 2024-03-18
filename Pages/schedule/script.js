@@ -309,12 +309,3 @@ icons.forEach(icon => {
   });
 });
 
-// Animation for profile pic on hover
-const profilePic = document.getElementById('profilePic');
-
-profilePic.addEventListener('mouseover', () => {
-  profilePic.style.transform = 'rotate(360deg)';
-});
-profilePic.addEventListener('mouseout', () => {
-  profilePic.style.transform = 'rotate(0deg)';
-});

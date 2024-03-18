@@ -3,7 +3,6 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
-/* Basic styling for the navbar */
 .navbar {
     background-color: rgb(0, 0, 0);
     width: 5%; 
@@ -13,7 +12,6 @@
     top: 0;
 }
 
-/* Style for the navigation links */
 .nav-links {
     list-style-type: none;
     margin: 0;
@@ -32,11 +30,9 @@
     transition: visibility 0s, opacity 0.5s linear; 
 }
 
-/* Adjust the position of the "Dashboard" link */
 .nav-links li:nth-child(1) {
     margin-top: 20%;
 }
-/* Adjust the position of the "Log Out" link to bring it closer to the top */
 .nav-links li:nth-child(7) {
     position: absolute;
     bottom: 0;
@@ -57,30 +53,29 @@
 
 .navbar:hover {
     width: 15%; 
-    transition: width 0.5s ease; /* Smooth transition */
+    transition: width 0.5s ease; 
 }
 
 .navbar:hover .nav-links li {
-    visibility: visible; /* Show the list items on hover */
-    opacity: 1; /* Optionally, set opacity to 1 for a fading effect */
+    visibility: visible; 
+    opacity: 1; 
 }
 
-/* Adjust the position of the "Help & Feedback" link */
 .navbar p {
-    margin-bottom: 5px; /* Adjust this value as needed */
-    margin-top: 10px; /* Adjust this value as needed */
+    margin-bottom: 5px; 
+    margin-top: 10px; 
 }
 
 .nav-links li a i {
-    margin-right: 10px; /* Add some space between the icon and the text */
+    margin-right: 10px; 
   }
   
   .nav-links li a span {
-    display: none; /* Hide the text by default */
+    display: none; 
   }
   
   .navbar:hover .nav-links li a span {
-    display: inline; /* Show the text on hover */
+    display: inline; 
   }
 
 
@@ -97,10 +92,10 @@ header {
     left: 0;
     width: 100%;
     top: 0;
-    z-index: 1000; /* Ensure the header is above the navbar */
+    z-index: 1000; 
 }
 
-/* Style the input field */
+
 header input {
     background-color: #ffffff;
     border: none;
@@ -112,16 +107,15 @@ header input {
     border: none;
 }
 
-/* Style the images */
+
 header img {
-    height: 40px; /* Adjust the height as needed */
+    height: 40px; 
     margin-right: 10px;
 }
 
-/* Adjust the navbar to account for the header */
 .navbar {
-    top: 60px; /* Adjust the top position to account for the header's height */
-    height: calc(100vh - 60px); /* Adjust the height to account for the header */
+    top: 60px; 
+    height: calc(100vh - 60px); 
 }
 
 
@@ -145,7 +139,6 @@ img {
     border-style: none;
     border-radius: 100%;
 }
-/* Styling the msg-header container */
 .msg-header {
     border: none;
     width: 100%;
@@ -186,11 +179,10 @@ img {
     /* transition: 0.5s ease-out; */
 }
 
-/* Additional CSS to contain the text within the <p> tag */
 .msg-header p {
-    word-wrap: break-word; /* For older browsers */
-    overflow-wrap: break-word; /* For modern browsers */
-    max-width: 100%; /* Ensures the <p> tag does not exceed the width of its parent */
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    max-width: 100%; 
 }
 
 .displayDiscription {
@@ -219,10 +211,9 @@ img {
     margin: 0;
 }
 
-/* styling user-name */
 
 .msg-header {
-    padding: 10px 9px; /* Adjust the height to 15% of the viewport height */
+    padding: 10px 9px; 
 }
 .kanban-heading {
     display: flex;
@@ -286,8 +277,7 @@ button:hover{
     align-items: center;
   }
   
-  /* styles.css */
-  /* ... other styles remain the same ... */
+
   
   .icon {
     position: relative;
@@ -300,13 +290,13 @@ button:hover{
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      padding: 5px; /* Adjust padding to ensure icons fit well */
+      padding: 5px; 
   }
 .notification-dot {
     position: absolute;
-    top: 7px; /* Adjust as needed */
-    right: 9px; /* Adjust as needed */
-    width: 15px; /* Adjust as needed */
+    top: 7px; 
+    right: 9px; 
+    width: 15px; 
     height: 15px;
     background-color: red;
     border-radius: 50%;
@@ -314,7 +304,7 @@ button:hover{
     justify-content: center;
     align-items: center;
     color: #fff;
-    font-size: 10px; /* Adjust font size as needed */
+    font-size: 10px; 
 }
 .active {
     width: 150px;
@@ -337,10 +327,10 @@ button:hover{
 }
 @media screen and (max-width: 500px) {
     .nav-links li a i {
-        font-size: 14px; /* Adjust the font size of the icons */
+        font-size: 14px; 
     }
   
     .nav-links li a span {
-        font-size: 10px; /* Adjust the font size of the text */
+        font-size: 10px;
     }
-  }
+}

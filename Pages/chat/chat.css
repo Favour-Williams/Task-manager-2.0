@@ -3,41 +3,37 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
-/* Basic styling for the navbar */
 .navbar {
     background-color: rgb(0, 0, 0);
-    width: 5%; /* Set a fixed width for the navbar */
-    height: 100vh; /* Make the navbar full height */
-    position: fixed; /* Position the navbar to the left */
+    width: 5%;
+    height: 100vh; 
+    position: fixed; 
     left: 0;
     top: 0;
 }
 
-/* Style for the navigation links */
 .nav-links {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Use flexbox for vertical alignment */
-    flex-direction: column; /* Stack the links vertically */
-    justify-content: flex-start; /* Center the links vertically */
-    height: 100%; /* Make the links take up the full height of the navbar */
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start; 
+    height: 100%; 
 }
 
 .nav-links li {
-    width: 100%; /* Make the list items take up the full width of the navbar */
+    width: 100%; 
     margin-top: 0;
-    visibility: hidden; /* Hide the list items by default */
-    opacity: 0; /* Optionally, set opacity to 0 for a fading effect */
+    visibility: hidden; 
+    opacity: 0; 
     transition: visibility 0s, opacity 0.5s linear; 
 }
 
-/* Adjust the position of the "Dashboard" link */
 .nav-links li:nth-child(1) {
     margin-top: 20%;
 }
 
-/* Adjust the position of the "Log Out" link to bring it closer to the top */
 .nav-links li:nth-child(7) {
     position: absolute;
     bottom: 0;
@@ -49,43 +45,40 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    width: 100%; /* Make the links take up the full width of the list items */
+    width: 100%; 
 }
 
 .nav-links li a:hover {
     background-color: #a5a5a5;
 }
 
-/* Increase the width of the navbar on hover */
 .navbar:hover {
-    width: 15%; /* Increase the width when hovered */
-    transition: width 0.5s ease; /* Smooth transition */
+    width: 15%; 
+    transition: width 0.5s ease; 
 }
 
-/* Show the list items when hovering over the navbar */
 .navbar:hover .nav-links li {
-    visibility: visible; /* Show the list items on hover */
-    opacity: 1; /* Optionally, set opacity to 1 for a fading effect */
+    visibility: visible; 
+    opacity: 1; 
 }
 
-/* Adjust the position of the "Help & Feedback" link */
 .navbar p {
-    margin-bottom: 5px; /* Adjust this value as needed */
-    margin-top: 10px; /* Adjust this value as needed */
+    margin-bottom: 5px; 
+    margin-top: 10px; 
 }
 
 
 .nav-links li a i {
-    margin-right: 10px; /* Add some space between the icon and the text */
-  }
+    margin-right: 10px;
+}
   
-  .nav-links li a span {
-    display: none; /* Hide the text by default */
-  }
+.nav-links li a span {
+    display: none;
+}
   
-  .navbar:hover .nav-links li a span {
-    display: inline; /* Show the text on hover */
-  }
+.navbar:hover .nav-links li a span {
+    display: inline; 
+}
   
 
 
@@ -101,7 +94,7 @@ header {
     left: 0;
     width: 100%;
     top: 0;
-    z-index: 1000; /* Ensure the header is above the navbar */
+    z-index: 1000; 
 }
 
 /* Style the input field */
@@ -127,39 +120,38 @@ a{
 .dark-theme {
     background-color: #000000;
     color: #fff;
-  }
+}
   
-  .left-section {
+.left-section {
     margin-right: auto;
     margin-left: 50px;
-  }
+}
   
-  .right-section {
+.right-section {
     display: flex;
     align-items: center;
-  }
+}
   
-  /* styles.css */
-  /* ... other styles remain the same ... */
   
-  .icon {
+  
+.icon {
     position: relative;
-      width: 50px;
-      height: 50px;
-      margin-left: 10px;
-      
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      padding: 5px; /* Adjust padding to ensure icons fit well */
-  }
-  .notification-dot {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px; 
+}
+
+.notification-dot {
     position: absolute;
-    top: 7px; /* Adjust as needed */
-    right: 9px; /* Adjust as needed */
-    width: 15px; /* Adjust as needed */
+    top: 7px; 
+    right: 9px;
+    width: 15px; 
     height: 15px;
     background-color: red;
     border-radius: 50%;
@@ -167,28 +159,26 @@ a{
     justify-content: center;
     align-items: center;
     color: #fff;
-    font-size: 10px; /* Adjust font size as needed */
+    font-size: 10px; 
 }
 
-  .icon i {
-      font-size: 20px; /* Adjust font size as needed */
-      color: #fff;
-  }
+.icon i {
+    font-size: 20px; 
+    color: #fff;
+}
   
-  /* ... rest of the CSS remains the same ... */
   
-  .profile-pic {
+.profile-pic {
     width: 40px;
     height: 40px;
     background-color: #555;
     border-radius: 50%;
     margin-left: 10px;
-  }
+}
 
-/* Adjust the navbar to account for the header */
 .navbar {
-    top: 60px; /* Adjust the top position to account for the header's height */
-    height: calc(100vh - 60px); /* Adjust the height to account for the header */
+    top: 60px; 
+    height: calc(100vh - 60px); 
 }
 
 
@@ -248,7 +238,7 @@ img {
  
 }
 .msg-header {
-    padding: 17px 9px; /* Adjust the height to 15% of the viewport height */
+    padding: 17px 9px; 
 }
 
 @media screen and (max-width: 900px) {
@@ -264,10 +254,10 @@ img {
 }
 @media screen and (max-width: 500px) {
     .nav-links li a i {
-        font-size: 14px; /* Adjust the font size of the icons */
+        font-size: 14px; 
     }
   
     .nav-links li a span {
-        font-size: 10px; /* Adjust the font size of the text */
+        font-size: 10px; 
     }
   }

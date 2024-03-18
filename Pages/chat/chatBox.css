@@ -3,12 +3,11 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
-/* Basic styling for the navbar */
 .navbar {
     background-color: #000000;
-    width: 5%; /* Set a fixed width for the navbar */
-    height: 100vh; /* Make the navbar full height */
-    position: fixed; /* Position the navbar to the left */
+    width: 5%; 
+    height: 100vh; 
+    position: fixed; 
     left: 0;
     top: 0;
     z-index: 10;
@@ -20,31 +19,29 @@
     margin-top: 5px;
 }
 
-/* Style for the navigation links */
 .nav-links {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Use flexbox for vertical alignment */
-    flex-direction: column; /* Stack the links vertically */
-    justify-content: flex-start; /* Center the links vertically */
-    height: 100%; /* Make the links take up the full height of the navbar */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+    height: 100%; 
 }
 
 .nav-links li {
-    width: 100%; /* Make the list items take up the full width of the navbar */
+    width: 100%; 
     margin-top: 0;
-    visibility: hidden; /* Hide the list items by default */
-    opacity: 0; /* Optionally, set opacity to 0 for a fading effect */
+    visibility: hidden; 
+    opacity: 0; 
     transition: visibility 0s, opacity 0.5s linear; 
 }
 
-/* Adjust the position of the "Dashboard" link */
 .nav-links li:nth-child(1) {
     margin-top: 20%;
 }
 
-/* Adjust the position of the "Log Out" link to bring it closer to the top */
+
 .nav-links li:nth-child(7) {
     position: absolute;
     bottom: 0;
@@ -56,7 +53,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    width: 80%; /* Make the links take up the full width of the list items */
+    width: 80%; 
 }
 
 .nav-links li a:hover {
@@ -64,34 +61,31 @@
     border-radius: 30%;
 }
 
-/* Increase the width of the navbar on hover */
 .navbar:hover {
-    width: 15%; /* Increase the width when hovered */
-    transition: width 0.5s ease; /* Smooth transition */
+    width: 15%; 
+    transition: width 0.5s ease; 
 }
 
-/* Show the list items when hovering over the navbar */
 .navbar:hover .nav-links li {
-    visibility: visible; /* Show the list items on hover */
-    opacity: 1; /* Optionally, set opacity to 1 for a fading effect */
+    visibility: visible; 
+    opacity: 1; 
 }
 
-/* Adjust the position of the "Help & Feedback" link */
 .navbar p {
-    margin-bottom: 5px; /* Adjust this value as needed */
-    margin-top: 10px; /* Adjust this value as needed */
+    margin-bottom: 5px; 
+    margin-top: 10px; 
 }
 .nav-links li a i {
-    margin-right: 10px; /* Add some space between the icon and the text */
-  }
+    margin-right: 10px;
+}
   
-  .nav-links li a span {
-    display: none; /* Hide the text by default */
-  }
+.nav-links li a span {
+    display: none; 
+}
   
-  .navbar:hover .nav-links li a span {
-    display: inline; /* Show the text on hover */
-  }
+.navbar:hover .nav-links li a span {
+    display: inline; 
+}
   
 
 /* Style the header */
@@ -106,7 +100,7 @@ header {
     left: 0;
     width: 100%;
     top: 0;
-    z-index: 1000; /* Ensure the header is above the navbar */
+    z-index: 1000; 
 }
 
 /* Style the input field */
@@ -121,16 +115,14 @@ header input {
     border: none;
 }
 
-/* Style the images */
 header img {
-    height: 40px; /* Adjust the height as needed */
+    height: 40px; 
     margin-right: 10px;
 }
 
-/* Adjust the navbar to account for the header */
 .navbar {
-    top: 60px; /* Adjust the top position to account for the header's height */
-    height: calc(100vh - 60px); /* Adjust the height to account for the header */
+    top: 60px; 
+    height: calc(100vh - 60px); 
 }
 
 
@@ -139,8 +131,8 @@ header img {
     display: flex;
     flex-direction: column;
     height: 90vh;
-    width: 85%; /* Adjust width as needed */
-    margin-left: 15%; /* Adjust based on the navbar width */
+    width: 85%; 
+    margin-left: 15%; 
     background-color: #f5f5f5;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -164,18 +156,16 @@ header img {
     border-radius: 9px;
 }
 
-/* Message sent */
 .message.sent {
     text-align: right;
     margin-bottom: 24px;
     background-color: rgb(63, 63, 63);
     color: white;
-    margin-left: auto; /* Align sent messages to the right */
+    margin-left: auto; 
     margin-right: 0;
     
 }
 
-/* Message received */
 .message.received {
     text-align: left;
     margin-bottom: 24px;
@@ -183,7 +173,6 @@ header img {
    
 }
 
-/* Chat input */
 .chat-input {
     display: flex;
     align-items: center;
@@ -206,51 +195,46 @@ header img {
     border-radius: 5px;
     cursor: pointer;
 }
-/* Add relative positioning to the message class */
 .message {
     position: relative;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    max-width: 50%; /* Reduced width */
+    max-width: 50%; 
     word-wrap: break-word;
-    background-color: #b6b6b6; /* Example background color */
-    margin-left: 0; /* Align messages to the right by default */
-    margin-right: auto; /* Reset right margin */
+    background-color: #b6b6b6; 
+    margin-left: 0;
+    margin-right: auto; 
 }
 
-/* Style for the tail */
 .message::before {
     content: '';
     position: absolute;
-    bottom: -10px; /* Adjust the position of the tail */
-    left: 20px; /* Adjust the left position of the tail */
+    bottom: -10px; 
+    left: 20px; 
     border-width: 10px 10px 0;
     border-style: solid;
-    border-color: #b4b4b4 transparent; /* Match the background color of the message */
+    border-color: #b4b4b4 transparent; 
     display: block;
     width: 0;
 }
 
-/* Adjust the tail for sent messages */
 .message.sent::before {
     left: auto;
-    right: 20px; /* Adjust the right position of the tail for sent messages */
-    border-color: transparent #444444; /* Change the border color for sent messages */
+    right: 20px; 
+    border-color: transparent #444444; 
 }
-/* Style the file input label */
 #fileLabel {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(255, 255, 255); /* Change the color of the "+" symbol and the document name */
-    font-size: 14px; /* Adjust the font size as needed */
-    padding: 5px; /* Add some padding around the label */
-    border: 1px solid #ccc; /* Optional: Add a border for visual separation */
-    border-radius: 5px; /* Optional: Add rounded corners */
+    color: rgb(255, 255, 255); 
+    font-size: 14px; 
+    padding: 5px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
     cursor: pointer; 
     background-color: #000000;
-    
     margin-right: 10px;
 
 }
@@ -261,47 +245,46 @@ header img {
 .dark-theme {
     background-color: #000000;
     color: #fff;
-  }
-  .left-section {
+}
+.left-section {
     margin-right: auto;
     margin-left: 50px;
-  }
-  a, li{
+}
+a, li{
     color: white;
     text-decoration: none;
     list-style-type: none;
 }
-  .right-section {
+.right-section {
     display: flex;
     align-items: center;
-  }
-  .icon {
+}
+.icon {
     position: relative;
-      width: 50px;
-      height: 50px;
-      margin-left: 10px;
-      
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      padding: 5px; /* Adjust padding to ensure icons fit well */
-      transition: transform 0.3s ease;
-  }
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.3s ease;
+}
   
-  .icon i {
-    font-size: 15px; /* Adjust font size as needed */
+.icon i {
+    font-size: 15px; 
     color: #fff;
-  }
-  .icon:hover {
-    transform: scale(1.2); /* Scale the icon when hovered */
-  }
-  .notification-dot {
+}
+.icon:hover {
+    transform: scale(1.2); 
+}
+.notification-dot {
     position: absolute;
-    top: 7px; /* Adjust as needed */
-    right: 9px; /* Adjust as needed */
-    width: 15px; /* Adjust as needed */
+    top: 7px; 
+    right: 9px; 
+    width: 15px; 
     height: 15px;
     background-color: red;
     border-radius: 50%;
@@ -309,26 +292,25 @@ header img {
     justify-content: center;
     align-items: center;
     color: #fff;
-    font-size: 10px; /* Adjust font size as needed */
-  }
+    font-size: 10px; 
+}
   
-  /* ... rest of the CSS remains the same ... */
   
-  .profile-pic {
+.profile-pic {
   width: 40px;
   height: 40px;
   background-color: #555;
   border-radius: 50%;
   margin-left: 10px;
-  }
+}
 .icons-container {
     position: absolute;
-    right: 16%; /* Adjust as needed */
+    right: 16%; 
     top: 18%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Adjust the gap between icons */
+    gap: 10px;
     display: flex;
     flex-direction: row;
 }
@@ -337,11 +319,9 @@ header img {
 }
 .icons-container i {
     display: inline-block;
-
-    
     cursor: pointer;
-    font-size: 24px; /* Adjust the size of the icons */
-    color: #000000; /* Adjust the color of the icons */
+    font-size: 24px; 
+    color: #000000; 
 }
 
 
@@ -365,10 +345,10 @@ header img {
 }
 @media screen and (max-width: 500px) {
     .nav-links li a i {
-        font-size: 14px; /* Adjust the font size of the icons */
+        font-size: 14px; 
     }
   
     .nav-links li a span {
-        font-size: 10px; /* Adjust the font size of the text */
+        font-size: 10px; 
     }
-  }
+}
