@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .profile {
+      display: flex;
+      margin: 50px auto;
+      max-width: 600px;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile-picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info {
+      margin-left: 30px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    button {
+      padding: 5px 10px;
+      background-color: #000000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #c2c2c2;
+      color: black;
+    }
+
+    footer {
+      background-color: #000000;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    li{
+      list-style-type: none;
+      font-size: 15px;
+    }
+    a{
+      color: white;
+      text-decoration: none;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: rgb(0, 0, 0);
+      color: white;
+      position: fixed;
+      left: 0;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: 50px; 
+    }
+
+    header input {
+      background-color: #ffffff;
+      border: none;
+      color: black;
+      padding: 5px 10px;
+      margin-right: 10px;
+      font-size: 15px;
+      border-radius: 15px;
+      border: none;
+    }
+
+    .dark-theme {
+      background-color: #000000;
+      color: #fff;
+    }
+    
+    .left-section {
+      margin-right: auto;
+      margin-left: 50px;
+    }
+    
+    .right-section {
+      display: flex;
+      align-items: center;
+    }
+    .profile1{
+      margin-right: 5px;
+    }
+    .icon {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin-left: 8px;  
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 15px; 
+      right: 14px; 
+      width: 15px; 
+      height: 15px;
+      background-color: red;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 10px; 
+    }
+    .profile{
+      margin-top: 20%;
+      margin-bottom: autu;
+    }
+    .arrow-icon {
+      margin-bottom: -50px;
+      margin-top: 100px;
+      margin-left: 30px;
+    }
+
+    .arrow-icon i {
+      font-size: 24px;
+      color: #000000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <header class="dark-theme">
+        <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+        <div class="left-section">
+            
+        <input  placeholder="Search" id="searchInput">
+        </div>
+        <div class="right-section">
+            <div class="icon settings"><i class="fas fa-cog"></i></div>
+            <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+                <span class="notification-dot">4</span>
+            </div>
+            <div class="icon profile1"><i class="fas fa-user"></i></div>
+        </div>
+    </header>
+  </section>
+
+  <div class="arrow-icon" id="myb">
+    <i class="fas fa-arrow-left"></i>
+  </div>
+
+  <main>
+    <div class="profile">
+      <div class="profile-picture" id="profile-picture" onclick="openFile(event)">
+        <img id="profile-img" src="../chat/pro.jpg" alt="Profile Picture">
+        <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
+      </div>
+
+      <div class="profile-info">
+          <div class="field">
+            <label for="username">Username:</label>
+            <span id="username">JohnDoe</span>
+            <button onclick="editField('username')">Edit</button>
+          </div>
+
+          <div class="field">
+            <label for="email">Email:</label>
+            <span id="email">johndoe@example.com</span>
+            <button onclick="editField('email')">Edit</button>
+          </div>
+
+        <div class="field">
+            <label for="password">Password:</label>
+            <span id="password">********</span>
+            <button onclick="editField('password')">Change</button>
+        </div>
+      </div>
+    </div>
+  </main>
+      <footer>
+        <p>&copy; 2024 My Profile. All rights reserved.</p>
+        <a href="#">Contact Us</a>
+      </footer>
+  </footer>
+  <script >
+    document.getElementById('myb').addEventListener('click', function(event){
+      window.location.href = '../Dashboard/dashboard.html';
+    });
+
+    let fileInput = document.getElementById('file-input');
+
+    function openFile(event) {
+      fileInput.click();
+    }
+
+    fileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const img = document.getElementById('profile-img');
+        img.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+      resetFileInput(); // Reset file input after upload
+    });
+
+    function resetFileInput() {
+      fileInput.value = ''; // Reset the file input's value to allow re-uploading
+    }
+
+    function editField(fieldName) {
+      const field = document.getElementById(fieldName);
+      const value = field.textContent.trim();
+      const newValue = prompt(`Enter new ${fieldName}:`, value);
+
+      if (newValue !== null && newValue !== '') {
+        field.textContent = newValue;
+        alert(`${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} updated successfully!`);
+      } else {
+        alert('Please enter a valid value.');
+      }
+    }
+    const icons = document.querySelectorAll('.icon');
+
+    icons.forEach(icon => {
+      icon.addEventListener('mouseover', () => {
+        icon.style.transform = 'scale(1.2)';
+      });
+      icon.addEventListener('mouseout', () => {
+        icon.style.transform = 'scale(1)';
+      });
+    });
+
+
+  </script>
+</body>
+</html>
+

@@ -23,6 +23,7 @@ adjustHeight(description);
     optionsContainer.innerHTML = ''; // Clear the options container
 
     if (selectedProject) {
+        document.innerHTML = "Assign task to";
         if (selectedProject === 'project1') {
             addOptions(['Favour', 'Aarron', 'Letso']);
         } else if (selectedProject === 'project2') {
