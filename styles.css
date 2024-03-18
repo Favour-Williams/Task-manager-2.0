@@ -70,6 +70,7 @@ margin-left: 20px;
 	color: black;
 	padding: 20px 30px;
 	width: 200px;
+	
 }
 
 footer ul {
@@ -78,7 +79,7 @@ footer ul {
  
 }
 .footer-icons {
-    margin-left: auto; /* Pushes the icons to the right */
+    margin-left: auto; 
 }
 footer{
 	padding-top: 130px; 
@@ -101,9 +102,7 @@ footer ul li a {
     justify-content: center;
     flex-grow: 1;
 }
-/* Existing CSS */
 
-/* Add a new class for the footer icons */
 .footer-icons {
     margin-left: auto; 
 	display: flex;
@@ -115,26 +114,31 @@ li{
 	margin-right: 5px
 	
 }
-/* Adjust the footer layout */
 footer ul {
     list-style: none;
     display: flex;
-    justify-content: space-between; /* Adds space between the list items */
-    align-items: center; /* Aligns items vertically in the center */
-    padding: 0 20px; /* Adds padding to the left and right of the footer */
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 20px; 
 }
 
-/* Adjust the spacing between the remaining list items in the footer */
 footer ul li {
     padding-right: 10px;
 }
 
-/* Ensure the icons are displayed inline */
 footer ul li i {
     display: inline-block;
 }
+@media screen and (max-width: 1150px) {
+	img{
+		position: absolute;
+		top: 700px;
+	}
+	footer{
+		margin-top: 300px;
+	}
+}
 @media screen and (max-width: 600px) {
-    /* Target the text within the list items, excluding the icons */
     footer ul li a {
         font-size: 9px;
     }
@@ -144,4 +148,16 @@ footer ul li i {
 	nav ul li a{
 		font-size: 12px;
 	}
+	
+}
+
+@media screen and (max-width:550px) {
+	img{
+		margin-top: 50px;
+		width: 100px;
+		height: auto;
+		max-width: 380px; 
+        max-height: 380px; 
+	}
+	
 }
