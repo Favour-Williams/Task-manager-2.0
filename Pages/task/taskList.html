@@ -141,7 +141,7 @@
                         <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
                         <li><a href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
                         <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
-                        <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
+                        <li><a href="#"><i class="fas fa-tasks"></i> Task List</a></li>
                         <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
                         <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
                         <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
@@ -155,13 +155,13 @@
                 <div >
                     <form id="popup" style="display: none;">
                         <label>Task Name:</label>
-                        <input type="text" name="boardName" id="boardName">
+                        <input type="text" name="boardName" id="boardName" required>
                 
                         <label>Description</label>
-                        <textarea id="description" rows="1"></textarea>   
+                        <textarea id="description" rows="1" required></textarea>   
                         
                         <label>Select Project:</label>
-                        <select id="projectDropdown">
+                        <select id="projectDropdown" required>
                             <option value="">Select a project</option>
                             <option value="project1">Library</option>
                             <option value="project2">Website</option>
@@ -288,14 +288,16 @@
                         </div>
                     </div>
                 </div> 
-                <div id="taskList" style="margin-top: 20px;">
+                <div id="taskList" style="margin-top: 1px;">
                     <!-- Tasks will be dynamically added here -->
                     
                 </div>
-                    <button id="newTaskButton" style="background-color: black; 
-                        color: white; width: 130px; height: 43px; border: none; border-radius: 34px; font-size: 16px; float: right; cursor: pointer;
-                        margin-bottom: 10px;
-                    ">New Task</button>
+                <button id="newTaskButton" style="background-color: black; 
+                    color: white; width: 130px; height: 43px; border: none; border-radius: 34px; font-size: 16px; float: right; cursor: pointer;
+                    margin-bottom: 10px;
+                ">
+                    New Task
+                </button>
                     
             </div>
         </main>

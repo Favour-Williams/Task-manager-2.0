@@ -98,7 +98,89 @@ icons.forEach(icon => {
   });
 });
 
+function addNewTask(taskName, description, project, assignedTo) {
+    const taskList = document.getElementById('taskList');
 
+    // Create a new task container
+    const newTaskContainer = document.createElement('div');
+    newTaskContainer.classList.add('msg-header');
+
+    // Create the container for task details
+    const container1 = document.createElement('div');
+    container1.classList.add('container1');
+    const activeDiv = document.createElement('div');
+    activeDiv.classList.add('active');
+    const taskNameParagraph = document.createElement('p');
+    taskNameParagraph.textContent = taskName;
+
+    // Create task status buttons
+    const taskStatusDiv = document.createElement('div');
+    taskStatusDiv.classList.add('task-status');
+    const completeBtn = document.createElement('button');
+    completeBtn.classList.add('status-btn', 'complete');
+    completeBtn.textContent = 'Complete';
+    const incompleteBtn = document.createElement('button');
+    incompleteBtn.classList.add('status-btn', 'incomplete');
+    incompleteBtn.textContent = 'Incomplete';
+
+    // Add event listeners to task status buttons
+    completeBtn.addEventListener('click', function() {
+        newTaskContainer.style.backgroundColor = 'lightgreen';
+    });
+    incompleteBtn.addEventListener('click', function() {
+        newTaskContainer.style.backgroundColor = 'lightcoral';
+    });
+
+    // Append task status buttons to the container
+    taskStatusDiv.appendChild(completeBtn);
+    taskStatusDiv.appendChild(incompleteBtn);
+
+    // Append task name and status to the active div
+    activeDiv.appendChild(taskNameParagraph);
+    activeDiv.appendChild(taskStatusDiv);
+
+    // Append active div to container1
+    container1.appendChild(activeDiv);
+
+    // Create the description display div
+    const descriptionDiv = document.createElement('div');
+    descriptionDiv.classList.add('displayDiscription');
+
+    // Add description text to the description display div
+    const descriptionParagraph = document.createElement('p');
+    descriptionParagraph.textContent = 'Description:';
+    const descriptionText = document.createElement('p');
+    descriptionText.textContent = description;
+    const projectParagraph = document.createElement('p');
+    projectParagraph.textContent = 'Project: ' + project;
+    const assignedToParagraph = document.createElement('p');
+    assignedToParagraph.textContent = 'Assigned to:';
+
+    // Create an ordered list for assigned users
+    const assignedList = document.createElement('ol');
+    assignedList.style.color = 'white';
+    assignedList.style.textAlign = 'left'; // Align the list items to the left
+    assignedList.style.marginTop = '-5px'; // Adjust margin as needed
+    assignedTo.forEach(user => {
+        const listItem = document.createElement('li');
+        listItem.textContent = user;
+        assignedList.appendChild(listItem);
+    });
+
+    // Append description details to the description display div
+    descriptionDiv.appendChild(descriptionParagraph);
+    descriptionDiv.appendChild(descriptionText);
+    descriptionDiv.appendChild(projectParagraph);
+    descriptionDiv.appendChild(assignedToParagraph);
+    descriptionDiv.appendChild(assignedList);
+
+    // Append container1 and descriptionDiv to new task container
+    newTaskContainer.appendChild(container1);
+    newTaskContainer.appendChild(descriptionDiv);
+
+    // Append new task container to the task list
+    taskList.appendChild(newTaskContainer);
+}
 document.querySelectorAll('.status-btn').forEach(button => {
     button.addEventListener('click', function() {
         const task = this.closest('.msg-header');
@@ -107,5 +189,27 @@ document.querySelectorAll('.status-btn').forEach(button => {
         } else if (this.classList.contains('incomplete')) {
             task.style.backgroundColor = 'lightcoral';
         }
+    });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('popup');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const taskName = document.getElementById('boardName').value;
+        const description = document.getElementById('description').value;
+        const projectDropdown = document.getElementById('projectDropdown');
+        const selectedProject = projectDropdown.options[projectDropdown.selectedIndex].text;
+        const selectedOptions = document.querySelectorAll('.optionCheckbox:checked');
+        const assignedTo = Array.from(selectedOptions).map(option => option.value);
+
+        addNewTask(taskName, description, selectedProject, assignedTo);
+
+        // Reset form fields
+        form.reset();
+        document.getElementById('optionsContainer').innerHTML = ''; // Clear selected options
+        document.getElementById('popup').style.display = 'none'; // Hide the popup
     });
 });
