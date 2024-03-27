@@ -4,7 +4,6 @@
       <meta charset="utf-8">
       <title>Popup Login Form Design</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
       <link rel="stylesheet" href="sign-up.css">
    </head>
    <body>
@@ -16,18 +15,18 @@
             <form action="#" id="signupForm">
                <div class="data">
                   <label>Email or Phone-Number</label>
-                  <input type="text" id="emailOrPhone" placeholder="Enter email or phone number" required>
+                  <input type="text" id="emailOrPhone" placeholder="Enter email or phone number" name="email" required>
                </div>
                <div class="data">
                   <label>Create Password</label>
-                  <input type="password" id="password" placeholder="Enter Password" required>
+                  <input type="password" id="password" placeholder="Enter Password" name="password" required>
                </div>
                <div class="data">
                     <label>Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" name="password" required>
                 </div>
               
-               <button type="submit" class="button" id="myButton">Sign up</button>
+               <button type="button" class="button" id="submitButton">Sign up</button>
                <div class="horizontal-line">
                   <hr>
                   <span>or</span>
@@ -35,12 +34,12 @@
                </div>
 
                <!-- Sign in with Google -->
-               <button class="social-button google">
+               <button class="social-button google" id="google">
                   <i class="fab fa-google google-icon"></i>
                   <span>Sign in with Google</span>
                </button>
                   <!-- Sign in with GitHub -->
-               <button class="social-button github">
+               <button class="social-button github" id="github">
                   <i class="fab fa-github"></i>
                   <span>Sign in with GitHub</span>
                </button>
@@ -75,8 +74,67 @@
             }
 
             // If validation passes, handle signup logic or redirect to dashboard
-            window.location.href = '../Dashboard/dashboard.html';
+            //window.location.href = '../Dashboard/dashboard.html';
         });
       </script>
+      <script type="module">
+         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+         // TODO: Add SDKs for Firebase products that you want to use
+         // https://firebase.google.com/docs/web/setup#available-libraries
+         import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+         import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+         
+         const firebaseConfig = {
+            apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+            authDomain: "hci-project-54354.firebaseapp.com",
+            projectId: "hci-project-54354",
+            storageBucket: "hci-project-54354.appspot.com",
+            messagingSenderId: "970506049036",
+            appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+         };
+         
+         // Initialize Firebase
+         const app = initializeApp(firebaseConfig);
+         const auth = getAuth();
+        // var provider = new GoogleAuthProvider();
+         const database = getDatabase(app);
+         submitButton.addEventListener('click', (e) => {
+            var email = document.getElementById('emailOrPhone').value;
+            var password = document.getElementById('password').value;
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+               // Signed up 
+               const user = userCredential.user;
+               // ... user.uid
+               set(ref(database, 'users/' + user.uid), {
+                  //username: name,
+                  email: email,
+                  password: password
+                  //profile_picture : imageUrl
+               })
+               .then(() => {
+               // Data saved successfully!
+               window.location.href = "../Dashboard/dashboard.html";
+
+               })
+               .catch((error) => {
+               // The write failed...
+               alert(error);
+               });
+               
+            })
+            .catch((error) => {
+               const errorCode = error.code;
+               const errorMessage = error.message;
+               // ..
+               alert(errorMessage)
+            });
+         });
+         
+      </script>
+      
    </body>
 </html>
+
+

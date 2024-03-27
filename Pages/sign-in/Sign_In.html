@@ -25,7 +25,7 @@
                <div class="forgot-pass">
                   <a href="#">Forgot Password?</a>
                </div>
-               <button type="submit" class="button" id="myButton">Sign in</button>
+               <button type="submit" class="button" id="signin">Sign in</button>
                <div class="signup-link">
                   Not a member? <a href="../Sign-up/Sign_Up_Page.html">Signup now</a>
                </div>
@@ -68,8 +68,63 @@
             }
 
             // If validation passes, redirect to the dashboard or handle as needed
-            window.location.href = '../Dashboard/dashboard.html';
+            //window.location.href = '../Dashboard/dashboard.html';
          });
       </script>
+      <script type="module">
+         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+         // TODO: Add SDKs for Firebase products that you want to use
+         // https://firebase.google.com/docs/web/setup#available-libraries
+         import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+         import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+         
+         const firebaseConfig = {
+            apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+            authDomain: "hci-project-54354.firebaseapp.com",
+            projectId: "hci-project-54354",
+            storageBucket: "hci-project-54354.appspot.com",
+            messagingSenderId: "970506049036",
+            appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+         };
+         
+         // Initialize Firebase
+         const app = initializeApp(firebaseConfig);
+         const auth = getAuth();
+        // var provider = new GoogleAuthProvider();
+        const database = getDatabase(app);
+
+        signin.addEventListener('click', (e) => {
+            var email = document.getElementById('emailOrPhone').value;
+            var password = document.getElementById('password').value;
+            signInWithEmailAndPassword(auth, email, password)
+               .then((userCredential) => {
+                  // Signed in 
+                  const user = userCredential.user;
+                  // ...
+                  var lgdate = new Date();
+                  update(ref(database, 'users/' + user.uid), {
+                     //username: name,
+                     last_login: lgdate
+                     //profile_picture : imageUrl
+                  })
+                  .then(() => {
+                  // Data saved successfully!
+                  window.location.href = "../Dashboard/dashboard.html";
+
+                  })
+                  .catch((error) => {
+                  // The write failed...
+                     alert(error);
+                  });
+               })
+               .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  alert(errorMessage)
+               });
+         }); 
+      </script>  
    </body>
 </html>
+        
