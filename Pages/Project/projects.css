@@ -162,6 +162,7 @@ img {
 .msg-header:hover{
     height: 150px;
     transition: 0.5s ease-out;
+    max-height: 1000px;
 }
 .msg-header {
     border: none;
@@ -208,6 +209,8 @@ img {
     display: block;
     transition: 0.5s ease-out;
     opacity: 1;
+    max-height: 1000px;
+
 }
 .container1 {
     width: 270px;
@@ -261,6 +264,7 @@ button {
     cursor: pointer;
     float: right;
     max-width: 400px;
+    text-align: center;
   }
 button:hover{
     color: black;
