@@ -213,13 +213,13 @@
 
           <div class="field">
             <label for="email">Email:</label>
-            <span id="email">johndoe@example.com</span>
+            <span id="email"></span>
             <button onclick="editField('email')">Edit</button>
           </div>
 
         <div class="field">
             <label for="password">Password:</label>
-            <span id="password">********</span>
+            <span id="password"></span>
             <button onclick="editField('password')">Change</button>
         </div>
       </div>
@@ -282,6 +282,57 @@
     });
 
 
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import {onAuthStateChanged, getAuth} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+    import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+      authDomain: "hci-project-54354.firebaseapp.com",
+      projectId: "hci-project-54354",
+      storageBucket: "hci-project-54354.appspot.com",
+      messagingSenderId: "970506049036",
+      appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+    };
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    onAuthStateChanged(auth,(user)=>{
+      if(user){
+        const uid = user.uid;
+        const userUID = sessionStorage.getItem('userUID');
+        const email = document.getElementById("email");
+        const fileInput = document.getElementById("file-input").value;
+        const password = document.getElementById("password");
+        const username1 = document.getElementById("username").textContent.trim();
+        update(ref(database, 'users/' + uid), {
+              username: username1,
+              
+              profile_picture : fileInput
+        })
+        .then(()=>{})
+        .catch((error)=>{})
+        if (userUID) {
+            console.log(userUID);
+            console.log(user.email);
+            email.innerHTML = user.email;
+           
+           //password.innerHTML = user.password;
+        } else {
+            console.log('User UID not found in session storage');
+        }
+        
+      }
+      else{
+        //
+      }
+    })
   </script>
 </body>
 </html>

@@ -108,10 +108,13 @@
                      last_login: lgdate
                      //profile_picture : imageUrl
                   })
-                  .then(() => {
+                  .then((re) => {
+                     //const user = re.user;
                   // Data saved successfully!
+                  sessionStorage.setItem('userUID', user.uid);
+
                   //window.location.href = "../Dashboard/dashboard.html";
-                  window.location.href = "../task/taskList.html";
+                  window.location.href = `../Dashboard/dashboard.html?email=${encodeURIComponent(user.email)}&userId=${encodeURIComponent(user.uid)}`;
                   })
                   .catch((error) => {
                   // The write failed...

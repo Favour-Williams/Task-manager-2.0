@@ -115,7 +115,8 @@
                })
                .then(() => {
                // Data saved successfully!
-               window.location.href = "../Dashboard/dashboard.html";
+               //window.location.href = "../Dashboard/dashboard.html";
+               window.location.href = `../profile/p.html?email=${encodeURIComponent(user.email)}`;
 
                })
                .catch((error) => {
