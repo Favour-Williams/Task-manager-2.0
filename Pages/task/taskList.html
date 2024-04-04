@@ -244,7 +244,8 @@
                             taskName: taskname,
                             description:description,
                             project: selectedProject,
-                            assignedTo: assignedTo
+                            assignedTo: assignedTo,
+                            status: 'incomplete'
                         })
                         .then((snapshot)=>{console.log("ADDED:", snapshot.key);})
                         .catch((error)=>{console.error(error);})
@@ -271,23 +272,28 @@
             })
 
             function displayTasks(userId) {
-                    const tasksRef = ref(database, 'tasks/' + userId);
-                    onValue(tasksRef, (snapshot) => {
-                        const tasks = snapshot.val();
-                        const taskList = document.getElementById('taskList');
-                        taskList.innerHTML = ''; // Clear the container
+                const tasksRef = ref(database, 'tasks/' + userId);
+                onValue(tasksRef, (snapshot) => {
+                    const tasks = snapshot.val();
+                    const taskList = document.getElementById('taskList');
+                    taskList.innerHTML = ''; // Clear the container
 
-                        // Loop through each task and use addNewTask to display them
-                        for (const taskId in tasks) {
-                            const task = tasks[taskId];
-                            // Assuming task has properties taskName, description, project, and assignedTo
-                            // If your task structure is different, adjust accordingly
-                            addNewTask(task.taskName, task.description, task.project, task.assignedTo);
+                    for (const taskId in tasks) {
+                        const task = tasks[taskId];
+                        // Determine the background color based on the task's status
+                        let statusColor = 'white';
+                        if (task.status === 'complete') {
+                            statusColor = 'lightgreen';
+                        } else if (task.status === 'incomplete') {
+                            statusColor = 'lightcoral';
                         }
-                    });
-                }
+                        addNewTask(task.taskName, task.description, task.project, task.assignedTo, statusColor);
+                    }
+                });
+            }
 
-                function addNewTask(taskName, description, project, assignedTo) {
+
+            function addNewTask(taskName, description, project, assignedTo, statusColor = 'black') {
                     const taskList = document.getElementById('taskList');
 
                     // Create a new task container
@@ -311,13 +317,18 @@
                     const incompleteBtn = document.createElement('button');
                     incompleteBtn.classList.add('status-btn', 'incomplete');
                     incompleteBtn.textContent = 'Incomplete';
+                    
+                    
+                    newTaskContainer.style.backgroundColor = statusColor;
 
                     // Add event listeners to task status buttons
                     completeBtn.addEventListener('click', function() {
                         newTaskContainer.style.backgroundColor = 'lightgreen';
+                        updateTaskStatusInFirebase(taskId, 'complete');
                     });
                     incompleteBtn.addEventListener('click', function() {
                         newTaskContainer.style.backgroundColor = 'lightcoral';
+                        updateTaskStatusInFirebase(taskId, 'incomplete');
                     });
 
                     // Append task status buttons to the container
@@ -369,7 +380,19 @@
 
                     // Append new task container to the task list
                     taskList.appendChild(newTaskContainer);
-                }
+            }
+
+            function updateTaskStatusInFirebase(taskId, status) {
+                    const taskRef = ref(database, 'tasks/' + user.uid + '/' + taskId);
+                    update(taskRef, {
+                        status: status
+                    }).then(() => {
+                        console.log("Task status updated successfully");
+                    }).catch((error) => {
+                        console.error("Error updating task status:", error);
+                    });
+            }
+
         </script>
     </body>
 </html>
