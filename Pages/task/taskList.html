@@ -245,7 +245,7 @@
                             description:description,
                             project: selectedProject,
                             assignedTo: assignedTo,
-                            status: 'incomplete'
+                            status: ''
                         })
                         .then((snapshot)=>{console.log("ADDED:", snapshot.key);})
                         .catch((error)=>{console.error(error);})
@@ -281,19 +281,19 @@
                     for (const taskId in tasks) {
                         const task = tasks[taskId];
                         // Determine the background color based on the task's status
-                        let statusColor = 'white';
+                        let statusColor = 'black';
                         if (task.status === 'complete') {
                             statusColor = 'lightgreen';
                         } else if (task.status === 'incomplete') {
                             statusColor = 'lightcoral';
                         }
-                        addNewTask(task.taskName, task.description, task.project, task.assignedTo, statusColor);
+                        addNewTask(taskId, task.taskName, task.description, task.project, task.assignedTo, statusColor);
                     }
                 });
             }
 
 
-            function addNewTask(taskName, description, project, assignedTo, statusColor = 'black') {
+            function addNewTask(taskId, taskName, description, project, assignedTo, statusColor = 'black') {
                     const taskList = document.getElementById('taskList');
 
                     // Create a new task container
@@ -382,15 +382,23 @@
                     taskList.appendChild(newTaskContainer);
             }
 
+       
+
             function updateTaskStatusInFirebase(taskId, status) {
+                const user = getAuth().currentUser; // Ensure you have the current user
+                if (user) {
                     const taskRef = ref(database, 'tasks/' + user.uid + '/' + taskId);
                     update(taskRef, {
                         status: status
                     }).then(() => {
                         console.log("Task status updated successfully");
+                        //displayTasks(user.uid);
                     }).catch((error) => {
                         console.error("Error updating task status:", error);
                     });
+                } else {
+                    console.error("User not logged in");
+                }
             }
 
         </script>

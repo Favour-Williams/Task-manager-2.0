@@ -62,7 +62,7 @@
 
             // Simple validation: check if email is in a valid format and password is not empty
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailOrPhone) || password.length < 8) {
+            if (!emailRegex.test(emailOrPhone) || password.length < 6) {
                alert('Please enter a valid email or phone number and a password of at least 8 characters.');
                return false;
             }
@@ -92,7 +92,8 @@
          const app = initializeApp(firebaseConfig);
          const auth = getAuth();
         // var provider = new GoogleAuthProvider();
-        const database = getDatabase(app);
+         const database = getDatabase(app);
+        const signin = document.getElementById("signin");
 
         signin.addEventListener('click', (e) => {
             var email = document.getElementById('emailOrPhone').value;
@@ -104,9 +105,7 @@
                   // ...
                   var lgdate = new Date();
                   update(ref(database, 'users/' + user.uid), {
-                     //username: name,
                      last_login: lgdate
-                     //profile_picture : imageUrl
                   })
                   .then((re) => {
                      //const user = re.user;
@@ -118,13 +117,13 @@
                   })
                   .catch((error) => {
                   // The write failed...
-                     alert(error);
+                  console.error('Error updating user data:', error);
+             alert('Error updating user data');
                   });
                })
                .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  alert(errorMessage)
+                  console.error('Sign-in error:', error);
+          alert('Sign-in error: ' + error.message);
                });
          }); 
       </script>  
