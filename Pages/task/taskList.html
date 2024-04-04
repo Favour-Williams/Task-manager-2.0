@@ -169,125 +169,11 @@
                         <p style="margin-top: -5px;">Assign task to</p>
                 
                         <div id="optionsContainer"></div>
-                        <input type="submit" value="Create"/>
+                        <input type="submit" value="Create" id="taskButton"/>
                         
                     </form>
                 </div>
-                <div class="msg-header">
-                    <div class="container1">
-                        <div class="active ">
-                            <p>Design UI</p>
-                            <div class="task-status">
-                                <button class="status-btn complete">Complete</button>
-                                <button class="status-btn incomplete">Incomplete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="max-width: 1000px; max-height: 1000px; margin-left: auto; margin-right: auto; margin-top: 10px;">
-                        <div class="displayDiscription">
-                            <p>Description:</p>
-                            <p style=" max-width: 1000px; max-height: 1000px;">Designing the interface</p>
-                            <p>Project: Website</p>
-                            <p >Assigned to:</p>
-                            <ol style="color: white; float: left; margin-top: -5px;">
-                                <li>Favour</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div> 
-                <div class="msg-header">
-                    <div class="container1">
-                        <div class="active ">
-                            <p>Refactor Code</p>
-                            <div class="task-status">
-                                <button class="status-btn complete">Complete</button>
-                                <button class="status-btn incomplete">Incomplete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="max-width: 1000px; max-height: 1000px; margin-left: auto; margin-right: auto; margin-top: 10px;">
-                        <div class="displayDiscription">
-                            <p>Description:</p>
-                            <p style=" max-width: 1000px; max-height: 1000px;">Debugging</p>
-                            <p>Project: Website</p>
-                            <p >Assigned to:</p>
-                            <ol style="color: white; float: left; margin-top: -5px;">
-                                <li>Favour</li>
-                                <li>Terrence</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div> 
-
-                <div class="msg-header">
-                    <div class="container1">
-                        <div class="active ">
-                            <p>Add stop button</p>
-                            <div class="task-status">
-                                <button class="status-btn complete">Complete</button>
-                                <button class="status-btn incomplete">Incomplete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="max-width: 1000px; max-height: 1000px; margin-left: auto; margin-right: auto; margin-top: 10px;">
-                        <div class="displayDiscription">
-                            <p>Description:</p>
-                            <p style=" max-width: 1000px; max-height: 1000px;">Making a button that stops the website for loading</p>
-                            <p>Project: Website</p>
-                            <p >Assigned to:</p>
-                            <ol style="color: white; float: left; margin-top: -5px;">
-                                <li>Letso</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div> 
-                <div class="msg-header">
-                    <div class="container1">
-                        <div class="active ">
-                            <p>Fix Expanding Bug</p>
-                            <div class="task-status">
-                                <button class="status-btn complete">Complete</button>
-                                <button class="status-btn incomplete">Incomplete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="max-width: 1000px; max-height: 1000px; margin-left: auto; margin-right: auto; margin-top: 10px;">
-                        <div class="displayDiscription">
-                            <p>Description:</p>
-                            <p style=" max-width: 1000px; max-height: 1000px;">Findin bugs</p>
-                            <p>Project: Website</p>
-                            <p >Assigned to:</p>
-                            <ol style="color: white; float: left; margin-top: -5px;">
-                                <li>Daniel</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div> 
-                <div class="msg-header">
-                    <div class="container1">
-                        <div class="active ">
-                            <p>Implementation</p>
-                            <div class="task-status">
-                                <button class="status-btn complete">Complete</button>
-                                <button class="status-btn incomplete">Incomplete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="max-width: 1000px; max-height: 1000px; margin-left: auto; margin-right: auto; margin-top: 10px;">
-                        <div class="displayDiscription">
-                            <p>Description:</p>
-                            <p style=" max-width: 1000px; max-height: 1000px;">Implementing the back-end of the library</p>
-                            <p>Project: Library</p>
-                            <p >Assigned to:</p>
-                            <ol style="color: white; float: left; margin-top: -5px;">
-                                <li>Favour</li>
-                                <li>Aarron</li>
-                                <li>Letso</li>
-                                <li></li>
-                            </ol>
-                        </div>
-                    </div>
-                </div> 
+               
                 <div id="taskList" style="margin-top: 1px;">
                     <!-- Tasks will be dynamically added here -->
                     
@@ -309,8 +195,8 @@
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
             // TODO: Add SDKs for Firebase products that you want to use
             // https://firebase.google.com/docs/web/setup#available-libraries
-            import { getAuth} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-            import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+            import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+            import { getDatabase, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
 
             
             const firebaseConfig = {
@@ -324,6 +210,166 @@
             
             // Initialize Firebase
             const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+            const auth = getAuth();
+
+           
+
+            var taskButton = document.getElementById("taskButton");
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    displayTasks(user.uid);
+                }
+            });
+            taskButton.addEventListener('click', (e)=>{
+                e.preventDefault();
+                var taskname = document.getElementById("boardName").value;
+                var description = document.getElementById("description").value;
+                const projectDropdown = document.getElementById('projectDropdown');
+                const selectedProject = projectDropdown.options[projectDropdown.selectedIndex].text;
+                const selectedOptions = document.querySelectorAll('.optionCheckbox:checked');
+                const assignedTo = Array.from(selectedOptions).map(option => option.value);
+
+                const form = document.getElementById('popup');
+                const taskMain = document.getElementById('taskMain');
+
+                
+
+                onAuthStateChanged(auth,(user)=>{
+                    if(user){
+                        const uid = user.uid;
+                        const userUID = sessionStorage.getItem('userUID');
+                        console.log(uid);
+                        push(ref(database, 'tasks/' + uid), {
+                            taskName: taskname,
+                            description:description,
+                            project: selectedProject,
+                            assignedTo: assignedTo
+                        })
+                        .then((snapshot)=>{console.log("ADDED:", snapshot.key);})
+                        .catch((error)=>{console.error(error);})
+
+
+                        form.reset();
+                        document.getElementById('optionsContainer').innerHTML = ''; // Clear selected options
+                        document.getElementById('popup').style.display = 'none'; // Hide the popup
+
+                       
+                        if (userUID) {
+                            
+                        
+                        } else {
+                            console.log('User UID not found in session storage');
+                        }
+                        
+                    }
+                    else{
+                        //
+                    }
+                })
+                
+            })
+
+            function displayTasks(userId) {
+                    const tasksRef = ref(database, 'tasks/' + userId);
+                    onValue(tasksRef, (snapshot) => {
+                        const tasks = snapshot.val();
+                        const taskList = document.getElementById('taskList');
+                        taskList.innerHTML = ''; // Clear the container
+
+                        // Loop through each task and use addNewTask to display them
+                        for (const taskId in tasks) {
+                            const task = tasks[taskId];
+                            // Assuming task has properties taskName, description, project, and assignedTo
+                            // If your task structure is different, adjust accordingly
+                            addNewTask(task.taskName, task.description, task.project, task.assignedTo);
+                        }
+                    });
+                }
+
+                function addNewTask(taskName, description, project, assignedTo) {
+                    const taskList = document.getElementById('taskList');
+
+                    // Create a new task container
+                    const newTaskContainer = document.createElement('div');
+                    newTaskContainer.classList.add('msg-header');
+
+                    // Create the container for task details
+                    const container1 = document.createElement('div');
+                    container1.classList.add('container1');
+                    const activeDiv = document.createElement('div');
+                    activeDiv.classList.add('active');
+                    const taskNameParagraph = document.createElement('p');
+                    taskNameParagraph.textContent = taskName;
+
+                    // Create task status buttons
+                    const taskStatusDiv = document.createElement('div');
+                    taskStatusDiv.classList.add('task-status');
+                    const completeBtn = document.createElement('button');
+                    completeBtn.classList.add('status-btn', 'complete');
+                    completeBtn.textContent = 'Complete';
+                    const incompleteBtn = document.createElement('button');
+                    incompleteBtn.classList.add('status-btn', 'incomplete');
+                    incompleteBtn.textContent = 'Incomplete';
+
+                    // Add event listeners to task status buttons
+                    completeBtn.addEventListener('click', function() {
+                        newTaskContainer.style.backgroundColor = 'lightgreen';
+                    });
+                    incompleteBtn.addEventListener('click', function() {
+                        newTaskContainer.style.backgroundColor = 'lightcoral';
+                    });
+
+                    // Append task status buttons to the container
+                    taskStatusDiv.appendChild(completeBtn);
+                    taskStatusDiv.appendChild(incompleteBtn);
+
+                    // Append task name and status to the active div
+                    activeDiv.appendChild(taskNameParagraph);
+                    activeDiv.appendChild(taskStatusDiv);
+
+                    // Append active div to container1
+                    container1.appendChild(activeDiv);
+
+                    // Create the description display div
+                    const descriptionDiv = document.createElement('div');
+                    descriptionDiv.classList.add('displayDiscription');
+
+                    // Add description text to the description display div
+                    const descriptionParagraph = document.createElement('p');
+                    descriptionParagraph.textContent = 'Description:';
+                    const descriptionText = document.createElement('p');
+                    descriptionText.textContent = description;
+                    const projectParagraph = document.createElement('p');
+                    projectParagraph.textContent = 'Project: ' + project;
+                    const assignedToParagraph = document.createElement('p');
+                    assignedToParagraph.textContent = 'Assigned to:';
+
+                    // Create an ordered list for assigned users
+                    const assignedList = document.createElement('ol');
+                    assignedList.style.color = 'white';
+                    assignedList.style.textAlign = 'left'; // Align the list items to the left
+                    assignedList.style.marginTop = '-5px'; // Adjust margin as needed
+                    assignedTo.forEach(user => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = user;
+                        assignedList.appendChild(listItem);
+                    });
+
+                    // Append description details to the description display div
+                    descriptionDiv.appendChild(descriptionParagraph);
+                    descriptionDiv.appendChild(descriptionText);
+                    descriptionDiv.appendChild(projectParagraph);
+                    descriptionDiv.appendChild(assignedToParagraph);
+                    descriptionDiv.appendChild(assignedList);
+
+                    // Append container1 and descriptionDiv to new task container
+                    newTaskContainer.appendChild(container1);
+                    newTaskContainer.appendChild(descriptionDiv);
+
+                    // Append new task container to the task list
+                    taskList.appendChild(newTaskContainer);
+                }
         </script>
     </body>
 </html>
