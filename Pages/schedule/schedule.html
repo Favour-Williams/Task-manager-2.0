@@ -122,5 +122,68 @@
     </article>
 
     <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getDatabase, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+            
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+            authDomain: "hci-project-54354.firebaseapp.com",
+            projectId: "hci-project-54354",
+            storageBucket: "hci-project-54354.appspot.com",
+            messagingSenderId: "970506049036",
+            appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+        };
+            
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        const addEvent = document.getElementById("addEvent");
+
+        addEvent.addEventListener('click', (e)=>{
+            e.preventDefault();
+            const eventDate = document.getElementById("eventDate").value;
+            const eventTitle = document.getElementById("eventTitle").value;
+            const eventDescription = document.getElementById("eventDescription").value;
+
+
+            onAuthStateChanged(auth, (user)=>{
+                if(user){
+                    const uid = user.uid;
+                    const userUID = sessionStorage.getItem('userUID');
+                    console.log(uid);
+                    push(ref(database, 'events/' + uid), {
+                        Date:eventDate,
+                        eventTitle: eventTitle,
+                        eventDescription:eventDescription
+                    })
+                    .then((snapshot)=>{console.log("ADDED:", snapshot.key);})
+                    .catch((error)=>{console.error(error);})
+
+                    document.getElementById("eventDate").value = "";
+                    document.getElementById("eventTitle").value = "";
+                    document.getElementById("eventDescription").value = "";
+
+
+                    if (userUID) {
+                                
+                            
+                    } else {
+                        console.log('User UID not found in session storage');
+                    }
+                            
+                }
+                else{
+                    //
+                }
+            })
+        })
+    </script>
 </body>
 </html>
