@@ -153,10 +153,10 @@
             <div id="popup" style="display: none;">
                 <form id="ProjectForm">
                     <label>Project Name:</label>
-                    <input type="text" name="boardName" id="boardName">
+                    <input type="text" name="boardName" id="boardName" required>
             
                     <label>Description</label>
-                    <textarea id="description" rows="4"></textarea>   
+                    <textarea id="description" rows="4" required></textarea>   
                     
                     <label>Add Person:</label>
                     <div class="input-button-container">
@@ -164,50 +164,12 @@
                         <button type="button" id="addPersonButton">Add</button>
                     </div>
                     <ol id="personList"></ol>
-                    <input type="submit" value="Create"/>
+                    <input type="submit" value="Create" id="projectButton"/>
                     
                 </form>
             </div>
             <div class="container">
-                <div class="msg-header">
-                    <div class="container1">
-                        <div class="active ">
-                            <p>Library</p>
-                        </div>
-                    </div>
-                    <div style="max-width: 1000px; max-height: 1000px; margin-left: auto; margin-right: auto; margin-top: 10px;">
-                        <div class="displayDiscription">
-                            <p>Description:</p>
-                            <p style=" max-width: 1000px; max-height: 1000px;">Making a simple library that can display, add, delete, and update</p>
-                            <p >Collaborator:</p>
-                            <ol style="color: white; float: left; margin-top: -5px;">
-                                <li>Favour</li>
-                                <li>Aarron</li>
-                                <li>Letso</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div> 
-                <div class="msg-header">
-                    <div class="container1">
-                        <div class="active ">
-                            <p >Website</p>
-                        </div>
-                    </div>
-                    <div style="  margin-left: auto; margin-right: auto; margin-top: 10px;">
-                        <div class="displayDiscription">
-                            <p>Description:</p>
-                            <p style=" max-width: 1000px; max-height: 1000px;">Building a website for counting coins for an online trading market</p>
-                            <p >Collaborator:</p>
-                            <ol style="color: white; float: left; margin-top: -5px; margin-bottom: 20px;">
-                                <li>Tererence</li>
-                                <li>Daniel</li>
-                                <li>Naruto</li>
-                                <li>Favour</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div> 
+               
                 <div  id="taskList" style="margin-top: 3px;">
                     <!-- Tasks will be dynamically added here -->
                     
@@ -238,6 +200,103 @@
             const app = initializeApp(firebaseConfig);
             const database = getDatabase(app);
             const auth = getAuth();
+           
+            var projectButton = document.getElementById("projectButton");
+           
+
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    displayProjects(user.uid);
+                }
+            });
+
+            projectButton.addEventListener('click', (e)=>{
+                e.preventDefault();
+                const projectName = document.getElementById('boardName').value;
+                const description = document.getElementById('description').value;
+                const collaborators = Array.from(document.querySelectorAll('#personList li')).map(li => li.textContent.trim().split(' - ')[0]);
+                
+                const ProjectForm = document.getElementById("ProjectForm");
+
+                onAuthStateChanged(auth, (user)=>{
+                    if(user){
+                        const uid = user.uid;
+                        const userUID = sessionStorage.getItem('userUID');
+                        console.log(uid);
+                        push(ref(database, 'projects/' + uid), {
+                            projectName: projectName,
+                            description: description,
+                            collaborators: collaborators,
+                        })
+                        .then((snapshot)=>{console.log("ADDED:", snapshot.key);})
+                        .catch((error)=>{console.error(error);})
+
+
+                        
+                        
+                        if (userUID) {
+                                
+                            
+                        } else {
+                            console.log('User UID not found in session storage');
+                        }
+                            
+                    }
+                    else{
+                        //
+                    }
+                })
+                
+            })
+
+            function displayProjects(userId) {
+                const projectsRef = ref(database, 'projects/' + userId);
+                onValue(projectsRef, (snapshot) => {
+                    const projects = snapshot.val();
+                    const projectList = document.getElementById('taskList');
+                    projectList.innerHTML = ''; // Clear the container
+
+                    for (const projectId in projects) {
+                        const project = projects[projectId];
+
+                        addNewProject(project.projectName, project.description, project.collaborators);
+                    }
+                });
+            }
+            
+            function addNewProject(projectName, description, collaborators){
+                if (projectName.trim() !== '' && description.trim() !== '') {
+                    // Ensure collaborators is an array, default to an empty array if not
+                    collaborators = Array.isArray(collaborators) ? collaborators : [];
+
+                    // Create new project element
+                    const newProject = document.createElement('div');
+                    newProject.classList.add('msg-header');
+                    newProject.innerHTML = `
+                        <div class="container1">
+                            <div class="active">
+                                <p>${projectName}</p>
+                            </div>
+                        </div>
+                        <div class="displayDiscription">
+                            <p>Description:</p>
+                            <p>${description}</p>
+                            <p>Collaborators:</p>
+                            <ol>${collaborators.map(collaborator => `<li>${collaborator}</li>`).join('')}</ol>
+                        </div>
+                    `;
+
+                    taskList.appendChild(newProject);
+                    popup.style.display = 'none';
+                    document.getElementById('ProjectForm').reset(); // Reset form fields
+
+                    // Update the style of newly added collaborators
+                    const newCollaborators = newProject.querySelectorAll('li');
+                    newCollaborators.forEach(collaborator => {
+                        collaborator.style.marginLeft = '-260px'; // Set margin-left to 10px
+                    });
+                } 
+            }
 
         </script>
 
