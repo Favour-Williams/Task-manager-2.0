@@ -284,12 +284,12 @@
         
         <div class="con1 c1">
             <h3><a href="../Project/projects.html">Project</a></h3>
-            <p id="projectNumber">2</p>
+            <p id="projectNumber"></p>
         </div>
 
         <div class="con1 c2">
             <h3 ><a href="../task/taskList.html">Task </a></h3>
-            <p id="taskNumber">5</p>
+            <p id="taskNumber"></p>
         </div>
 
         <div class="con1 c3">
@@ -397,7 +397,51 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
-           
-   </script>
+        let i = 0;
+        let j =0;
+        function displayProjects() {
+         
+            onAuthStateChanged(auth,(user)=>{
+                if(user){
+                    const  uid = user.uid;
+                    onValue(ref(database, 'projects/' + uid), (snapshot) => {
+                        const projects = snapshot.val();
+            
+
+                        for (const projectId in projects) {
+                            const project = projects[projectId];
+                            i++;
+                        }
+                        const projectNumber = document.getElementById("projectNumber");
+                        projectNumber.innerHTML= i;
+                    });
+
+                }
+            })
+        }
+        function displayTasks() {
+         
+            onAuthStateChanged(auth,(user)=>{
+                if(user){
+                    const  uid = user.uid;
+                    onValue(ref(database, 'tasks/' + uid), (snapshot) => {
+                        const tasks = snapshot.val();
+            
+
+                        for (const taskId in tasks) {
+                            const task = tasks[taskId];
+                            j++;
+                        }
+                        const taskNumber = document.getElementById("taskNumber");
+                        taskNumber.innerHTML= j;
+                    });
+                
+                }
+            })
+        }
+        displayProjects();
+        displayTasks();
+       
+    </script>
 </body>
 </html>
