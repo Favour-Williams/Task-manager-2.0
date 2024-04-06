@@ -143,10 +143,15 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
+        let userId;
+        today = new Date();
+        currentMonth = today.getMonth();
+        currentYear = today.getFullYear();
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                displayEvents(user.uid);
+                userId = user.uid;
+                displayEvents(userId, currentMonth, currentYear);
             }
         });
 
@@ -181,7 +186,8 @@
                 }
             })
         })
-        function displayEvents(userId){
+       
+        function displayEvents(userId, currentMonth, currentYear){
             const eventRef = ref(database, 'events/' + userId);
             onValue(eventRef, (snapshot)=>{
                 const events = snapshot.val();
@@ -190,7 +196,17 @@
 
                 for (const eventId in events){
                     const event = events[eventId];
-                    addNewEvent(event.Date, event.eventTitle, event.eventDescription, eventId);
+                    const eventDate = new Date(event.Date);
+                    const eventYear = eventDate.getFullYear();
+                    const eventMonth = eventDate.getMonth();
+                    if (
+                        (eventYear === currentYear && eventMonth === currentMonth) ||
+                (eventYear === currentYear && (eventMonth === currentMonth - 1 || eventMonth === currentMonth + 1)) ||
+                (eventYear === currentYear - 1 && eventMonth === currentMonth && currentMonth === 0) || // Handle December of previous year
+                (eventYear === currentYear + 1 && eventMonth === currentMonth && currentMonth === 11)
+                    ) {                        
+                        addNewEvent(event.Date, event.eventTitle, event.eventDescription, eventId);
+                    }
                 }
             })
         }
@@ -223,23 +239,165 @@
         function deleteEvent(e){
             e.preventDefault();
 
-            onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const eventId = e.target.dataset.eventId;
-                const uid = user.uid;
-                const eventRef = ref(database, `events/${uid}/${eventId}`);
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        const eventId = e.target.dataset.eventId;
+                        const uid = user.uid;
+                        const eventRef = ref(database, `events/${uid}/${eventId}`);
 
-                remove(eventRef)
-                .then(()=>{
-                    console.log("GOOD");
-                })
-                .catch((error)=>{
-                    console.error(error);
-                })
+                        remove(eventRef)
+                        .then(()=>{
+                            console.log("GOOD");
+                        })
+                        .catch((error)=>{
+                            console.error(error);
+                        })
 
-            }
-        });
+                    }
+            });
         }
+        
+        function generate_year_range(start, end) {
+            let years = "";
+            for (let year = start; year <= end; year++) {
+                years += "<option value='" +
+                year + "'>" + year + "</option>";
+            }
+            return years;
+        }
+        
+        selectYear = document.getElementById("year");
+        selectMonth = document.getElementById("month");
+
+        createYear = generate_year_range(1970, 2050);
+
+        document.getElementById("year").innerHTML = createYear;
+
+        let calendar = document.getElementById("calendar");
+
+        let months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+        let days = [
+            "Sun", "Mon", "Tue", "Wed",
+            "Thu", "Fri", "Sat"];
+
+        $dataHead = "<tr>";
+        for (dhead in days) {
+            $dataHead += "<th data-days='" +
+                days[dhead] + "'>" +
+                days[dhead] + "</th>";
+        }
+        $dataHead += "</tr>";
+
+        document.getElementById("thead-month").innerHTML = $dataHead;
+
+        monthAndYear =
+            document.getElementById("monthAndYear");
+        
+            function next() {
+            currentYear = currentMonth === 11 ?
+                currentYear + 1 : currentYear;
+            currentMonth = (currentMonth + 1) % 12;
+            showCalendar(currentMonth, currentYear, userId);
+        }
+
+        // Function to navigate to the previous month
+        function previous() {
+            currentYear = currentMonth === 0 ?
+                currentYear - 1 : currentYear;
+            currentMonth = currentMonth === 0 ?
+                11 : currentMonth - 1;
+            const eventYear = eventDate.getFullYear();
+            const eventMonth = eventDate.getMonth();
+            if ((eventYear === currentYear && (eventMonth === currentMonth - 1 || eventMonth === currentMonth + 1)) 
+            ) {                   
+                onAuthStateChanged(auth, (user) => {
+                     if (user) {
+                        userId = user.uid;
+                        displayEvents(userId, currentMonth, currentYear);
+                    }
+                });
+            }
+            showCalendar(currentMonth, currentYear, userId);
+        }
+
+        // Function to jump to a specific month and year
+        function jump() {
+            currentYear = parseInt(selectYear.value);
+            currentMonth = parseInt(selectMonth.value);
+            showCalendar(currentMonth, currentYear,userId);
+        }
+
+        function showCalendar(month, year, userId) {
+            let firstDay = new Date(year, month, 1).getDay();
+            tbl = document.getElementById("calendar-body");
+            tbl.innerHTML = "";
+            monthAndYear.innerHTML = months[month] + " " + year;
+            selectYear.value = year;
+            selectMonth.value = month;
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                let row = document.createElement("tr");
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        cell = document.createElement("td");
+                        cellText = document.createTextNode("");
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                    } else if (date > daysInMonth(month, year)) {
+                        break;
+                    } else {
+                        cell = document.createElement("td");
+                        cell.setAttribute("data-date", date);
+                        cell.setAttribute("data-month", month + 1);
+                        cell.setAttribute("data-year", year);
+                        cell.setAttribute("data-month_name", months[month]);
+                        cell.className = "date-picker";
+                        cell.innerHTML = "<span>" + date + "</span";
+
+                        if (
+                            date === today.getDate() &&
+                            year === today.getFullYear() &&
+                            month === today.getMonth()
+                        ) {
+                            cell.className = "date-picker selected";
+                        }
+
+                        // Check if there are events on this date
+                        if (hasEventOnDate(date, month, year)) {
+                            cell.classList.add("event-marker");
+                            cell.appendChild(
+                                createEventTooltip(date, month, year)
+                        );
+                        }
+
+                        row.appendChild(cell);
+                        date++;
+                    }
+                }
+                tbl.appendChild(row);
+            }
+
+          
+        
+            displayEvents(userId, month, year);
+            
+        }
+        showCalendar(currentMonth, currentYear, userId);
+
     </script>
 </body>
 </html>

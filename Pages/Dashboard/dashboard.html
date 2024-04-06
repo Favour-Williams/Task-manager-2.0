@@ -284,12 +284,12 @@
         
         <div class="con1 c1">
             <h3><a href="../Project/projects.html">Project</a></h3>
-            <p>2</p>
+            <p id="projectNumber">2</p>
         </div>
 
         <div class="con1 c2">
             <h3 ><a href="../task/taskList.html">Task </a></h3>
-            <p>5</p>
+            <p id="taskNumber">5</p>
         </div>
 
         <div class="con1 c3">
@@ -376,5 +376,28 @@
         </div>
    </section>
    <script src="../schedule/script.js"></script>
+   <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getDatabase, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+            
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+            authDomain: "hci-project-54354.firebaseapp.com",
+            projectId: "hci-project-54354",
+            storageBucket: "hci-project-54354.appspot.com",
+            messagingSenderId: "970506049036",
+            appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+        };
+            
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+           
+   </script>
 </body>
 </html>
