@@ -294,7 +294,7 @@
 
         <div class="con1 c3">
             <h3>Completed</h3>
-            <p>0</p>
+            <p id="statusNumber"></p>
         </div>
     </div>
    </section>
@@ -439,9 +439,33 @@
                 }
             })
         }
+        let k = 0;
+        function status(e){
+           
+            onAuthStateChanged(auth,(user)=>{
+                if(user){
+                    const  uid = user.uid;
+                    onValue(ref(database, 'tasks/' + uid), (snapshot) => {
+                        const tasks = snapshot.val();
+            
+
+                        for (const taskId in tasks) {
+                            const task = tasks[taskId];
+                            if (task.status === 'complete') {
+                                k++;
+                            }
+                        }
+                        const statusNumber = document.getElementById("statusNumber");
+                        statusNumber.innerHTML= k;
+                    });
+
+                }
+            })
+        }
+        
         displayProjects();
         displayTasks();
-       
+       status();
     </script>
 </body>
 </html>
