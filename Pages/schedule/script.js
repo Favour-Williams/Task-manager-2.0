@@ -24,19 +24,21 @@ function addEvent() {
 
 	if (date && title) {
 		// Create a unique event ID
-		let eventId = eventIdCounter++;
+		//let eventId = eventIdCounter++;
 
 		events.push(
 			{
-				id: eventId, date: date,
+				//id: eventId, 
+				date: date,
 				title: title,
 				description: description
 			}
 		);
+		
 		showCalendar(currentMonth, currentYear);
-		eventDateInput.value = "";
-		eventTitleInput.value = "";
-		eventDescriptionInput.value = "";
+		// eventDateInput.value = "";
+		// eventTitleInput.value = "";
+		// eventDescriptionInput.value = "";
 		displayReminders();
 	}
 	var hiddenElement = document.getElementById('left');

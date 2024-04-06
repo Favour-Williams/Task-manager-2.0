@@ -127,7 +127,7 @@
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
         import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-        import { getDatabase, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+        import { getDatabase, remove, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
 
             
         const firebaseConfig = {
@@ -144,6 +144,12 @@
         const database = getDatabase(app);
         const auth = getAuth();
 
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                displayEvents(user.uid);
+            }
+        });
+
         const addEvent = document.getElementById("addEvent");
 
         addEvent.addEventListener('click', (e)=>{
@@ -156,7 +162,7 @@
             onAuthStateChanged(auth, (user)=>{
                 if(user){
                     const uid = user.uid;
-                    const userUID = sessionStorage.getItem('userUID');
+                    //const userUID = sessionStorage.getItem('userUID');
                     console.log(uid);
                     push(ref(database, 'events/' + uid), {
                         Date:eventDate,
@@ -168,22 +174,72 @@
 
                     document.getElementById("eventDate").value = "";
                     document.getElementById("eventTitle").value = "";
-                    document.getElementById("eventDescription").value = "";
-
-
-                    if (userUID) {
-                                
-                            
-                    } else {
-                        console.log('User UID not found in session storage');
-                    }
-                            
+                    document.getElementById("eventDescription").value = "";            
                 }
                 else{
                     //
                 }
             })
         })
+        function displayEvents(userId){
+            const eventRef = ref(database, 'events/' + userId);
+            onValue(eventRef, (snapshot)=>{
+                const events = snapshot.val();
+                const eventList = document.getElementById("reminderList");
+                eventList.innerHTML='';
+
+                for (const eventId in events){
+                    const event = events[eventId];
+                    addNewEvent(event.Date, event.eventTitle, event.eventDescription, eventId);
+                }
+            })
+        }
+        function addNewEvent(date, eventTitle, eventDescription, eventId){
+            let eventDate = new Date(date);
+            let title = eventTitle;
+            let description = eventDescription;
+
+            if (eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear) {
+			let listItem = document.createElement("li");
+			listItem.innerHTML =
+				`<strong>${title}</strong> - 
+			${description} on 
+			${eventDate.toLocaleDateString()}`;
+
+			// Add a delete button for each reminder item
+			let deleteButton = document.createElement("button");
+			deleteButton.className = "delete-event";
+			deleteButton.textContent = "Delete";
+            deleteButton.dataset.eventId = eventId; // Store the event ID
+
+			deleteButton.onclick = deleteEvent
+			
+            let reminderList = document.getElementById("reminderList");
+			listItem.appendChild(deleteButton);
+			reminderList.appendChild(listItem);
+		}
+        }
+        //const deleteEvent = document.getElementById("delete-event");
+        function deleteEvent(e){
+            e.preventDefault();
+
+            onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const eventId = e.target.dataset.eventId;
+                const uid = user.uid;
+                const eventRef = ref(database, `events/${uid}/${eventId}`);
+
+                remove(eventRef)
+                .then(()=>{
+                    console.log("GOOD");
+                })
+                .catch((error)=>{
+                    console.error(error);
+                })
+
+            }
+        });
+        }
     </script>
 </body>
 </html>
