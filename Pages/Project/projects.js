@@ -15,36 +15,36 @@ description.addEventListener('input', function() {
 // Adjust the height on page load
 adjustHeight(description);
 
-document.getElementById('addPersonButton').addEventListener('click', function() {
-    var personName = document.getElementById('personInput').value;
-    if (personName) {
-        // Add person to the list
-        var list = document.getElementById('personList');
-        var listItem = document.createElement('li');
-        listItem.textContent = personName + ' - ';
+// document.getElementById('addPersonButton').addEventListener('click', function() {
+//     var personName = document.getElementById('personInput').value;
+//     if (personName) {
+//         // Add person to the list
+//         var list = document.getElementById('personList');
+//         var listItem = document.createElement('li');
+//         listItem.textContent = personName + ' - ';
      
 
-        var removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.style.fontSize='9px'
-        removeButton.style.width='50px';
-        removeButton.style.textAlign='center';
-        removeButton.style.height='25px';
-        removeButton.style.paddingRight ='-25px';
-        removeButton.style.marginTop='-7px';
-        removeButton.style.marginBottom='15px';
-        removeButton.style.marginRight='50px';
-        removeButton.addEventListener('click', function() {
-            list.removeChild(listItem);
-        });
-        listItem.appendChild(removeButton);
-        list.appendChild(listItem);
-        // Clear the input field
-        document.getElementById('personInput').value = '';
-    } else {
-        alert('Please enter a person\'s name.');
-    }
-});
+//         var removeButton = document.createElement('button');
+//         removeButton.textContent = 'Remove';
+//         removeButton.style.fontSize='9px'
+//         removeButton.style.width='50px';
+//         removeButton.style.textAlign='center';
+//         removeButton.style.height='25px';
+//         removeButton.style.paddingRight ='-25px';
+//         removeButton.style.marginTop='-7px';
+//         removeButton.style.marginBottom='15px';
+//         removeButton.style.marginRight='50px';
+//         removeButton.addEventListener('click', function() {
+//             list.removeChild(listItem);
+//         });
+//         listItem.appendChild(removeButton);
+//         list.appendChild(listItem);
+//         // Clear the input field
+//         document.getElementById('personInput').value = '';
+//     } else {
+//         alert('Please enter a person\'s name.');
+//     }
+// });
 
 
 
