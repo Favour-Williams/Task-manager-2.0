@@ -214,7 +214,7 @@
           <div class="field">
             <label for="email">Email:</label>
             <span id="email"></span>
-            <button id="edit-Email" data-field="useremail"  >Edit</button>
+            <button id="edit-Email" data-field="email"  >Edit</button>
           </div>
       </div>
     </div>
@@ -310,10 +310,51 @@
           alert('Please enter a valid username.');
         }
       }
+
+
+      if (fieldName === 'email') {
+        const currentEmail = document.getElementById('email').textContent.trim(); // Assuming the email is displayed as text
+        const newEmail = prompt(`Enter new email:`, currentEmail);
+
+        if (newEmail && newEmail.trim() !== '') {
+          // Basic email format validation
+          if (isValidEmail(newEmail)) {
+            // Update the email span with the new email
+            document.getElementById('email').textContent = newEmail;
+            // Update the Firebase Database
+            const user = auth.currentUser;
+            if (user) {
+              const uid = user.uid;
+              update(ref(database, 'users/' + uid), {
+                email: newEmail
+              }).then(() => {
+                alert('Email updated successfully!');
+              }).catch((error) => {
+                console.error("Error updating email: ", error);
+              });
+            }
+          } else {
+            alert('Please enter a valid email address (e.g., user@example.com).');
+          }
+        } else {
+          alert('Please enter a valid email address.');
+        }
+      }
       // Handle other fields as needed
+    }
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
     }
     document.addEventListener('DOMContentLoaded', () => {
       const editButton = document.getElementById('edit-button');
+      editButton.addEventListener('click', () => {
+        const fieldName = editButton.dataset.field;
+        editField(fieldName);
+      });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const editButton = document.getElementById('edit-Email');
       editButton.addEventListener('click', () => {
         const fieldName = editButton.dataset.field;
         editField(fieldName);
