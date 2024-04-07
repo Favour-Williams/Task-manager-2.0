@@ -207,21 +207,15 @@
       <div class="profile-info">
           <div class="field">
             <label for="username">Username:</label>
-            <span id="username">JohnDoe</span>
-            <button onclick="editField('username')">Edit</button>
+            <span id="username"></span>
+            <button id="edit-button" data-field="username">Edit</button>
           </div>
 
           <div class="field">
             <label for="email">Email:</label>
             <span id="email"></span>
-            <button onclick="editField('email')">Edit</button>
+            <button id="edit-Email" data-field="useremail"  >Edit</button>
           </div>
-
-        <div class="field">
-            <label for="password">Password:</label>
-            <span id="password"></span>
-            <button onclick="editField('password')">Change</button>
-        </div>
       </div>
     </div>
   </main>
@@ -258,18 +252,6 @@
       fileInput.value = ''; // Reset the file input's value to allow re-uploading
     }
 
-    function editField(fieldName) {
-      const field = document.getElementById(fieldName);
-      const value = field.textContent.trim();
-      const newValue = prompt(`Enter new ${fieldName}:`, value);
-
-      if (newValue !== null && newValue !== '') {
-        field.textContent = newValue;
-        alert(`${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} updated successfully!`);
-      } else {
-        alert('Please enter a valid value.');
-      }
-    }
     const icons = document.querySelectorAll('.icon');
 
     icons.forEach(icon => {
@@ -290,7 +272,7 @@
     // https://firebase.google.com/docs/web/setup#available-libraries
     import {onAuthStateChanged, getAuth} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-    import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+    import { getDatabase, set, ref, update, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
@@ -303,36 +285,64 @@
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     const auth = getAuth();
-    onAuthStateChanged(auth,(user)=>{
-      if(user){
-        const uid = user.uid;
-        const userUID = sessionStorage.getItem('userUID');
-        const email = document.getElementById("email");
-        const fileInput = document.getElementById("file-input").value;
-        const password = document.getElementById("password");
-        const username1 = document.getElementById("username").textContent.trim();
-        update(ref(database, 'users/' + uid), {
-              username: username1,
-              
-              profile_picture : fileInput
-        })
-        .then(()=>{})
-        .catch((error)=>{})
-        if (userUID) {
-            console.log(userUID);
-            console.log(user.email);
-            email.innerHTML = user.email;
-           
-           //password.innerHTML = user.password;
+
+
+    function editField(fieldName) {
+      if (fieldName === 'username') {
+        const currentUsername = document.getElementById('username').textContent.trim();
+        const newUsername = prompt(`Enter new username:`, currentUsername);
+        if (newUsername && newUsername.trim() !== '') {
+          // Update the username span with the new username
+          document.getElementById('username').textContent = newUsername;
+          // Update the Firebase Database
+          const user = auth.currentUser;
+          if (user) {
+            const uid = user.uid;
+            update(ref(database, 'users/' + uid), {
+              username: newUsername
+            }).then(() => {
+              alert('Username updated successfully!');
+            }).catch((error) => {
+              console.error("Error updating username: ", error);
+            });
+          }
         } else {
-            console.log('User UID not found in session storage');
+          alert('Please enter a valid username.');
         }
-        
       }
-      else{
-        //
+      // Handle other fields as needed
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const editButton = document.getElementById('edit-button');
+      editButton.addEventListener('click', () => {
+        const fieldName = editButton.dataset.field;
+        editField(fieldName);
+      });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+
+        // Assuming 'users' is the collection in your database where user data is stored
+        const userRef = ref(database, 'users/' + uid);
+
+        // Listen for changes in user data
+        onValue(userRef, (snapshot) => {
+          const userData = snapshot.val();
+          if (userData) {
+            const username = userData.username; // Assuming the username is stored in 'username' field
+            const userE = userData.email;
+            const displayUsername = document.getElementById('username');
+            const email =  document.getElementById("email");
+            displayUsername.textContent = username;
+            email.innerHTML = userE;
+          }
+        });
+      } else {
+        // User is not logged in
       }
-    })
+    });
   </script>
 </body>
 </html>
