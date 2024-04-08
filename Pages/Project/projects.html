@@ -263,53 +263,7 @@
                     }
                 });
             }
-            document.getElementById('addPersonButton').addEventListener('click', function() {
-    var personName = document.getElementById('personInput').value;
-    if (personName) {
-        // Check if the person exists in the database
-        const usersRef = ref(database, 'users');
-        const query = orderByChild(usersRef, 'username').equalTo(personName); // Assuming 'username' is the field in the database
-
-        onValue(query, (snapshot) => {
-            const users = snapshot.val();
-            if (users) {
-                // Check if the user's email or username exactly matches the input
-                for (let userId in users) {
-                    if (users[userId].username === personName || users[userId].email === personName) {
-                        // Add person to the list if found in the database
-                        var list = document.getElementById('personList');
-                        var listItem = document.createElement('li');
-                        listItem.textContent = personName + ' - ';
-
-                        var removeButton = document.createElement('button');
-                        removeButton.textContent = 'Remove';
-                        removeButton.style.fontSize='9px'
-                        removeButton.style.width='50px';
-                        removeButton.style.textAlign='center';
-                        removeButton.style.height='25px';
-                        removeButton.style.paddingRight ='-25px';
-                        removeButton.style.marginTop='-7px';
-                        removeButton.style.marginBottom='15px';
-                        removeButton.style.marginRight='50px';
-                        removeButton.addEventListener('click', function() {
-                            list.removeChild(listItem);
-                        });
-                        listItem.appendChild(removeButton);
-                        list.appendChild(listItem);
-                        // Clear the input field
-                        document.getElementById('personInput').value = '';
-                        break; // Exit the loop once the user is found
-                    }
-                }
-            } else {
-                alert('Error: User not found in the database.');
-            }
-        });
-    } else {
-        alert('Please enter a person\'s name.');
-    }
-});
-
+            
             function addNewProject(projectName, description, collaborators){
                 if (projectName.trim() !== '' && description.trim() !== '') {
                     // Ensure collaborators is an array, default to an empty array if not
