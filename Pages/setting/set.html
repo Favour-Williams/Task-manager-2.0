@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -77,6 +77,95 @@
                     document.getElementById('colorPicker').value = color;
 
                
+            } else {
+                console.error("No user is currently signed in.");
+            }
+        }
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <link rel="stylesheet" href="set.css">
+</head>
+<body>
+    <h1>Settings</h1>
+    <label for="colorPicker">Choose a background color:</label>
+    <input type="color" id="colorPicker" value="#ffffff">
+    <button id="saveSettings">Save Settings</button>
+<a href="../Project/projects.html">kdk</a>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getDatabase, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+            authDomain: "hci-project-54354.firebaseapp.com",
+            projectId: "hci-project-54354",
+            storageBucket: "hci-project-54354.appspot.com",
+            messagingSenderId: "970506049036",
+            appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        function applySavedColor(color) {
+            document.getElementById('colorPicker').value = color;
+            document.body.style.backgroundColor = color;
+        }
+
+        let colorFetched = false; // Flag to prevent multiple fetches
+
+function fetchAndApplySavedColor() {
+    const user = auth.currentUser;
+    if (user && !colorFetched) {
+        const uid = user.uid;
+        const colorRef = ref(database, 'settings/' + uid + '/color');
+        onValue(colorRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data && data.color) {
+                applySavedColor(data.color);
+                colorFetched = true; // Set the flag to true after fetching the color
+            }
+        });
+    }
+}
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetchAndApplySavedColor();
+            }
+        });
+        fetchAndApplySavedColor();
+
+        document.getElementById('saveSettings').addEventListener('click', function() {
+            const color = document.getElementById('colorPicker').value;
+            saveColorToFirebase(color);
+        });
+
+        document.getElementById('colorPicker').addEventListener('input', function() {
+            document.body.style.backgroundColor = this.value;
+        });
+
+        function saveColorToFirebase(color) {
+            const user = auth.currentUser;
+            if (user) {
+                const uid = user.uid;
+                set(ref(database, 'settings/' + uid), {
+                    color: color
+                })
+                .then(() => {
+                    console.log("Background color saved successfully.");
+                })
+                .catch((error) => {
+                    console.error("Error saving background color: ", error);
+                });
             } else {
                 console.error("No user is currently signed in.");
             }
