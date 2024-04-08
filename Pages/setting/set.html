@@ -13,8 +13,28 @@
 
     <label for="colorPicker">Choose a Text color:</label>
     <input type="color" id="colorText" value="#ffffff">
+   
+    <label for="fontSize">Font Size:</label>
+    <input type="number" id="fontSize" value="16">
+
+    <label for="fontStyle">Font Style:</label>
+    <select id="fontStyle">
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+        <option value="oblique">Oblique</option>
+    </select>
+
+    <label for="language">Language:</label>
+    <select id="language">
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+    </select>
+   
     <button id="saveSettings">Save Settings</button>
-<a href="../Project/projects.html">kdk</a>
+    <a href="../Project/projects.html">kdk</a>
+    
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
@@ -32,41 +52,49 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
-
-        function applySavedColor(color, tcolor) {
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+        }
+        function applySavedSettings(color, textColor, fontSize, fontStyle) {
             document.getElementById('colorPicker').value = color;
-            document.getElementById('colorText').value=tcolor;
+            document.getElementById('colorText').value = textColor;
+            document.getElementById('fontSize').value = fontSize;
+            document.getElementById('fontStyle').value = fontStyle;
+
             document.body.style.backgroundColor = color;
-            document.body.style.color = tcolor;
+            document.body.style.color = textColor;
+            document.body.style.fontSize = fontSize + 'px';
+            document.body.style.fontStyle = fontStyle;
         }
 
         let colorFetched = false; // Flag to prevent multiple fetches
 
-        function fetchAndApplySavedColor() {
+        function fetchAndApplySavedSettings() {
             const user = auth.currentUser;
             if (user && !colorFetched) {
                 const uid = user.uid;
-                const colorRef = ref(database, 'settings/' + uid);
-                onValue(colorRef, (snapshot) => {
+                const settingsRef = ref(database, 'settings/' + uid);
+                onValue(settingsRef, (snapshot) => {
                     const data = snapshot.val();
                     if (data && data.color) {
-                        applySavedColor(data.color, data.textColor);
-                        colorFetched = true; // Set the flag to true after fetching the color
+                        applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle);
+                        colorFetched = true;
                     }
                 });
             }
         }
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                fetchAndApplySavedColor();
+                fetchAndApplySavedSettings();
             }
         });
-        fetchAndApplySavedColor();
-
+        fetchAndApplySavedSettings();
         document.getElementById('saveSettings').addEventListener('click', function() {
             const color = document.getElementById('colorPicker').value;
             const textColor = document.getElementById('colorText').value;
-            saveColorToFirebase(color, textColor);
+            const fontSize = document.getElementById('fontSize').value;
+            const fontStyle = document.getElementById('fontStyle').value;
+            saveSettingsToFirebase(color, textColor, fontSize, fontStyle);
         });
 
         document.getElementById('colorPicker').addEventListener('input', function() {
@@ -75,14 +103,24 @@
         document.getElementById('colorText').addEventListener('input', function() {
             document.body.style.color= this.value;
         });
-
-        function saveColorToFirebase(color, tcolor) {
+        document.getElementById('fontSize').addEventListener('input', function() {
+            document.body.style.fontSize= this.value;
+        });
+        document.getElementById('fontStyle').addEventListener('input', function() {
+            document.body.style.fontStyle= this.value;
+        });
+        document.getElementById('language').addEventListener('change', function() {
+            changeLanguage(this.value);
+        });
+        function saveSettingsToFirebase(color, tcolor, fontSize, fontStyle) {
             const user = auth.currentUser;
             if (user) {
                 const uid = user.uid;
                 set(ref(database, 'settings/' + uid), {
                     color: color,
-                    textColor:tcolor
+                    textColor:tcolor,
+                    fontSize: parseInt(fontSize), // Ensure fontSize is saved as an integer
+                    fontStyle: fontStyle
                 })
                 .then(() => {
                     console.log("Background color saved successfully.");
