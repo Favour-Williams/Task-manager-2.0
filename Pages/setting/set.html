@@ -123,20 +123,20 @@
 
         let colorFetched = false; // Flag to prevent multiple fetches
 
-function fetchAndApplySavedColor() {
-    const user = auth.currentUser;
-    if (user && !colorFetched) {
-        const uid = user.uid;
-        const colorRef = ref(database, 'settings/' + uid + '/color');
-        onValue(colorRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data && data.color) {
-                applySavedColor(data.color);
-                colorFetched = true; // Set the flag to true after fetching the color
+        function fetchAndApplySavedColor() {
+            const user = auth.currentUser;
+            if (user && !colorFetched) {
+                const uid = user.uid;
+                const colorRef = ref(database, 'settings/' + uid);
+                onValue(colorRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data && data.color) {
+                        applySavedColor(data.color);
+                        colorFetched = true; // Set the flag to true after fetching the color
+                    }
+                });
             }
-        });
-    }
-}
+        }
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 fetchAndApplySavedColor();
