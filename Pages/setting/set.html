@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <link rel="stylesheet" href="set.css">
+</head>
+<body>
+    <h1>Settings</h1>
+    <label for="colorPicker">Choose a background color:</label>
+    <input type="color" id="colorPicker" value="#ffffff">
+    <button id="saveSettings">Save Settings</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getDatabase, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+            
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+            authDomain: "hci-project-54354.firebaseapp.com",
+            projectId: "hci-project-54354",
+            storageBucket: "hci-project-54354.appspot.com",
+            messagingSenderId: "970506049036",
+            appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+        };
+            
+            // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                saveColorToFirebase()
+            }
+        });
+        document.getElementById('saveSettings').addEventListener('click', function() {
+            var color = document.getElementById('colorPicker').value;
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    saveColorToFirebase(color, user.uid);
+                }
+                //saveColorToFirebase(color);
+            });
+        });
+
+        function saveColorToFirebase(color, uid) {
+            set(ref(database, 'setting/' + uid)),{
+                color: color
+            }
+            .then(() => {
+                console.log("Background color saved successfully.");
+            })
+            .catch((error) => {
+                console.error("Error saving background color: ", error);
+            });
+        }
+    </script>
+</body>
+</html>
