@@ -23,13 +23,6 @@
         <option value="italic">Italic</option>
         <option value="oblique">Oblique</option>
     </select>
-
-    <label for="language">Language:</label>
-    <select id="language">
-        <option value="en">English</option>
-        <option value="fr">French</option>
-        <option value="es">Spanish</option>
-    </select>
    
     <button id="saveSettings">Save Settings</button>
     <a href="../Project/projects.html">kdk</a>
@@ -52,9 +45,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
-        function changeLanguage(lang) {
-            document.documentElement.lang = lang;
-        }
+
         function applySavedSettings(color, textColor, fontSize, fontStyle) {
             document.getElementById('colorPicker').value = color;
             document.getElementById('colorText').value = textColor;
@@ -108,9 +99,6 @@
         });
         document.getElementById('fontStyle').addEventListener('input', function() {
             document.body.style.fontStyle= this.value;
-        });
-        document.getElementById('language').addEventListener('change', function() {
-            changeLanguage(this.value);
         });
         function saveSettingsToFirebase(color, tcolor, fontSize, fontStyle) {
             const user = auth.currentUser;
