@@ -300,10 +300,11 @@
 
 
 
-            function applySavedColor(color) {
+            function applySavedColor(color, tcolor) {
                 const backgroundElement = document.body
                 if (backgroundElement) {
                     backgroundElement.style.backgroundColor = color;
+                    backgroundElement.style.color=color;
                 }           
             }
 
@@ -317,7 +318,7 @@
                     onValue(colorRef, (snapshot) => {
                         let data = snapshot.val();
                         if (data && data.color) {
-                            applySavedColor(data.color);
+                            applySavedColor(data.color, data.textColor);
                             colorFetched = true; // Set the flag to true after fetching the color
                         }
                         console.log('Saved color:', data.color);
