@@ -419,35 +419,32 @@
                 document.getElementById('icc').style.fontSize = fontSize + 'px';
                 document.getElementById('iccc').style.fontSize = fontSize + 'px';
                 document.getElementById('colorheader').style.fontSize = fontSize + 'px';
-            }
-            function applyNavbarSettings(fontSize, fontStyle, textColor) {
                 const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
                 navElements.forEach(link => {
                     link.style.fontSize = fontSize + 'px'; // Apply font size
                     link.style.fontStyle = fontStyle; // Apply font style
-                    link.style.color = textColor;
+                    link.style.color = textColor; // Apply text color
                 });
-               
             }
+      
 
             let colorFetched = false; // Flag to prevent multiple fetches
 
             
             function fetchAndApplySavedSettings() {
-            const user = auth.currentUser;
-            if (user && !colorFetched) {
-                const uid = user.uid;
-                const settingsRef = ref(database, 'settings/' + uid);
-                onValue(settingsRef, (snapshot) => {
-                    const data = snapshot.val();
-                    if (data && data.color) {
-                        applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
-                        applyNavbarSettings(data.fontSize, data.fontStyle, data.textColor); // Apply navbar font settings
-                        colorFetched = true;
-                    }
-                });
+                const user = auth.currentUser;
+                if (user && !colorFetched) {
+                    const uid = user.uid;
+                    const settingsRef = ref(database, 'settings/' + uid);
+                    onValue(settingsRef, (snapshot) => {
+                        const data = snapshot.val();
+                        if (data && data.color) {
+                            applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
+                            colorFetched = true;
+                        }
+                    });
+                }
             }
-        }
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                     fetchAndApplySavedSettings();
