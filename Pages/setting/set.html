@@ -53,7 +53,7 @@
    
     <button id="saveSettings">Save Settings</button>
     <div class="arrow-icon" id="myb">
-        <i class="fas fa-arrow-left"></i>
+        <a href="../Dashboard/dashboard.html"><i class="fas fa-arrow-left"></i></a>
       </div>
     <script >
         const icons = document.querySelectorAll('.icon');
@@ -113,7 +113,7 @@
                 onValue(settingsRef, (snapshot) => {
                     const data = snapshot.val();
                     if (data && data.color) {
-                        applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheader);
+                        applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
                         colorFetched = true;
                     }
                 });
@@ -158,7 +158,7 @@
                     textColor:tcolor,
                     fontSize: parseInt(fontSize), // Ensure fontSize is saved as an integer
                     fontStyle: fontStyle, 
-                    colorHeaderNav:colorheader
+                    colorheaderNav:colorheader
                 })
                 .then(() => {
                     console.log("Background color saved successfully.");
