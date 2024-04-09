@@ -14,11 +14,11 @@
         
 
     <section>
-        <header class="dark-theme">
+        <header class="dark-theme" id="colorheader">
             <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
             <div class="left-section">
                 
-            <input  placeholder="Search" id="searchInput">
+            
             </div>
             <div class="right-section">
                 <div class="icon settings"><i class="fas fa-cog"></i></div>
@@ -35,9 +35,12 @@
     <label for="colorPicker">Choose a background color:</label>
     <input type="color" id="colorPicker" value="#ffffff">
 
-    <label for="colorPicker">Choose a Text color:</label>
+    <label for="colorText">Choose a Text color:</label>
     <input type="color" id="colorText" value="#ffffff">
    
+    <label for="colorHN">Choose Header/Navbar color:</label>
+    <input type="color" id="colorHN" value="#ffffff">
+
     <label for="fontSize">Font Size:</label>
     <input type="number" id="fontSize" value="16">
 
@@ -82,16 +85,19 @@
         const database = getDatabase(app);
         const auth = getAuth();
 
-        function applySavedSettings(color, textColor, fontSize, fontStyle) {
+        function applySavedSettings(color, textColor, fontSize, fontStyle, colorheader) {
             document.getElementById('colorPicker').value = color;
             document.getElementById('colorText').value = textColor;
             document.getElementById('fontSize').value = fontSize;
             document.getElementById('fontStyle').value = fontStyle;
+            document.getElementById('colorHN').value = colorheader;
+            
 
             document.body.style.backgroundColor = color;
             document.body.style.color = textColor;
             document.body.style.fontSize = fontSize + 'px';
             document.body.style.fontStyle = fontStyle;
+            document.getElementById('colorheader').style.backgroundColor=colorheader;
         }
 
         let colorFetched = false; // Flag to prevent multiple fetches
@@ -104,7 +110,7 @@
                 onValue(settingsRef, (snapshot) => {
                     const data = snapshot.val();
                     if (data && data.color) {
-                        applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle);
+                        applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheader);
                         colorFetched = true;
                     }
                 });
@@ -121,7 +127,8 @@
             const textColor = document.getElementById('colorText').value;
             const fontSize = document.getElementById('fontSize').value;
             const fontStyle = document.getElementById('fontStyle').value;
-            saveSettingsToFirebase(color, textColor, fontSize, fontStyle);
+            const colorheader = document.getElementById('colorHN').value;
+            saveSettingsToFirebase(color, textColor, fontSize, fontStyle, colorheader);
         });
 
         document.getElementById('colorPicker').addEventListener('input', function() {
@@ -136,7 +143,10 @@
         document.getElementById('fontStyle').addEventListener('input', function() {
             document.body.style.fontStyle= this.value;
         });
-        function saveSettingsToFirebase(color, tcolor, fontSize, fontStyle) {
+        document.getElementById('colorHN').addEventListener('input', function(){
+            document.getElementById('colorheader').style.backgroundColor = this.value;
+        });
+        function saveSettingsToFirebase(color, tcolor, fontSize, fontStyle, colorheader) {
             const user = auth.currentUser;
             if (user) {
                 const uid = user.uid;
@@ -144,7 +154,8 @@
                     color: color,
                     textColor:tcolor,
                     fontSize: parseInt(fontSize), // Ensure fontSize is saved as an integer
-                    fontStyle: fontStyle
+                    fontStyle: fontStyle, 
+                    colorHeaderNav:colorheader
                 })
                 .then(() => {
                     console.log("Background color saved successfully.");
