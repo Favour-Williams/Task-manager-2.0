@@ -322,16 +322,12 @@
             }
             function applyNavbarSettings(fontSize, fontStyle, textColor) {
                 const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
-                const iconE = document.querySelectorAll('.icon i').style.fontSize=fontSize;
                 navElements.forEach(link => {
                     link.style.fontSize = fontSize + 'px'; // Apply font size
                     link.style.fontStyle = fontStyle; // Apply font style
                     link.style.color = textColor;
                 });
-                iconE.forEach(lin => {
-                    lin.style.fontSize = fontSize + 'px'; // Apply font size
-                    lin.style.fontStyle = fontStyle; // Apply font style
-                });
+           
             }
 
             let colorFetched = false; // Flag to prevent multiple fetches

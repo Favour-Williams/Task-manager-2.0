@@ -188,26 +188,26 @@
     </head>
     <body>
         <section>
-            <header class="dark-theme">
-                <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+            <header class="dark-theme" id="colorheader">
+                <li id="foricon"><a href="#"><em id="emi">GetItDone</em></a></li>
                 <div class="left-section">
                     
                 <input placeholder="Search" id="searchInput">
                 </div>
                 <div class="right-section">
-                    <div class="icon settings"><i class="fas fa-cog"></i></div>
+                    <div class="icon settings"><a href="../setting/set.html"><i id="icc" class="fas fa-cog"></i></a></div>
                     <div id="noti" class="icon notifications" >
-                        <a href="../notification/n.html"><i class="fas fa-bell"></i></a>
+                        <a href="../notification/n.html"><i id="ic" class="fas fa-bell"></i></a>
                         <span class="notification-dot">4</span>
                     </div>
-                    <div class="icon profile"><a href="../profile/p.html"><i class="fas fa-user"></i></a></div>
+                    <div class="icon profile"><a href="../profile/p.html"><i id="iccc" class="fas fa-user"></i></a></div>
                 </div>
             </header>
         </section>
 
         <section>
-                <nav class="navbar">
-                    <ul class="nav-links">
+                <nav class="navbar" id="navs">
+                    <ul class="nav-links" id="navli">
                         <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
                         <li><a href="#"><i class="fas fa-clipboard-list"></i> Board</a></li>
                         <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
@@ -327,6 +327,61 @@
             const database = getDatabase(app);
             const auth = getAuth();
            
+            function applySavedSettings(color, textColor, fontSize, fontStyle, colorheader) {
+                document.body.style.backgroundColor = color;
+                document.body.style.color = textColor;
+                document.body.style.fontSize = fontSize + 'px';
+                document.body.style.fontStyle = fontStyle;
+                document.getElementById('emi').style.color= textColor;
+                document.getElementById('ic').style.color= textColor;
+                document.getElementById('icc').style.color= textColor;
+                document.getElementById('iccc').style.color= textColor;
+                document.getElementById('colorheader').style.color=textColor;
+                document.getElementById('colorheader').style.backgroundColor=colorheader;
+                document.getElementById('colorheader').style.fontStyle=fontStyle;
+                document.getElementById('navs').style.backgroundColor=colorheader;
+                document.getElementById('navs').style.fontStyle=fontStyle;
+
+                document.getElementById('ic').style.fontSize = fontSize + 'px';
+                document.getElementById('icc').style.fontSize = fontSize + 'px';
+                document.getElementById('iccc').style.fontSize = fontSize + 'px';
+                document.getElementById('colorheader').style.fontSize = fontSize + 'px';
+            }
+            function applyNavbarSettings(fontSize, fontStyle, textColor) {
+                const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
+                navElements.forEach(link => {
+                    link.style.fontSize = fontSize + 'px'; // Apply font size
+                    link.style.fontStyle = fontStyle; // Apply font style
+                    link.style.color = textColor;
+                });
+             
+            }
+
+            let colorFetched = false; // Flag to prevent multiple fetches
+
+            
+            function fetchAndApplySavedSettings() {
+                const user = auth.currentUser;
+                if (user && !colorFetched) {
+                    const uid = user.uid;
+                    const settingsRef = ref(database, 'settings/' + uid);
+                    onValue(settingsRef, (snapshot) => {
+                        const data = snapshot.val();
+                        if (data && data.color) {
+                            applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
+                            applyNavbarSettings(data.fontSize, data.fontStyle, data.textColor); // Apply navbar font settings
+                            colorFetched = true;
+                        }
+                    });
+                }
+            }
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    fetchAndApplySavedSettings();
+                }
+            });
+            fetchAndApplySavedSettings();
+            
         </script>
     </body>
 </html>
