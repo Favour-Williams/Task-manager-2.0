@@ -15,7 +15,7 @@
 
     <section>
         <header class="dark-theme" id="colorheader">
-            <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+            <li id="foricon"><a href="#"><em id="emi">GetItDone</em></a></li>
             <div class="left-section">
                 
             
@@ -23,7 +23,7 @@
             <div class="right-section">
                 <div class="icon settings"><i class="fas fa-cog"></i></div>
                 <div id="noti" class="icon notifications">
-                  <a href="../notification/n.html"><i class="fas fa-bell"></i></a>
+                  <a href="../notification/n.html"><i id="ic" class="fas fa-bell"></i></a>
                   <span class="notification-dot">4</span>
                 </div>
                 <div class="icon profile1"><i class="fas fa-user"></i></div>
@@ -97,6 +97,9 @@
             document.body.style.color = textColor;
             document.body.style.fontSize = fontSize + 'px';
             document.body.style.fontStyle = fontStyle;
+            document.getElementById('emi').style.color= textColor;
+            document.getElementById('ic').style.color= textColor;
+            document.getElementById('colorheader').style.color=textColor;
             document.getElementById('colorheader').style.backgroundColor=colorheader;
         }
 
