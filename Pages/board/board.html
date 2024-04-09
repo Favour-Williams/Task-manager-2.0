@@ -267,7 +267,6 @@
                     <div class="draggable-container" draggable="true" ondragstart="drag(event)">
                         <div class="kanban-block" id="inprogress" ondrop="drop(event)" ondragover="allowDrop(event)">
                             <strong>In Progress</strong>
-                            <em id="addInProgress" style="float: right; cursor: pointer;">+Add</em>
 
                         </div>
                     </div>
@@ -275,7 +274,6 @@
                     <div class="draggable-container" draggable="true" ondragstart="drag(event)">
                         <div class="kanban-block" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
                             <strong>Done</strong>
-                            <em id="addDone" style="float: right; cursor: pointer;">+Add</em>
                         </div>
                     </div>
                 </div>
@@ -283,10 +281,10 @@
                     <div id="popup1" style="display: none; ">
                         <form>
                             <label>Task Name:</label>
-                            <input type="text" name="boardName" id="boardName">
+                            <input type="text" name="boardName" id="taskName">
                     
                             <label>Description</label>
-                            <textarea id="description" rows="1"></textarea>   
+                            <textarea  rows="1" id="taskDescription"></textarea>   
                             
                             <label>Select Project:</label>
                             <select id="projectDropdown">
@@ -296,7 +294,7 @@
                             </select>
                     
                             <div id="optionsContainer"></div>
-                            <input type="submit" value="Create"/>
+                            <input type="submit" value="Create" id="createTaskButton"/>
                             
                         </form>
                     </div>

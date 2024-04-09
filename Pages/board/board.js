@@ -35,6 +35,67 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const createTaskButton = document.getElementById('createTaskButton'); // Change this to match your button ID
+    const popup = document.getElementById('popup1');
+    const projectDropdown = document.getElementById('projectDropdown'); // Define projectDropdown here
+
+    createTaskButton.addEventListener('click', function() {
+        popup.style.display = 'block';
+    });
+
+    const form = document.querySelector('#popup1 form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Get the form inputs
+        const taskName = document.getElementById('taskName').value;
+        const description = document.getElementById('taskDescription').value; // Use the correct ID here
+        const selectedProject = projectDropdown.value; // Use the defined projectDropdown here
+
+        // Create a new task element
+        const newTask = document.createElement('div');
+        newTask.classList.add('task');
+        newTask.draggable = true;
+        newTask.addEventListener('dragstart', drag);
+
+        // Set the task content
+        newTask.innerHTML = `<span>${taskName}</span>`;
+
+        // Find the appropriate board based on the selected project
+        let board = null;
+        if (selectedProject === 'project1') {
+            board = document.getElementById('todo'); // Example board ID, change as needed
+        } else if (selectedProject === 'project2') {
+            board = document.getElementById('inprogress'); // Example board ID, change as needed
+        } else {
+            board = document.getElementById('done'); // Example board ID, change as needed
+        }
+
+        // Append the new task to the board
+        board.appendChild(newTask);
+
+        // Reset the form and close the popup
+        form.reset();
+        popup.style.display = 'none';
+    });
+
+    // Add event listener to projectDropdown
+    projectDropdown.addEventListener('change', function() {
+        const selectedProject = this.value;
+        optionsContainer.innerHTML = ''; // Clear the options container
+
+        if (selectedProject) {
+            if (selectedProject === 'project1') {
+                addOptions(['Favour', 'Aarron', 'Letso']);
+            } else if (selectedProject === 'project2') {
+                addOptions(['Terrence', 'Daniel', 'Naruto']);
+            }
+        }
+    });
+});
+
+
 
 function Display() {
     var element = document.getElementById("dis");
