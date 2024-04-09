@@ -62,7 +62,7 @@
             }
 
             // Check if password meets length requirement
-            if (password.length < 8) {
+            if (password.length <= 6) {
                 alert('Please enter a password of at least 8 characters.');
                 return false;
             }
@@ -81,7 +81,7 @@
          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
          // TODO: Add SDKs for Firebase products that you want to use
          // https://firebase.google.com/docs/web/setup#available-libraries
-         import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+         import { getAuth,signInWithPopup,getRedirectResult,signInWithRedirect , createUserWithEmailAndPassword, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
          import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
 
          
@@ -97,6 +97,7 @@
          // Initialize Firebase
          const app = initializeApp(firebaseConfig);
          const auth = getAuth();
+         const provider = new GoogleAuthProvider(app);
         // var provider = new GoogleAuthProvider();
          const database = getDatabase(app);
          submitButton.addEventListener('click', (e) => {
@@ -116,7 +117,7 @@
                .then(() => {
                // Data saved successfully!
                //window.location.href = "../Dashboard/dashboard.html";
-               window.location.href = `../profile/p.html?email=${encodeURIComponent(user.email)}`;
+               window.location.href = `../Dashboard/dashboard.html?email=${encodeURIComponent(user.email)}`;
 
                })
                .catch((error) => {
@@ -133,6 +134,7 @@
             });
          });
          
+          
       </script>
       
    </body>
