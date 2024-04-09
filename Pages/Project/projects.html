@@ -312,18 +312,25 @@
                 document.getElementById('colorheader').style.color=textColor;
                 document.getElementById('colorheader').style.backgroundColor=colorheader;
                 document.getElementById('colorheader').style.fontStyle=fontStyle;
-
                 document.getElementById('navs').style.backgroundColor=colorheader;
                 document.getElementById('navs').style.fontStyle=fontStyle;
 
+                document.getElementById('ic').style.fontSize = fontSize + 'px';
+                document.getElementById('icc').style.fontSize = fontSize + 'px';
+                document.getElementById('iccc').style.fontSize = fontSize + 'px';
+                document.getElementById('colorheader').style.fontSize = fontSize + 'px';
             }
             function applyNavbarSettings(fontSize, fontStyle, textColor) {
                 const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
-
+                const iconE = document.querySelectorAll('.icon i').style.fontSize=fontSize;
                 navElements.forEach(link => {
                     link.style.fontSize = fontSize + 'px'; // Apply font size
                     link.style.fontStyle = fontStyle; // Apply font style
                     link.style.color = textColor;
+                });
+                iconE.forEach(lin => {
+                    lin.style.fontSize = fontSize + 'px'; // Apply font size
+                    lin.style.fontStyle = fontStyle; // Apply font style
                 });
             }
 
