@@ -161,18 +161,18 @@
 </head>
 <body>
     <section>
-        <header class="dark-theme">
-            <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+        <header class="dark-theme" id="colorheader">
+            <li id="foricon"><a href="#"><em id="emi">GetItDone</em></a></li>
             <div class="left-section">
                 
             <input  placeholder="Search" id="searchInput">
             </div>
             <div class="right-section">
-                <div class="icon settings"><i class="fas fa-cog"></i></div>
-                <div id="noti" class="icon notifications" onclick="Display1()"><i class="fas fa-bell"></i>
+              <div class="icon settings"><a href="../setting/set.html"><i id="icc" class="fas fa-cog"></i></a></div>
+              <div id="noti" class="icon notifications" onclick="Display1()"><i id="ic" class="fas fa-bell"></i>
                     <span class="notification-dot">4</span>
                 </div>
-                <div class="icon profile1"><a href="../profile/p.html"><i class="fas fa-user"></i></a></div>
+                <div class="icon profile1"><a href="../profile/p.html"><i id="iccc" class="fas fa-user"></i></a></div>
             </div>
         </header>
     </section>
@@ -248,5 +248,81 @@
         });
 
     </script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+      import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+      import { getDatabase,get, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+          
+      const firebaseConfig = {
+          apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+          authDomain: "hci-project-54354.firebaseapp.com",
+          projectId: "hci-project-54354",
+          storageBucket: "hci-project-54354.appspot.com",
+          messagingSenderId: "970506049036",
+          appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+      };
+          
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      const auth = getAuth();
+      function applySavedSettings(color, textColor, fontSize, fontStyle, colorheader) {
+              document.body.style.backgroundColor = color;
+              document.body.style.color = textColor;
+              document.body.style.fontSize = fontSize + 'px';
+              document.body.style.fontStyle = fontStyle;
+              document.getElementById('emi').style.color= textColor;
+              document.getElementById('ic').style.color= textColor;
+              document.getElementById('icc').style.color= textColor;
+              document.getElementById('iccc').style.color= textColor;
+              document.getElementById('colorheader').style.color=textColor;
+              document.getElementById('colorheader').style.backgroundColor=colorheader;
+              document.getElementById('colorheader').style.fontStyle=fontStyle;
+              document.getElementById('navs').style.backgroundColor=colorheader;
+              document.getElementById('navs').style.fontStyle=fontStyle;
+
+              document.getElementById('ic').style.fontSize = fontSize + 'px';
+              document.getElementById('icc').style.fontSize = fontSize + 'px';
+              document.getElementById('iccc').style.fontSize = fontSize + 'px';
+              document.getElementById('colorheader').style.fontSize = fontSize + 'px';
+      }
+      function applyNavbarSettings(fontSize, fontStyle, textColor) {
+          const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
+          navElements.forEach(link => {
+              link.style.fontSize = fontSize + 'px'; // Apply font size
+              link.style.fontStyle = fontStyle; // Apply font style
+              link.style.color = textColor;
+          });
+         
+      }
+
+      let colorFetched = false; // Flag to prevent multiple fetches
+
+          
+      function fetchAndApplySavedSettings() {
+          const user = auth.currentUser;
+          if (user && !colorFetched) {
+              const uid = user.uid;
+              const settingsRef = ref(database, 'settings/' + uid);
+              onValue(settingsRef, (snapshot) => {
+                  const data = snapshot.val();
+                  if (data && data.color) {
+                      applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
+                      applyNavbarSettings(data.fontSize, data.fontStyle, data.textColor); // Apply navbar font settings
+                      colorFetched = true;
+                  }
+              });
+          }
+      }
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+              fetchAndApplySavedSettings();
+          }
+      });
+      fetchAndApplySavedSettings();
+ </script>
 </body>
 </html>
