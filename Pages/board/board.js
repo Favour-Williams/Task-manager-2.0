@@ -7,10 +7,28 @@ function allowDrop(ev) {
 }
 
 function drop(ev) {
-    ev.preventDefault();
+ ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+    var target = ev.target;
+    // Find the closest parent with the class 'kanban-block'
+    while (target && !target.classList.contains('kanban-block')) {
+        target = target.parentElement;
+    }
+    if (target) {
+        target.appendChild(document.getElementById(data));
+    }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.task').forEach(task => {
+        task.addEventListener('dragstart', drag);
+    });
+
+    document.querySelectorAll('.kanban-block').forEach(block => {
+        block.addEventListener('dragover', allowDrop);
+        block.addEventListener('drop', drop);
+    });
+});
+
 
 function adjustHeight(textarea) {
     textarea.style.height = 'auto'; 
@@ -63,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
         newTask.innerHTML = `<span>${taskName}</span>`;
 
         // Find the appropriate board based on the selected project
-        let board = null;
+        let board;
         if (selectedProject === 'project1') {
             board = document.getElementById('todo'); // Example board ID, change as needed
         } else if (selectedProject === 'project2') {
@@ -81,18 +99,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add event listener to projectDropdown
-    projectDropdown.addEventListener('change', function() {
-        const selectedProject = this.value;
-        optionsContainer.innerHTML = ''; // Clear the options container
+     projectDropdown.addEventListener('change', function() {
+         const selectedProject = this.value;
+         optionsContainer.innerHTML = ''; // Clear the options container
 
-        if (selectedProject) {
-            if (selectedProject === 'project1') {
-                addOptions(['Favour', 'Aarron', 'Letso']);
-            } else if (selectedProject === 'project2') {
-                addOptions(['Terrence', 'Daniel', 'Naruto']);
-            }
-        }
-    });
+         if (selectedProject) {
+             if (selectedProject === 'project1') {
+                 addOptions(['Favour', 'Aarron', 'Letso']);
+             } else if (selectedProject === 'project2') {
+                 addOptions(['Terrence', 'Daniel', 'Naruto']);
+             }
+         }
+     });
 });
 
 
