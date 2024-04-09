@@ -300,29 +300,32 @@
 
 
 
-            function applySavedColor(color, tcolor) {
-                const backgroundElement = document.body
-                if (backgroundElement) {
-                    backgroundElement.style.backgroundColor = color;
-                    backgroundElement.style.color=tcolor;
-                }           
+            function applySavedSettings(color, textColor, fontSize, fontStyle) {
+                document.getElementById('colorPicker').value = color;
+                document.getElementById('colorText').value = textColor;
+                document.getElementById('fontSize').value = fontSize;
+                document.getElementById('fontStyle').value = fontStyle;
+
+                document.body.style.backgroundColor = color;
+                document.body.style.color = textColor;
+                document.body.style.fontSize = fontSize + 'px';
+                document.body.style.fontStyle = fontStyle;
             }
 
             let colorFetched = false; // Flag to prevent multiple fetches
 
-            function fetchAndApplySavedColor() {
+            
+            function fetchAndApplySavedSettings() {
                 const user = auth.currentUser;
                 if (user && !colorFetched) {
                     const uid = user.uid;
-                    const colorRef = ref(database, 'settings/' + uid );
-                    onValue(colorRef, (snapshot) => {
-                        let data = snapshot.val();
+                    const settingsRef = ref(database, 'settings/' + uid);
+                    onValue(settingsRef, (snapshot) => {
+                        const data = snapshot.val();
                         if (data && data.color) {
-                            applySavedColor(data.color, data.textColor);
-                            colorFetched = true; // Set the flag to true after fetching the color
+                            applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle);
+                            colorFetched = true;
                         }
-                        console.log('Saved color:', data.color);
-
                     });
                 }
             }
