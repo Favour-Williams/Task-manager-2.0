@@ -237,7 +237,7 @@
                 <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
                 <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
                 <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
-                <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                <li id="logout"><a href=""><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
             </ul>
             
         </nav>
@@ -774,6 +774,15 @@
                 }
             });
         fetchAndApplySavedSettings();
+        document.getElementById('logout').addEventListener('click', (e)=>{
+                signOut(auth).then(() => {
+                // Sign-out successful.
+                window.location.href = '../sign-in/Sign_In.html';
+
+                }).catch((error) => {
+                // An error happened.
+                });
+            })
             
     </script>
 </body>
