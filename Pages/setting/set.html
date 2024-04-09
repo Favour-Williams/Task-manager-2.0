@@ -11,6 +11,8 @@
 </head>
 <body>
     <h1>Settings</h1>
+        
+
     <section>
         <header class="dark-theme">
             <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
@@ -28,10 +30,7 @@
             </div>
         </header>
     </section>
-    
-      <div class="arrow-icon" id="myb">
-        <i class="fas fa-arrow-left"></i>
-      </div>
+
     
     <label for="colorPicker">Choose a background color:</label>
     <input type="color" id="colorPicker" value="#ffffff">
@@ -50,9 +49,21 @@
     </select>
    
     <button id="saveSettings">Save Settings</button>
-    <a href="../Project/projects.html">kdk</a>
+    <div class="arrow-icon" id="myb">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+    <script >
+        const icons = document.querySelectorAll('.icon');
     
-    
+        icons.forEach(icon => {
+          icon.addEventListener('mouseover', () => {
+            icon.style.transform = 'scale(1.2)';
+          });
+          icon.addEventListener('mouseout', () => {
+            icon.style.transform = 'scale(1)';
+          });
+        });
+    </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";

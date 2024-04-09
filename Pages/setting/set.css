@@ -103,7 +103,7 @@ li{
   }
   .arrow-icon {
     margin-bottom: -50px;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-left: 30px;
   }
 
@@ -111,4 +111,10 @@ li{
     font-size: 24px;
     color: #000000;
     cursor: pointer;
+  }
+  label{
+    display: block;
+  }
+  h1{
+    margin-top: 50px;
   }
