@@ -119,12 +119,12 @@
                 <input  placeholder="Search" id="searchInput">
                 </div>
                 <div class="right-section">
-                    <div class="icon settings"><a href="../setting/set.html"><i class="fas fa-cog"></i></a></div>
+                    <div class="icon settings"><a href="../setting/set.html"><i id="icc" class="fas fa-cog"></i></a></div>
                     <div id="noti" class="icon notifications" >
                         <a href="../notification/n.html"><i id="ic" class="fas fa-bell"></i></a>
                         <span class="notification-dot">4</span>
                     </div>
-                    <div class="icon profile"><a href="../profile/p.html"><i class="fas fa-user"></i></a></div>
+                    <div class="icon profile"><a href="../profile/p.html"><i id="iccc" class="fas fa-user"></i></a></div>
                 </div>
             </header>
         </section>
@@ -135,15 +135,15 @@
             </div>
         </div>
         <section>
-                <nav class="navbar" id="navs">
-                    <ul class="nav-links">
-                        <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
-                        <li><a href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
-                        <li><a href="#"><i class="fas fa-project-diagram"></i> Projects</a></li>
-                        <li><a href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
-                        <li><a href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
-                        <li><a href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
-                        <li><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                <nav class="navbar" id="navs" >
+                    <ul class="nav-links" id="navli">
+                        <li><a id="navlii" href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a id="navliii" href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
+                        <li><a id="navliiii" href="#"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                        <li><a id="navliiiii" href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
+                        <li><a id="navliiiiii" href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
+                        <li><a id="navliiiiiii" href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
+                        <li><a id="navliiiiiiii" href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
                     </ul>
                     
                 </nav>
@@ -184,7 +184,7 @@
             // TODO: Add SDKs for Firebase products that you want to use
             // https://firebase.google.com/docs/web/setup#available-libraries
             import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-            import { getDatabase, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+            import { getDatabase,get, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
 
             
             const firebaseConfig = {
@@ -307,14 +307,24 @@
                 document.body.style.fontStyle = fontStyle;
                 document.getElementById('emi').style.color= textColor;
                 document.getElementById('ic').style.color= textColor;
+                document.getElementById('icc').style.color= textColor;
+                document.getElementById('iccc').style.color= textColor;
                 document.getElementById('colorheader').style.color=textColor;
                 document.getElementById('colorheader').style.backgroundColor=colorheader;
                 document.getElementById('colorheader').style.fontStyle=fontStyle;
 
-                document.getElementById('navs').style.color=textColor;
                 document.getElementById('navs').style.backgroundColor=colorheader;
                 document.getElementById('navs').style.fontStyle=fontStyle;
 
+            }
+            function applyNavbarSettings(fontSize, fontStyle, textColor) {
+                const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
+
+                navElements.forEach(link => {
+                    link.style.fontSize = fontSize + 'px'; // Apply font size
+                    link.style.fontStyle = fontStyle; // Apply font style
+                    link.style.color = textColor;
+                });
             }
 
             let colorFetched = false; // Flag to prevent multiple fetches
@@ -329,6 +339,7 @@
                     const data = snapshot.val();
                     if (data && data.color) {
                         applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
+                        applyNavbarSettings(data.fontSize, data.fontStyle, data.textColor); // Apply navbar font settings
                         colorFetched = true;
                     }
                 });
@@ -340,7 +351,10 @@
                 }
             });
             fetchAndApplySavedSettings();
+            
 
+
+            
         </script>
 
     </body>
