@@ -7,38 +7,74 @@
     <style>
         /* styles.css */
         body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.video-container {
-    display: flex;
-    justify-content: space-between;
-    max-width: 800px;
-    margin-bottom: 20px;
-}
+        .video-container {
+            margin-top: 30px;
+            position: relative;
+            width: 98.6%;
+            padding-bottom: 50.25%; 
+        }
 
-video {
-    max-width: 45%;
-    border: 2px solid #333;
-}
+        #localVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            border: 2px solid #333;
+            background-color: black;
+        }
 
-.controls button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
+        #remoteVideo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 25%;
+            height: 25%;
+            border: 2px solid #333;
+            animation: fadeIn 1s ease-in-out;
+            background-color: blue;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: -80px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #5e5e5e;
+            border: none;
+
+        }
+
+        button:hover {
+            background-color: #171717;
+            color: white;
+            transition: 0.3s ease-in;
+        }
 
 
     </style>
@@ -46,16 +82,44 @@ video {
 <body>
     <div class="container">
         <div class="video-container">
-            <video id="localVideo" autoplay muted></video>
+            <video id="localVideo" autoplay muted>
+            </video>
             <video id="remoteVideo" autoplay></video>
+
         </div>
         <div class="controls">
-            <button id="stopVideo">Stop Video</button>
+            <button id="stopVideo">Add person</button>
             <button id="muteAudio">Mute Audio</button>
             <button id="unmuteAudio">Unmute Audio</button>
             <button id="endCall">End Call</button>
         </div>
     </div>
- 
+
+    <script>
+        const stopVideoButton = document.getElementById('stopVideo');
+        const muteAudioButton = document.getElementById('muteAudio');
+        const unmuteAudioButton = document.getElementById('unmuteAudio');
+        const endCallButton = document.getElementById('endCall');
+
+        stopVideoButton.addEventListener('click', () => {
+            // Add your logic for adding a person here
+            console.log('Add person button clicked');
+        });
+
+        muteAudioButton.addEventListener('click', () => {
+            // Add your logic for muting audio here
+            console.log('Mute audio button clicked');
+        });
+
+        unmuteAudioButton.addEventListener('click', () => {
+            // Add your logic for unmuting audio here
+            console.log('Unmute audio button clicked');
+        });
+
+        endCallButton.addEventListener('click', () => {
+            // Add your logic for ending the call here
+            console.log('End call button clicked');
+        });
+    </script>
 </body>
 </html>
