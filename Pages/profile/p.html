@@ -176,19 +176,18 @@
 </head>
 <body>
   <section>
-    <header class="dark-theme">
-        <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+    <header class="dark-theme" id="colorheader">
+        <li id="foricon"><a href="#"><em id="emi">GetItDone</em></a></li>
         <div class="left-section">
             
-        <input  placeholder="Search" id="searchInput">
         </div>
         <div class="right-section">
-            <div class="icon settings"><i class="fas fa-cog"></i></div>
+            <div class="icon settings"><a href="../setting/set.html"><i id="icc" class="fas fa-cog"></i></a></div>
             <div id="noti" class="icon notifications">
-              <a href="../notification/n.html"><i class="fas fa-bell"></i></a>
+              <a href="../notification/n.html"><i id="ic" class="fas fa-bell"></i></a>
               <span class="notification-dot">4</span>
             </div>
-            <div class="icon profile1"><i class="fas fa-user"></i></div>
+            <div class="icon profile1"><i id="iccc" class="fas fa-user"></i></div>
         </div>
     </header>
   </section>
@@ -384,6 +383,54 @@
         // User is not logged in
       }
     });
+    
+    function applySavedSettings(color, textColor, fontSize, fontStyle, colorheader) {
+      document.body.style.backgroundColor = color;
+      document.body.style.color = textColor;
+      document.body.style.fontSize = fontSize + 'px';
+      document.body.style.fontStyle = fontStyle;
+      document.getElementById('emi').style.color= textColor;
+      document.getElementById('ic').style.color= textColor;
+      document.getElementById('icc').style.color= textColor;
+      document.getElementById('iccc').style.color= textColor;
+      document.getElementById('colorheader').style.color=textColor;
+      document.getElementById('colorheader').style.backgroundColor=colorheader;
+      document.getElementById('colorheader').style.fontStyle=fontStyle;
+    }
+    function applyNavbarSettings(fontSize, fontStyle, textColor) {
+      const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
+
+      navElements.forEach(link => {
+          link.style.fontSize = fontSize + 'px'; 
+          link.style.fontStyle = fontStyle; 
+          link.style.color = textColor;
+      });
+    }
+
+    let colorFetched = false; 
+
+            
+    function fetchAndApplySavedSettings() {
+      const user = auth.currentUser;
+      if (user && !colorFetched) {
+        const uid = user.uid;
+        const settingsRef = ref(database, 'settings/' + uid);
+        onValue(settingsRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data && data.color) {
+              applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
+              applyNavbarSettings(data.fontSize, data.fontStyle, data.textColor); // Apply navbar font settings
+              colorFetched = true;
+            }
+        });
+      }
+    }
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchAndApplySavedSettings();
+      }
+    });
+    fetchAndApplySavedSettings();
   </script>
 </body>
 </html>
