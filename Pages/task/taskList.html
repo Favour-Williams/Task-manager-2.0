@@ -419,16 +419,16 @@
                 document.getElementById('icc').style.fontSize = fontSize + 'px';
                 document.getElementById('iccc').style.fontSize = fontSize + 'px';
                 document.getElementById('colorheader').style.fontSize = fontSize + 'px';
-                const navElements = document.querySelectorAll('.nav-links a'); // Select all navbar links
+                const navElements = document.querySelectorAll('.nav-links a'); 
                 navElements.forEach(link => {
-                    link.style.fontSize = fontSize + 'px'; // Apply font size
-                    link.style.fontStyle = fontStyle; // Apply font style
-                    link.style.color = textColor; // Apply text color
+                    link.style.fontSize = fontSize + 'px'; 
+                    link.style.fontStyle = fontStyle; 
+                    link.style.color = textColor; 
                 });
             }
       
 
-            let colorFetched = false; // Flag to prevent multiple fetches
+            let colorFetched = false; 
 
             
             function fetchAndApplySavedSettings() {

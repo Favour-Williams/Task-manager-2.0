@@ -10,26 +10,26 @@
 </head>
 <body>
    <section>
-    <header class="dark-theme">
-        <li id="foricon"><a href="#"><em>GetItDone</em></a></li>
+    <header class="dark-theme" id="colorheader">
+        <li id="foricon"><a href="#"><em id="emi">GetItDone</em></a></li>
         <div class="left-section">
             
         <input placeholder="Search" id="searchInput">
         </div>
         <div class="right-section">
-            <div class="icon settings"><i class="fas fa-cog"></i></div>
+            <div class="icon settings"><a href="../setting/set.html"><i id="icc" class="fas fa-cog"></i></a></div>
             <div id="noti" class="icon notifications" >
-                <a href="../notification/n.html"><i class="fas fa-bell"></i></a>
+                <a href="../notification/n.html"><i id="ic" class="fas fa-bell"></i></a>
                 <span class="notification-dot">4</span>
             </div>
-            <div class="icon profile"><a href="../profile/p.html"><i class="fas fa-user"></i></a></div>
+            <div class="icon profile"><a href="../profile/p.html"><i id="iccc" class="fas fa-user"></i></a></div>
         </div>
     </header>
    </section>
 
    <section>
-        <nav class="navbar">
-            <ul class="nav-links">
+        <nav class="navbar" id="navs">
+            <ul class="nav-links" id="navli">
                 <li><a href="../Dashboard/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="../board/board.html"><i class="fas fa-clipboard-list"></i> Board</a></li>
                 <li><a href="../Project/projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
@@ -41,9 +41,13 @@
         </nav>
    </section>
    <main>
-        <div class="chat-container">
+        <div class="chat-container" id="containerChat">
             <div class="chat-header">
                 <h2>Chat Room</h2>
+                <div class="icons-container">
+                    <i class="fas fa-video" id="videoIcon"></i>
+                    <i class="fas fa-phone" id="phoneIcon"></i>
+                </div>
             </div>
             <div class="chat-messages">
                 <!-- Example messages -->
@@ -64,13 +68,96 @@
                 <input type="text" id="messageInput" placeholder="Type your message...">
                 <button id="sendButton">Send</button>
             </div>
-            <div class="icons-container">
-                <i class="fas fa-video" id="videoIcon"></i>
-                <i class="fas fa-phone" id="phoneIcon"></i>
-            </div>
+            
         </div>
    </main>
 
    <script src="chatbox.js"></script>
+   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { getDatabase,get, set, ref, update, push, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+        
+    const firebaseConfig = {
+        apiKey: "AIzaSyAzKdpBJmYURQeOdkttrdGHSkonN1QjDr0",
+        authDomain: "hci-project-54354.firebaseapp.com",
+        projectId: "hci-project-54354",
+        storageBucket: "hci-project-54354.appspot.com",
+        messagingSenderId: "970506049036",
+        appId: "1:970506049036:web:eec9f3bab77473b1e08029"
+    };
+        
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    function applySavedSettings(color, textColor, fontSize, fontStyle, colorheader) {
+            document.body.style.backgroundColor = color;
+            document.getElementById('containerChat').style.backgroundColor=color;
+            document.body.style.color = textColor;
+            document.body.style.fontSize = fontSize + 'px';
+            document.body.style.fontStyle = fontStyle;
+            document.getElementById('emi').style.color= textColor;
+            document.getElementById('ic').style.color= textColor;
+            document.getElementById('icc').style.color= textColor;
+            document.getElementById('iccc').style.color= textColor;
+            document.getElementById('colorheader').style.color=textColor;
+            document.getElementById('colorheader').style.backgroundColor=colorheader;
+            document.getElementById('colorheader').style.fontStyle=fontStyle;
+            document.getElementById('navs').style.backgroundColor=colorheader;
+            document.getElementById('navs').style.fontStyle=fontStyle;
+
+            document.getElementById('phoneIcon').style.color = textColor;
+            document.getElementById('videoIcon').style.color = textColor;
+            document.getElementById('phoneIcon').style.fontSize = fontSize + 'px';
+            document.getElementById('videoIcon').style.fontSize = fontSize + 'px';
+
+            document.getElementById('ic').style.fontSize = fontSize + 'px';
+            document.getElementById('icc').style.fontSize = fontSize + 'px';
+            document.getElementById('iccc').style.fontSize = fontSize + 'px';
+            document.getElementById('colorheader').style.fontSize = fontSize + 'px';
+            const ilements = document.querySelectorAll('.nav-links a'); 
+                ilements.forEach(link => {
+                    link.style.color = textColor; 
+                });
+    }
+    function applyNavbarSettings(fontSize, fontStyle, textColor) {
+        const iconElements = document.querySelectorAll('.icons-container li'); // Select all navbar links
+        iconElements.forEach(link => {
+            link.style.fontSize = fontSize + 'px';
+            link.style.fontStyle = fontStyle; 
+            link.style.color = textColor;
+        });
+       
+    }
+
+    let colorFetched = false; 
+
+        
+    function fetchAndApplySavedSettings() {
+        const user = auth.currentUser;
+        if (user && !colorFetched) {
+            const uid = user.uid;
+            const settingsRef = ref(database, 'settings/' + uid);
+            onValue(settingsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data && data.color) {
+                    applySavedSettings(data.color, data.textColor, data.fontSize, data.fontStyle, data.colorheaderNav);
+                    applyNavbarSettings(data.fontSize, data.fontStyle, data.textColor); // Apply navbar font settings
+                    colorFetched = true;
+                }
+            });
+        }
+    }
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            fetchAndApplySavedSettings();
+        }
+    });
+    fetchAndApplySavedSettings();
+</script>
 </body>
 </html>

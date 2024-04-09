@@ -58,8 +58,7 @@
 }
 
 .nav-links li a:hover {
-    background-color: #000000;
-    border-radius: 30%;
+    background-color: #a5a5a5;
 }
 
 .navbar:hover {
@@ -311,7 +310,7 @@ a, li{
 .icons-container {
     position: absolute;
     right: 16%; 
-    top: 18%;
+    top: 19%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
@@ -321,6 +320,9 @@ a, li{
 }
 #videoIcon{
     margin-right: 30px;
+}
+#phoneIcon{
+    transform: rotate(90deg);
 }
 .icons-container i {
     display: inline-block;
