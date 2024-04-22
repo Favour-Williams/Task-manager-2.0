@@ -143,7 +143,7 @@
                         <li><a id="navliiiii" href="../task/taskList.html"><i class="fas fa-tasks"></i> Task List</a></li>
                         <li><a id="navliiiiii" href="../schedule/schedule.html"><i class="fas fa-calendar-alt"></i> Calender</a></li>
                         <li><a id="navliiiiiii" href="../chat/chat.html"><i class="fas fa-comments"></i> Chat</a></li>
-                        <li id="logout"><a href=""><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        <li id="logout"><a href="../sign-in/Sign_In.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
                     </ul>
                     
                 </nav>
@@ -355,15 +355,33 @@
             });
             fetchAndApplySavedSettings();
             
-            document.getElementById('logout').addEventListener('click', (e)=>{
-                signOut(auth).then(() => {
-                // Sign-out successful.
-                window.location.href = '../sign-in/Sign_In.html';
+     
+// Assuming Firebase is already initialized with your configuration
 
-                }).catch((error) => {
-                // An error happened.
-                });
-            })
+// Function to handle logout
+function handleLogout() {
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        window.location.href = '../sign-in/Sign_In.html';
+    }).catch((error) => {
+        // An error happened.
+        console.error("Error signing out:", error);
+    });
+}
+
+// Attach event listener to the "Log Out" link
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutLink = document.getElementById('logout');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default action of the link
+            handleLogout();
+        });
+    } else {
+        console.error("Logout link not found");
+    }
+});
+
 
             
         </script>
